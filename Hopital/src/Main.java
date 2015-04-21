@@ -1,6 +1,3 @@
-
-import sun.util.calendar.BaseCalendar.Date;
-
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -11,7 +8,13 @@ import sun.util.calendar.BaseCalendar.Date;
  *
  * @author Etienne
  */
-public class test {
-    String fleur;
-    Date aujour;
+public class Main {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+    }
+    
 }
