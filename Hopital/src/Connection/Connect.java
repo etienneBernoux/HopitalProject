@@ -49,9 +49,9 @@ public class Connect {
                 stmt = conn.createStatement();
 
                 
-
+                String requete = "SELECT * FROM chambre";
                 //L'objet ResultSet contient le résultat de la requête SQL
-                ResultSet result = stmt.executeQuery("SELECT * FROM chambre");
+                ResultSet result = stmt.executeQuery(requete);
                 //On récupère les MetaData
                 ResultSetMetaData resultMeta = result.getMetaData();
 
