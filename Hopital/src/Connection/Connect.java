@@ -21,6 +21,7 @@ public class Connect {
      */
     private static Connection conn;
     private static Statement stmt;
+  
 
     public static void main(String[] args) {
 
