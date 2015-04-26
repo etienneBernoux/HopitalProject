@@ -1,3 +1,5 @@
+package BBDspéc;
+
 public class Chambre {
 
     private int NoChambre;

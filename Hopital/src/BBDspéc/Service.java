@@ -1,3 +1,5 @@
+package BBDspéc;
+
 public class Service {
 
     private String CodeService;

@@ -1,3 +1,5 @@
+package BBDspéc;
+
 public class Infirmier extends Employe {
 
     private String CodeService;

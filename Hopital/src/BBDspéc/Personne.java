@@ -1,3 +1,5 @@
+package BBDspéc;
+
 public class Personne {
 
     private String Nom;
