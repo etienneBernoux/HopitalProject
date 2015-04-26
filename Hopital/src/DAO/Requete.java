@@ -12,4 +12,5 @@ package DAO;
 public class Requete {
     Boolean pret;
     int type;
+    String from;
 }
