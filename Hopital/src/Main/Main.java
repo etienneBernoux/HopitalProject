@@ -28,8 +28,7 @@ public class Main {
         //On ferme la connection
         connection.fermerConnection();
         System.exit(0);
-        
-        
+             
     }
     
 }
