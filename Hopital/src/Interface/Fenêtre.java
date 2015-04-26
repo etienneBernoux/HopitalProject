@@ -29,8 +29,22 @@ public class Fenêtre extends javax.swing.JFrame {
 
         jCheckBox1 = new javax.swing.JCheckBox();
         jSplitPane1 = new javax.swing.JSplitPane();
+        jButton1 = new javax.swing.JButton();
+        jTabbedPane1 = new javax.swing.JTabbedPane();
+        jButton2 = new javax.swing.JButton();
+        buttonGroup1 = new javax.swing.ButtonGroup();
+        jPasswordField1 = new javax.swing.JPasswordField();
+        jFormattedTextField1 = new javax.swing.JFormattedTextField();
 
         jCheckBox1.setText("jCheckBox1");
+
+        jButton1.setText("jButton1");
+
+        jButton2.setText("jButton2");
+
+        jPasswordField1.setText("jPasswordField1");
+
+        jFormattedTextField1.setText("jFormattedTextField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,7 +98,13 @@ public class Fenêtre extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JFormattedTextField jFormattedTextField1;
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSplitPane jSplitPane1;
+    private javax.swing.JTabbedPane jTabbedPane1;
     // End of variables declaration//GEN-END:variables
 }

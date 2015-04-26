@@ -9,6 +9,7 @@ package DAO;
  *
  * @author Etienne
  */
-public class NewClass {
-    
+public class Requete {
+    Boolean pret;
+    int type;
 }
