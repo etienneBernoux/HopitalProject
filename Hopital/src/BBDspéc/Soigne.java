@@ -1,6 +1,7 @@
 package BBDspéc;
 
 
+import java.sql.Timestamp;
 import sun.util.calendar.BaseCalendar.Date;
 
 public class Soigne {
@@ -9,13 +10,13 @@ public class Soigne {
 
     private int NoMalade;
 
-    private Date DateRdv;
+    private Timestamp DateRdv;
 
     private String Maladie;
 
     private int DureeRdv;
 
-    public Soigne(int NoDocteur, int NoMalade, Date DateRdv, String Maladie, int DureeRdv) {
+    public Soigne(int NoDocteur, int NoMalade, Timestamp DateRdv, String Maladie, int DureeRdv) {
         this.NoDocteur = NoDocteur;
         this.NoMalade = NoMalade;
         this.DateRdv = DateRdv;
@@ -39,11 +40,11 @@ public class Soigne {
         this.NoMalade = NoMalade;
     }
 
-    public Date getDateRdv() {
+    public Timestamp getDateRdv() {
         return DateRdv;
     }
 
-    public void setDateRdv(Date DateRdv) {
+    public void setDateRdv(Timestamp DateRdv) {
         this.DateRdv = DateRdv;
     }
 

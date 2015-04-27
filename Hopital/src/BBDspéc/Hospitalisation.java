@@ -1,7 +1,6 @@
 package BBDspéc;
 
-
-import sun.util.calendar.BaseCalendar.Date;
+import java.sql.Timestamp;
 
 public class Hospitalisation {
 
@@ -11,16 +10,16 @@ public class Hospitalisation {
 
     private int Lit;
 
-    private Date DateEntree;
+    private Timestamp DateEntree;
 
-    private int DureeJour;
+    private Timestamp DateSortie;
 
-    public Hospitalisation(int NoMalade, int NoChambre, int Lit, Date DateEntree, int DureeJour) {
+    public Hospitalisation(int NoMalade, int NoChambre, int Lit, Timestamp DateEntree, Timestamp DateSortie) {
         this.NoMalade = NoMalade;
         this.NoChambre = NoChambre;
         this.Lit = Lit;
         this.DateEntree = DateEntree;
-        this.DureeJour = DureeJour;
+        this.DateSortie = DateSortie;
     }
 
     public int getNoMalade() {
@@ -47,20 +46,19 @@ public class Hospitalisation {
         this.Lit = Lit;
     }
 
-    public Date getDateEntree() {
+    public Timestamp getDateEntree() {
         return DateEntree;
     }
 
-    public void setDateEntree(Date DateEntree) {
+    public void setDateEntree(Timestamp DateEntree) {
         this.DateEntree = DateEntree;
     }
 
-    public int getDureeJour() {
-        return DureeJour;
+    public Timestamp getDateSortie() {
+        return DateSortie;
     }
 
-    public void setDureeJour(int DureeJour) {
-        this.DureeJour = DureeJour;
+    public void setDateSortie(Timestamp DateSortie) {
+        this.DateSortie = DateSortie;
     }
-    
 }
