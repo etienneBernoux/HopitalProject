@@ -38,7 +38,7 @@ public class MaladeDAO extends DAO<Malade> {
 
     @Override
     public Malade find(Object id) {
-        String no_malade = (String) id;
+        int no_malade = (int) id;
         Malade malade = null;
 
         try {
@@ -46,7 +46,7 @@ public class MaladeDAO extends DAO<Malade> {
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY
             ).executeQuery("SELECT * FROM malade "
-                    + "WHERE malade.numero  = " + no_malade
+                    + "WHERE malade.numero  = '" + no_malade + "'"
             );
             if (result.first()) {
                 malade = new Malade(result.getInt("numero"), result.getString("mutuelle"), result.getString("nom"), result.getString("prenom"), result.getString("tel"), result.getString("adresse"));

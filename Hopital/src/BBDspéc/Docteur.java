@@ -30,7 +30,7 @@ public class Docteur extends Employe {
 
     @Override
     public String toString() {
-        return "Docteur{" + "specialite=" + specialite + '}';
+        return "Docteur{" + "specialite=" + specialite + super.toString()+'}';
     }
 
 }

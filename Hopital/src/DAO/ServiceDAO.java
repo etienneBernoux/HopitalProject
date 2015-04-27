@@ -39,22 +39,18 @@ public class ServiceDAO extends DAO<Service> {
     @Override
     public Service find(Object id) {
         String code = (String) id;
-        Service service = new Service();
+        Service service = null;
 
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY
             ).executeQuery("SELECT * FROM service "
-                    + "WHERE service.code  = " + code
+                    + "WHERE service.code  = '" + code + "'"
             );
             if (result.first()) {
-                result.beforeFirst();
-                DocteurDAO docteurDao = new DocteurDAO(this.connect);
-
                 service = new Service(code, result.getString("service.nom"), result.getString("service.batiment"), result.getInt("directeur")
                 );
-                result.beforeFirst();
             }
 
         } catch (SQLException e) {

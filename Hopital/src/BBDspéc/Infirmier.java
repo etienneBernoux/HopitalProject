@@ -60,7 +60,7 @@ public class Infirmier extends Employe {
 
     @Override
     public String toString() {
-        return "Infirmier{" + "code_service=" + code_service + ", rotation=" + rotation + ", salaire=" + salaire + '}';
+        return "Infirmier{" + "code_service=" + code_service + ", rotation=" + rotation + ", salaire=" + salaire + super.toString()+'}';
     }
 
 }

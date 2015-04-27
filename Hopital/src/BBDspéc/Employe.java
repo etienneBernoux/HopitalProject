@@ -28,7 +28,7 @@ public class Employe extends Personne {
 
     @Override
     public String toString() {
-        return "Employe{" + "no_employee=" + no_employe + '}';
+        return "Employe{" + "no_employee=" + no_employe + super.toString()+'}';
     }
 
 }

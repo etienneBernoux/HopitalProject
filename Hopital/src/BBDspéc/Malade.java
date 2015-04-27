@@ -45,7 +45,7 @@ public class Malade extends Personne {
 
     @Override
     public String toString() {
-        return "Malade{" + "no_malade=" + no_malade + ", mutuelle=" + mutuelle + '}';
+        return "Malade{" + "no_malade=" + no_malade + ", mutuelle=" + mutuelle + super.toString()+'}';
     }
 
 }

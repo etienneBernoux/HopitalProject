@@ -19,21 +19,25 @@ public class BatimentDAO extends DAO<Batiment> {
     public BatimentDAO(Connection conn) {
         super(conn);
     }
-@Override
+
+    @Override
     public boolean create(Batiment obj) {
         return false;
     }
-@Override
+
+    @Override
     public boolean delete(Batiment obj) {
         return false;
     }
-@Override
+
+    @Override
     public boolean update(Batiment obj) {
         return false;
     }
 
+    @Override
     public Batiment find(Object id) {
-        String lettre =(String)id;
+        String lettre = (String) id;
         Batiment batiment = null;
 
         try {
@@ -41,11 +45,11 @@ public class BatimentDAO extends DAO<Batiment> {
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY
             ).executeQuery("SELECT * FROM batiment "
-                    + "WHERE batiment.nom  = " + lettre
+                    + "WHERE batiment.lettre  = '" + lettre + "'"
             );
             if (result.first()) {
-                batiment = new Batiment(lettre,result.getString("nom"));
- 
+                batiment = new Batiment(lettre, result.getString("nom"));
+
             }
 
         } catch (SQLException e) {
@@ -53,7 +57,8 @@ public class BatimentDAO extends DAO<Batiment> {
         }
         return batiment;
     }
-@Override
+
+    @Override
     public Batiment findall() {
         return (null);
     }

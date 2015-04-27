@@ -48,7 +48,7 @@ public class InfirmierDAO extends DAO<Infirmier> {
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY
             ).executeQuery("SELECT * FROM infirmier "
-                    + "WHERE infirmier.numero = " + no_infirmier
+                    + "WHERE infirmier.numero = '" + no_infirmier + "'"
             );
 
             if (result.first()) {

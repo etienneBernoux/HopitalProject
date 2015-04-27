@@ -24,7 +24,9 @@ public class Main {
         //On lance la connection
         ConnectionEce connection = new ConnectionEce("ebernoux","J@hab16AR"," ebernoux-rw","erWVgk63");
         //connection.Selectiontest("SELECT code_service FROM chambre WHERE code_service='REA'");
-        connection.affichageresultconsole();
+        //connection.affichageresultconsole();
+        TestAll test=new TestAll(connection);
+        test.testFind();
         //On ferme la connection
         connection.fermerConnection();
         System.exit(0);

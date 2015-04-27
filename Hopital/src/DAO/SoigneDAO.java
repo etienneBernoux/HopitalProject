@@ -49,8 +49,8 @@ public class SoigneDAO extends DAO<Soigne> {
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY
             ).executeQuery("SELECT * FROM soigne "
-                    + "WHERE soigne.no_malade =  " + cle[0]
-                    + "AND soigne.no_docteur =  " + cle[1]
+                    + "WHERE soigne.no_malade =  '" + cle[0]+"'"
+                    + "AND soigne.no_docteur =  '" + cle[1]+"'"
             );
             if (result.first()) {
                 soigne = new Soigne(result.getInt("no_malade"),result.getInt("no_docteur"), result.getString("maladie"),result.getTimestamp("date_rdv"), result.getTimestamp("fin_rdv"));
