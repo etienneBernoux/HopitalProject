@@ -4,38 +4,16 @@ import java.sql.Timestamp;
 
 public class Hospitalisation {
 
-    private int NoMalade;
-
-    private int NoChambre;
-
     private int Lit;
 
     private Timestamp DateEntree;
 
     private Timestamp DateSortie;
 
-    public Hospitalisation(int NoMalade, int NoChambre, int Lit, Timestamp DateEntree, Timestamp DateSortie) {
-        this.NoMalade = NoMalade;
-        this.NoChambre = NoChambre;
+    public Hospitalisation(int Lit, Timestamp DateEntree, Timestamp DateSortie) {
         this.Lit = Lit;
         this.DateEntree = DateEntree;
         this.DateSortie = DateSortie;
-    }
-
-    public int getNoMalade() {
-        return NoMalade;
-    }
-
-    public void setNoMalade(int NoMalade) {
-        this.NoMalade = NoMalade;
-    }
-
-    public int getNoChambre() {
-        return NoChambre;
-    }
-
-    public void setNoChambre(int NoChambre) {
-        this.NoChambre = NoChambre;
     }
 
     public int getLit() {

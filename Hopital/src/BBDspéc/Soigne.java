@@ -1,43 +1,20 @@
 package BBDspéc;
 
-
 import java.sql.Timestamp;
-import sun.util.calendar.BaseCalendar.Date;
 
 public class Soigne {
-
-    private int NoDocteur;
-
-    private int NoMalade;
 
     private Timestamp DateRdv;
 
     private String Maladie;
 
-    private int DureeRdv;
+    private int DureeRdvMin;
 
-    public Soigne(int NoDocteur, int NoMalade, Timestamp DateRdv, String Maladie, int DureeRdv) {
-        this.NoDocteur = NoDocteur;
-        this.NoMalade = NoMalade;
+    public Soigne(Timestamp DateRdv, String Maladie, int DureeRdvMin) {
+
         this.DateRdv = DateRdv;
         this.Maladie = Maladie;
-        this.DureeRdv = DureeRdv;
-    }
-
-    public int getNoDocteur() {
-        return NoDocteur;
-    }
-
-    public void setNoDocteur(int NoDocteur) {
-        this.NoDocteur = NoDocteur;
-    }
-
-    public int getNoMalade() {
-        return NoMalade;
-    }
-
-    public void setNoMalade(int NoMalade) {
-        this.NoMalade = NoMalade;
+        this.DureeRdvMin = DureeRdvMin;
     }
 
     public Timestamp getDateRdv() {
@@ -56,12 +33,12 @@ public class Soigne {
         this.Maladie = Maladie;
     }
 
-    public int getDureeRdv() {
-        return DureeRdv;
+    public int getDureeRdvMin() {
+        return DureeRdvMin;
     }
 
-    public void setDureeRdv(int DureeRdv) {
-        this.DureeRdv = DureeRdv;
+    public void DureeRdvMin(int DureeRdv) {
+        this.DureeRdvMin = DureeRdv;
     }
-    
+
 }

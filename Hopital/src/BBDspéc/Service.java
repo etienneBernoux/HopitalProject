@@ -1,20 +1,24 @@
 package BBDspéc;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Service {
 
     private String CodeService;
 
     private String Nom;
 
-    private String Batiment;
+    private Docteur directeur;
+    //Liste des infirmiers employés
+    private Set<Infirmier> listInfirmier = new HashSet<>();
+    //Liste des chambres du service 
+    private Set<Chambre> listChambre = new HashSet<>();
 
-    private int Directeur;
-
-    public Service(String CodeService, String Nom, String Batiment, int Directeur) {
+    public Service(String CodeService, String Nom, Docteur directeur) {
         this.CodeService = CodeService;
         this.Nom = Nom;
-        this.Batiment = Batiment;
-        this.Directeur = Directeur;
+        this.directeur = directeur;
     }
 
     public String getCodeService() {
@@ -33,20 +37,45 @@ public class Service {
         this.Nom = Nom;
     }
 
-    public String getBatiment() {
-        return Batiment;
+    public Docteur getDirecteur() {
+        return directeur;
     }
 
-    public void setBatiment(String Batiment) {
-        this.Batiment = Batiment;
+    public void setDirecteur(Docteur directeur) {
+        this.directeur = directeur;
     }
 
-    public int getDirecteur() {
-        return Directeur;
+    public Set<Infirmier> getListInfirmier() {
+        return listInfirmier;
     }
 
-    public void setDirecteur(int Directeur) {
-        this.Directeur = Directeur;
+    public void setListInfirmier(Set<Infirmier> listInfirmier) {
+        this.listInfirmier = listInfirmier;
     }
-    
+
+    public Set<Chambre> getListChambre() {
+        return listChambre;
+    }
+
+    public void setListChambre(Set<Chambre> listChambre) {
+        this.listChambre = listChambre;
+    }
+     //Ajoute un infirmier a un service
+  public void addInfirmier(Infirmier infirmier){
+    this.listInfirmier.add(infirmier);
+  }
+
+  //Supprime un infirmier a service
+  public void removeMatiere(Infirmier infirmier){
+    this.listInfirmier.remove(infirmier);
+  }
+    //Ajoute une chambre a un service
+  public void addChambre(Chambre chambre){
+    this.listChambre.add(chambre);
+  }
+
+  //Supprime un chambre a un service
+  public void removeChambre(Chambre chambre){
+    this.listChambre.remove(chambre);
+  }
 }

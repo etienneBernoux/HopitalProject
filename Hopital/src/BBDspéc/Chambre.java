@@ -1,18 +1,21 @@
 package BBDspéc;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Chambre {
 
     private int NoChambre;
 
-    private String CodeService;
-
-    private int Surveillant;
+    private Infirmier Surveillant;
 
     private int NbLits;
+    
+    //Liste des hospitalisés logés
+    private Set<Hospitalisation> listHospitalisation = new HashSet<>();
 
-    public Chambre(int NoChambre, String CodeService, int Surveillant, int NbLits) {
+    public Chambre(int NoChambre, Infirmier Surveillant, int NbLits) {
         this.NoChambre = NoChambre;
-        this.CodeService = CodeService;
         this.Surveillant = Surveillant;
         this.NbLits = NbLits;
     }
@@ -25,19 +28,11 @@ public class Chambre {
         this.NoChambre = NoChambre;
     }
 
-    public String getCodeService() {
-        return CodeService;
-    }
-
-    public void setCodeService(String CodeService) {
-        this.CodeService = CodeService;
-    }
-
-    public int getSurveillant() {
+    public Infirmier getSurveillant() {
         return Surveillant;
     }
 
-    public void setSurveillant(int Surveillant) {
+    public void setSurveillant(Infirmier Surveillant) {
         this.Surveillant = Surveillant;
     }
 
@@ -48,5 +43,24 @@ public class Chambre {
     public void setNbLits(int NbLits) {
         this.NbLits = NbLits;
     }
+
+    public Set<Hospitalisation> getListHospitalisation() {
+        return listHospitalisation;
+    }
+
+    public void setListHospitalisation(Set<Hospitalisation> listHospitalisation) {
+        this.listHospitalisation = listHospitalisation;
+    }
+    //Ajoute une Hospitalisation a une chambre
+  public void addHospitalisation(Hospitalisation hospitalisation){
+    this.listHospitalisation.add(hospitalisation);
+  }
+
+  //Supprime une Hospitalisation a une chambre
+  public void removeHospitalisation(Hospitalisation hospitalisation){
+    this.listHospitalisation.remove(hospitalisation);
+  }
+
+   
     
 }
