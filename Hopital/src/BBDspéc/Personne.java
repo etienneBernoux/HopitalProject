@@ -19,7 +19,6 @@ public class Personne {
 
     public Personne() {
     }
-    
 
     public String getNom() {
         return Nom;
@@ -52,5 +51,10 @@ public class Personne {
     public void setAdresse(String Adresse) {
         this.Adresse = Adresse;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Personne{" + "Nom=" + Nom + ", Prenom=" + Prenom + ", Tel=" + Tel + ", Adresse=" + Adresse + '}';
+    }
+
 }

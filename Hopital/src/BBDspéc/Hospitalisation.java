@@ -4,54 +4,113 @@ import java.sql.Timestamp;
 
 public class Hospitalisation {
 
-    private int Lit;
+    private int num_malade;
+    private String code_service;
+    private int num_chambre;
+    private int no_lit;
+    private Timestamp date_debut;
+    private Timestamp date_fin;
 
-    private Chambre Chambre;
-
-    private Timestamp DateEntree;
-
-    private Timestamp DateSortie;
-
-    public Hospitalisation(int Lit, Chambre Chambre, Timestamp DateEntree, Timestamp DateSortie) {
-        this.Lit = Lit;
-        this.Chambre = Chambre;
-        this.DateEntree = DateEntree;
-        this.DateSortie = DateSortie;
+    public Hospitalisation(int num_malade, String code_service, int num_chambre, int no_lit, Timestamp date_debut, Timestamp date_fin) {
+        this.num_malade = num_malade;
+        this.code_service = code_service;
+        this.num_chambre = num_chambre;
+        this.no_lit = no_lit;
+        this.date_debut = date_debut;
+        this.date_fin = date_fin;
     }
 
     public Hospitalisation() {
     }
 
-    public int getLit() {
-        return Lit;
+    /**
+     * @return the num_malade
+     */
+    public int getNum_malade() {
+        return num_malade;
     }
 
-    public void setLit(int Lit) {
-        this.Lit = Lit;
+    /**
+     * @param num_malade the num_malade to set
+     */
+    public void setNum_malade(int num_malade) {
+        this.num_malade = num_malade;
     }
 
-    public Timestamp getDateEntree() {
-        return DateEntree;
+    /**
+     * @return the code_service
+     */
+    public String getCode_service() {
+        return code_service;
     }
 
-    public void setDateEntree(Timestamp DateEntree) {
-        this.DateEntree = DateEntree;
+    /**
+     * @param code_service the code_service to set
+     */
+    public void setCode_service(String code_service) {
+        this.code_service = code_service;
     }
 
-    public Timestamp getDateSortie() {
-        return DateSortie;
+    /**
+     * @return the num_chambre
+     */
+    public int getNum_chambre() {
+        return num_chambre;
     }
 
-    public void setDateSortie(Timestamp DateSortie) {
-        this.DateSortie = DateSortie;
+    /**
+     * @param num_chambre the num_chambre to set
+     */
+    public void setNum_chambre(int num_chambre) {
+        this.num_chambre = num_chambre;
     }
 
-    public Chambre getChambre() {
-        return Chambre;
+    /**
+     * @return the no_lit
+     */
+    public int getNo_lit() {
+        return no_lit;
     }
 
-    public void setChambre(Chambre Chambre) {
-        this.Chambre = Chambre;
+    /**
+     * @param no_lit the no_lit to set
+     */
+    public void setLit(int no_lit) {
+        this.no_lit = no_lit;
     }
 
+    /**
+     * @return the date_debut
+     */
+    public Timestamp getDate_debut() {
+        return date_debut;
+    }
+
+    /**
+     * @param date_debut the date_debut to set
+     */
+    public void setDate_debut(Timestamp date_debut) {
+        this.date_debut = date_debut;
+    }
+
+    /**
+     * @return the date_fin
+     */
+    public Timestamp getDate_fin() {
+        return date_fin;
+    }
+
+    /**
+     * @param date_fin the date_fin to set
+     */
+    public void setDate_fin(Timestamp date_fin) {
+        this.date_fin = date_fin;
+    }
+
+    @Override
+    public String toString() {
+        return "Hospitalisation{" + "num_malade=" + num_malade + ", code_service=" + code_service + ", num_chambre=" + num_chambre + ", no_lit=" + no_lit + ", date_debut=" + date_debut + ", date_fin=" + date_fin + '}';
+    }
+
+    
 }

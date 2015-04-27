@@ -7,6 +7,8 @@ package DAO;
 
 import BBDspéc.Chambre;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -35,7 +37,23 @@ public class ChambreDAO extends DAO<Chambre>{
 
     @Override
     public Chambre find(Object id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int no_chambre =(int)id;
+        Chambre chambre = null;
+         try {
+        ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT * FROM chambre "
+                    + "WHERE chambre.no_chambre =  " + no_chambre 
+            );
+        if (result.first()) {
+                chambre= new Chambre(result.getString("chambre.code_service"),no_chambre,result.getInt("surveillant"),result.getInt("nb_lits"));
+ 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+         return chambre;
     }
 
     @Override

@@ -36,8 +36,9 @@ public class ServiceDAO extends DAO<Service> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    @Override
     public Service find(Object id) {
-        String Code =(String)id;
+        String code = (String) id;
         Service service = new Service();
 
         try {
@@ -45,16 +46,13 @@ public class ServiceDAO extends DAO<Service> {
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY
             ).executeQuery("SELECT * FROM service "
-                    + "LEFT JOIN docteur ON service.directeur = docteur.no "
-                    + "LEFT JOIN employee ON employee.no = docteur.no "
-                    + "WHERE batiment.nom  = " + Code
+                    + "WHERE service.code  = " + code
             );
             if (result.first()) {
                 result.beforeFirst();
                 DocteurDAO docteurDao = new DocteurDAO(this.connect);
-                
-                service = new Service(Code,result.getString("service.nom"),docteurDao.find(result.getInt("directeur"))
-                        
+
+                service = new Service(code, result.getString("service.nom"), result.getString("service.batiment"), result.getInt("directeur")
                 );
                 result.beforeFirst();
             }
@@ -70,5 +68,4 @@ public class ServiceDAO extends DAO<Service> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    
 }

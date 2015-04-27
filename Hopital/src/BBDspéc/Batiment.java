@@ -1,47 +1,50 @@
 package BBDspéc;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Batiment {
 
-    private String Nom;
-//Liste des services logés
-    private Set<Service> listService = new HashSet<>();
+    private String lettre;
+    private String nom;
 
-    public Batiment(String Nom) {
-        this.Nom = Nom;
+    public Batiment(String lettre, String nom) {
+        this.lettre = lettre;
+        this.nom = nom;
     }
 
     public Batiment() {
     }
-    
 
+    /**
+     * @return the lettre
+     */
+    public String getLettre() {
+        return lettre;
+    }
+
+    /**
+     * @param lettre the lettre to set
+     */
+    public void setId(String lettre) {
+        this.lettre = lettre;
+    }
+
+    /**
+     * @return the nom
+     */
     public String getNom() {
-        return Nom;
+        return nom;
     }
 
-    public void setNom(String Nom) {
-        this.Nom = Nom;
+    /**
+     * @param nom the nom to set
+     */
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public Set<Service> getListService() {
-        return listService;
-    }
-
-    public void setListService(Set<Service> listMatiere) {
-        this.listService = listMatiere;
+    @Override
+    public String toString() {
+        return "Batiment{" + "lettre=" + lettre + ", nom=" + nom + '}';
     }
     
-    //Ajoute un service a un batiment
-  public void addService(Service service){
-    this.listService.add(service);
-  }
 
-  //Supprime un service a un batiment
-  public void removeService(Service service){
-    this.listService.remove(service);
-  }
-
-   
 }

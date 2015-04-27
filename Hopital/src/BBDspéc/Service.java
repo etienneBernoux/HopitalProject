@@ -1,88 +1,81 @@
 package BBDspéc;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Service {
 
-    private String CodeService;
+    private String code_service;
+    private String nom;
+    private String batiment;
+    private int directeur;
 
-    private String Nom;
-
-    private Docteur directeur;
-    //Liste des infirmiers employés
-    private Set<Infirmier> listInfirmier = new HashSet<>();
-    //Liste des chambres du service 
-    private Set<Chambre> listChambre = new HashSet<>();
-
-    public Service(String CodeService, String Nom, Docteur directeur) {
-        this.CodeService = CodeService;
-        this.Nom = Nom;
+    public Service(String code_service, String nom, String batiment, int directeur) {
+        this.code_service = code_service;
+        this.nom = nom;
+        this.batiment = batiment;
         this.directeur = directeur;
     }
 
     public Service() {
     }
 
-    public String getCodeService() {
-        return CodeService;
+    /**
+     * @return the code_service
+     */
+    public String getCode_service() {
+        return code_service;
     }
 
-    public void setCodeService(String CodeService) {
-        this.CodeService = CodeService;
+    /**
+     * @param code_service the code_service to set
+     */
+    public void setCode_service(String code_service) {
+        this.code_service = code_service;
     }
 
+    /**
+     * @return the nom
+     */
     public String getNom() {
-        return Nom;
+        return nom;
     }
 
-    public void setNom(String Nom) {
-        this.Nom = Nom;
+    /**
+     * @param nom the nom to set
+     */
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public Docteur getDirecteur() {
+    /**
+     * @return the batiment
+     */
+    public String getBatiment() {
+        return batiment;
+    }
+
+    /**
+     * @param batiment the batiment to set
+     */
+    public void setBatiment(String batiment) {
+        this.batiment = batiment;
+    }
+
+    /**
+     * @return the directeur
+     */
+    public int getDirecteur() {
         return directeur;
     }
 
-    public void setDirecteur(Docteur directeur) {
+    /**
+     * @param directeur the directeur to set
+     */
+    public void setDirecteur(int directeur) {
         this.directeur = directeur;
     }
 
-    public Set<Infirmier> getListInfirmier() {
-        return listInfirmier;
+    @Override
+    public String toString() {
+        return "Service{" + "code_service=" + code_service + ", nom=" + nom + ", batiment=" + batiment + ", directeur=" + directeur + '}';
     }
 
-    public void setListInfirmier(Set<Infirmier> listInfirmier) {
-        this.listInfirmier = listInfirmier;
-    }
-
-    public Set<Chambre> getListChambre() {
-        return listChambre;
-    }
-
-    public void setListChambre(Set<Chambre> listChambre) {
-        this.listChambre = listChambre;
-    }
-
-    //Ajoute un infirmier a un service
-
-    public void addInfirmier(Infirmier infirmier) {
-        this.listInfirmier.add(infirmier);
-    }
-
-    //Supprime un infirmier a service
-    public void removeMatiere(Infirmier infirmier) {
-        this.listInfirmier.remove(infirmier);
-    }
-
-    //Ajoute une chambre a un service
-
-    public void addChambre(Chambre chambre) {
-        this.listChambre.add(chambre);
-    }
-
-    //Supprime un chambre a un service
-    public void removeChambre(Chambre chambre) {
-        this.listChambre.remove(chambre);
-    }
 }

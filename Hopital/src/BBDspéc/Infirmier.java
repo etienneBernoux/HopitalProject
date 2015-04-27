@@ -2,45 +2,65 @@ package BBDspéc;
 
 public class Infirmier extends Employe {
 
-    private String Rotation;
-    private float Salaire;
-    private Chambre Chambre;
+    private String code_service;
+    private String rotation;
+    private double salaire;
 
-    public Infirmier(String Rotation, float Salaire, Chambre Chambre, String Nom, String Prenom, String Tel, String Adresse, int NoEmployee) {
-        super(Nom, Prenom, Tel, Adresse, NoEmployee);
-        this.Rotation = Rotation;
-        this.Salaire = Salaire;
-        this.Chambre = Chambre;
+    public Infirmier(String code_service, String rotation, double salaire, String Nom, String Prenom, String Tel, String Adresse, int no_employee) {
+        super(Nom, Prenom, Tel, Adresse, no_employee);
+        this.code_service = code_service;
+        this.rotation = rotation;
+        this.salaire = salaire;
     }
 
     public Infirmier() {
     }
-    
 
+    /**
+     * @return the code_service
+     */
+    public String getCode_service() {
+        return code_service;
+    }
 
+    /**
+     * @param code_service the code_service to set
+     */
+    public void setCode_service(String code_service) {
+        this.code_service = code_service;
+    }
+
+    /**
+     * @return the rotation
+     */
     public String getRotation() {
-        return Rotation;
+        return rotation;
     }
 
-    public void setRotation(String Rotation) {
-        this.Rotation = Rotation;
+    /**
+     * @param rotation the rotation to set
+     */
+    public void setRotation(String rotation) {
+        this.rotation = rotation;
     }
 
-    public float getSalaire() {
-        return Salaire;
+    /**
+     * @return the salaire
+     */
+    public double getSalaire() {
+        return salaire;
     }
 
-    public void setSalaire(float Salaire) {
-        this.Salaire = Salaire;
+    /**
+     * @param salaire the salaire to set
+     */
+    public void setSalaire(double salaire) {
+        this.salaire = salaire;
     }
 
-    public Chambre getChambre() {
-        return Chambre;
+    @Override
+    public String toString() {
+        return "Infirmier{" + "code_service=" + code_service + ", rotation=" + rotation + ", salaire=" + salaire + '}';
     }
-
-    public void setChambre(Chambre Chambre) {
-        this.Chambre = Chambre;
-    }
-    
 
 }

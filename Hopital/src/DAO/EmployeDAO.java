@@ -7,14 +7,16 @@ package DAO;
 
 import BBDspéc.Employe;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
  * @author Etienne
  */
-public class EmployeeDAO extends DAO<Employe> {
+public class EmployeDAO extends DAO<Employe> {
 
-    public EmployeeDAO(Connection conn) {
+    public EmployeDAO(Connection conn) {
         super(conn);
     }
 
@@ -35,7 +37,23 @@ public class EmployeeDAO extends DAO<Employe> {
 
     @Override
     public Employe find(Object id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        int no_employe =(int)id;
+        Employe employe = null;
+         try {
+        ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT * FROM employe "
+                    + "WHERE employee.no_employe =  " + no_employe
+            );
+        if (result.first()) {
+                employe= new Employe(result.getString("employee.nom"),result.getString("employee.prenom"), result.getString("employee.tel"), result.getString("employee.adresse"),no_employe);
+ 
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+         return employe;
     }
 
     @Override

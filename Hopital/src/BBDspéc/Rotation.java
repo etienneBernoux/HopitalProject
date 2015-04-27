@@ -2,13 +2,13 @@ package BBDspéc;
 
 public enum Rotation {
 
-    Jour, Nuit;
+    JOUR, NUIT;
     
     public static Rotation getJour() {
-        return Jour;
+        return JOUR;
     }
 
     public static Rotation getNuit() {
-        return Nuit;
+        return NUIT;
     }
 }

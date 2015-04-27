@@ -4,45 +4,96 @@ import java.sql.Timestamp;
 
 public class Soigne {
 
-    private Timestamp DateRdv;
-
-    private String Maladie;
-
-    private int DureeRdvMin;
-
-    public Soigne(Timestamp DateRdv, String Maladie, int DureeRdvMin) {
-
-        this.DateRdv = DateRdv;
-        this.Maladie = Maladie;
-        this.DureeRdvMin = DureeRdvMin;
-    }
+    private int no_malade;
+    private int no_docteur;
+    private String maladie;
+    private Timestamp date_rdv;
+    private Timestamp fin_rdv;
 
     public Soigne() {
     }
-    
 
-    public Timestamp getDateRdv() {
-        return DateRdv;
+    public Soigne(int no_malade, int no_docteur, String maladie, Timestamp date_rdv, Timestamp fin_rdv) {
+        this.no_malade = no_malade;
+        this.no_docteur = no_docteur;
+        this.maladie = maladie;
+        this.date_rdv = date_rdv;
+        this.fin_rdv = fin_rdv;
     }
 
-    public void setDateRdv(Timestamp DateRdv) {
-        this.DateRdv = DateRdv;
+    /**
+     * @return the no_malade
+     */
+    public int getNo_malade() {
+        return no_malade;
     }
 
+    /**
+     * @param no_malade the no_malade to set
+     */
+    public void setNo_malade(int no_malade) {
+        this.no_malade = no_malade;
+    }
+
+    /**
+     * @return the no_docteur
+     */
+    public int getNo_docteur() {
+        return no_docteur;
+    }
+
+    /**
+     * @param no_docteur the no_docteur to set
+     */
+    public void setNo_docteur(int no_docteur) {
+        this.no_docteur = no_docteur;
+    }
+
+    /**
+     * @return the maladie
+     */
     public String getMaladie() {
-        return Maladie;
+        return maladie;
     }
 
-    public void setMaladie(String Maladie) {
-        this.Maladie = Maladie;
+    /**
+     * @param maladie the maladie to set
+     */
+    public void setMaladie(String maladie) {
+        this.maladie = maladie;
     }
 
-    public int getDureeRdvMin() {
-        return DureeRdvMin;
+    /**
+     * @return the date_rdv
+     */
+    public Timestamp getDate_rdv() {
+        return date_rdv;
     }
 
-    public void DureeRdvMin(int DureeRdv) {
-        this.DureeRdvMin = DureeRdv;
+    /**
+     * @param date_rdv the date_rdv to set
+     */
+    public void setDate_rdv(Timestamp date_rdv) {
+        this.date_rdv = date_rdv;
+    }
+
+    /**
+     * @return the fin_rdv
+     */
+    public Timestamp getFin_rdv() {
+        return fin_rdv;
+    }
+
+    /**
+     * @param fin_rdv the fin_rdvto set
+     */
+    public void setFin_rdv(Timestamp fin_rdv) {
+        this.fin_rdv = fin_rdv;
+    }
+
+    @Override
+    public String toString() {
+        return "Soigne{" + "no_malade=" + no_malade + ", no_docteur=" + no_docteur + ", maladie=" + maladie + ", date_rdv=" + date_rdv + ", duree_rdv_min=" + fin_rdv + '}';
     }
 
 }

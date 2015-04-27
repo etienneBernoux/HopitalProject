@@ -33,25 +33,19 @@ public class BatimentDAO extends DAO<Batiment> {
     }
 
     public Batiment find(Object id) {
-        String Nom =(String)id;
-        Batiment batiment = new Batiment();
+        String lettre =(String)id;
+        Batiment batiment = null;
 
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY
             ).executeQuery("SELECT * FROM batiment "
-                    + "LEFT JOIN service ON batiment.nom = service.batiment "
-                    + "WHERE batiment.nom  = " + Nom
+                    + "WHERE batiment.nom  = " + lettre
             );
             if (result.first()) {
-                batiment = new Batiment(Nom);
-                result.beforeFirst();
-                ServiceDAO serviceDao = new ServiceDAO(this.connect);
-
-                while (result.next()) {
-                    batiment.addService(serviceDao.find(result.getInt("batiment")));
-                }
+                batiment = new Batiment(lettre,result.getString("nom"));
+ 
             }
 
         } catch (SQLException e) {

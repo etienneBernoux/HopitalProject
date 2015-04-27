@@ -1,58 +1,36 @@
 package BBDspéc;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class Docteur extends Employe {
 
-    private String Specialite;
-    private Service service;
-    //Liste des soins du docteur
-    private Set<Soigne> listSoigne = new HashSet<>();
+    private String specialite;
 
-    public Docteur(String Specialite, Service service, String Nom, String Prenom, String Tel, String Adresse, int NoEmployee) {
-        super(Nom, Prenom, Tel, Adresse, NoEmployee);
-        this.Specialite = Specialite;
-        this.service = service;
+    public Docteur(String Nom, String Prenom, String Tel, String Adresse, int no_employee,String specialite) {
+        super(Nom, Prenom, Tel, Adresse, no_employee);
+        this.specialite=specialite; 
     }
 
     public Docteur() {
         super();
     }
-    
 
+
+    /**
+     * @return the Specialite
+     */
     public String getSpecialite() {
-        return Specialite;
+        return specialite;
     }
 
+    /**
+     * @param Specialite the Specialite to set
+     */
     public void setSpecialite(String Specialite) {
-        this.Specialite = Specialite;
+        this.specialite = Specialite;
     }
 
-    public Service getService() {
-        return service;
+    @Override
+    public String toString() {
+        return "Docteur{" + "specialite=" + specialite + '}';
     }
 
-    public void setService(Service service) {
-        this.service = service;
-    }
-
-    public Set<Soigne> getListSoigne() {
-        return listSoigne;
-    }
-
-    public void setListSoigne(Set<Soigne> listSoigne) {
-        this.listSoigne = listSoigne;
-    }
-
-//Ajoute un soin a un docteur
-    public void addSoigne(Soigne soigne) {
-        this.listSoigne.add(soigne);
-    }
-
-    //Supprime un soin a un docteur
-    public void removeSoigne(Soigne soigne) {
-        this.listSoigne.remove(soigne);
-
-    }
 }

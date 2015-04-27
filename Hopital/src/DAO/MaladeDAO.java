@@ -5,8 +5,11 @@
  */
 package DAO;
 
+import BBDspéc.Batiment;
 import BBDspéc.Malade;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -35,12 +38,30 @@ public class MaladeDAO extends DAO<Malade> {
 
     @Override
     public Malade find(Object id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String no_malade = (String) id;
+        Malade malade = null;
+
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT * FROM malade "
+                    + "WHERE malade.numero  = " + no_malade
+            );
+            if (result.first()) {
+                malade = new Malade(result.getInt("numero"), result.getString("mutuelle"), result.getString("nom"), result.getString("prenom"), result.getString("tel"), result.getString("adresse"));
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return malade;
     }
 
     @Override
     public Malade findall() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
