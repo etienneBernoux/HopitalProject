@@ -6,7 +6,7 @@
 package DAO;
 import java.sql.Connection;
 
-
+//Méthode général des DAO
 
 public abstract class DAO<T> {
   protected Connection connect = null;
