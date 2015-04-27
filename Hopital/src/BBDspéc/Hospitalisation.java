@@ -6,14 +6,20 @@ public class Hospitalisation {
 
     private int Lit;
 
+    private Chambre Chambre;
+
     private Timestamp DateEntree;
 
     private Timestamp DateSortie;
 
-    public Hospitalisation(int Lit, Timestamp DateEntree, Timestamp DateSortie) {
+    public Hospitalisation(int Lit, Chambre Chambre, Timestamp DateEntree, Timestamp DateSortie) {
         this.Lit = Lit;
+        this.Chambre = Chambre;
         this.DateEntree = DateEntree;
         this.DateSortie = DateSortie;
+    }
+
+    public Hospitalisation() {
     }
 
     public int getLit() {
@@ -39,4 +45,13 @@ public class Hospitalisation {
     public void setDateSortie(Timestamp DateSortie) {
         this.DateSortie = DateSortie;
     }
+
+    public Chambre getChambre() {
+        return Chambre;
+    }
+
+    public void setChambre(Chambre Chambre) {
+        this.Chambre = Chambre;
+    }
+
 }

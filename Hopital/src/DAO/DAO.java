@@ -41,5 +41,11 @@ public abstract class DAO<T> {
   * @param id
   * @return T
   */
-  public abstract T find(int id);
+  public abstract T find(Object id);
+  
+  /**
+   * Méthode re récupération de toutes les informations
+   * @return T
+   */
+  public abstract T findall();
 }

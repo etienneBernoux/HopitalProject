@@ -13,6 +13,10 @@ public class Infirmier extends Employe {
         this.Chambre = Chambre;
     }
 
+    public Infirmier() {
+    }
+    
+
 
     public String getRotation() {
         return Rotation;

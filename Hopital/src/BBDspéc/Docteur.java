@@ -16,6 +16,11 @@ public class Docteur extends Employe {
         this.service = service;
     }
 
+    public Docteur() {
+        super();
+    }
+    
+
     public String getSpecialite() {
         return Specialite;
     }

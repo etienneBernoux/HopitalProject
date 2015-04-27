@@ -17,6 +17,10 @@ public class Personne {
         this.Adresse = Adresse;
     }
 
+    public Personne() {
+    }
+    
+
     public String getNom() {
         return Nom;
     }

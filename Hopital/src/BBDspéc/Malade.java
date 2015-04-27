@@ -19,6 +19,10 @@ public class Malade extends Personne {
         this.Mutuelle = Mutuelle;
     }
 
+    public Malade() {
+    }
+    
+
     public int getNoMalade() {
         return NoMalade;
     }

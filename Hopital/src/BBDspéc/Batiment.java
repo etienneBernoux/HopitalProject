@@ -13,6 +13,10 @@ public class Batiment {
         this.Nom = Nom;
     }
 
+    public Batiment() {
+    }
+    
+
     public String getNom() {
         return Nom;
     }

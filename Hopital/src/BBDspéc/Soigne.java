@@ -17,6 +17,10 @@ public class Soigne {
         this.DureeRdvMin = DureeRdvMin;
     }
 
+    public Soigne() {
+    }
+    
+
     public Timestamp getDateRdv() {
         return DateRdv;
     }

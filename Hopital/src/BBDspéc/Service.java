@@ -21,6 +21,9 @@ public class Service {
         this.directeur = directeur;
     }
 
+    public Service() {
+    }
+
     public String getCodeService() {
         return CodeService;
     }
@@ -60,22 +63,26 @@ public class Service {
     public void setListChambre(Set<Chambre> listChambre) {
         this.listChambre = listChambre;
     }
-     //Ajoute un infirmier a un service
-  public void addInfirmier(Infirmier infirmier){
-    this.listInfirmier.add(infirmier);
-  }
 
-  //Supprime un infirmier a service
-  public void removeMatiere(Infirmier infirmier){
-    this.listInfirmier.remove(infirmier);
-  }
+    //Ajoute un infirmier a un service
+
+    public void addInfirmier(Infirmier infirmier) {
+        this.listInfirmier.add(infirmier);
+    }
+
+    //Supprime un infirmier a service
+    public void removeMatiere(Infirmier infirmier) {
+        this.listInfirmier.remove(infirmier);
+    }
+
     //Ajoute une chambre a un service
-  public void addChambre(Chambre chambre){
-    this.listChambre.add(chambre);
-  }
 
-  //Supprime un chambre a un service
-  public void removeChambre(Chambre chambre){
-    this.listChambre.remove(chambre);
-  }
+    public void addChambre(Chambre chambre) {
+        this.listChambre.add(chambre);
+    }
+
+    //Supprime un chambre a un service
+    public void removeChambre(Chambre chambre) {
+        this.listChambre.remove(chambre);
+    }
 }

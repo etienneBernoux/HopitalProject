@@ -8,6 +8,9 @@ public class Employe extends Personne {
         super(Nom, Prenom, Tel, Adresse);
         this.NoEmployee=NoEmployee;
     }
+    public Employe() {
+    }
+    
 
     public int getNoEmployee() {
         return NoEmployee;

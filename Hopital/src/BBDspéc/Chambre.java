@@ -20,6 +20,10 @@ public class Chambre {
         this.NbLits = NbLits;
     }
 
+    public Chambre() {
+    }
+    
+
     public int getNoChambre() {
         return NoChambre;
     }
