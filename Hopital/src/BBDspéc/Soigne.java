@@ -1,19 +1,21 @@
 package BBDspéc;
 
-import java.sql.Timestamp;
+import java.util.Calendar;
+
+
 
 public class Soigne {
 
     private int no_malade;
     private int no_docteur;
     private String maladie;
-    private Timestamp date_rdv;
-    private Timestamp fin_rdv;
+    private Calendar date_rdv;
+    private Calendar fin_rdv;
 
     public Soigne() {
     }
 
-    public Soigne(int no_malade, int no_docteur, String maladie, Timestamp date_rdv, Timestamp fin_rdv) {
+    public Soigne(int no_malade, int no_docteur, String maladie, Calendar date_rdv, Calendar fin_rdv) {
         this.no_malade = no_malade;
         this.no_docteur = no_docteur;
         this.maladie = maladie;
@@ -66,34 +68,34 @@ public class Soigne {
     /**
      * @return the date_rdv
      */
-    public Timestamp getDate_rdv() {
+    public Calendar getDate_rdv() {
         return date_rdv;
     }
 
     /**
      * @param date_rdv the date_rdv to set
      */
-    public void setDate_rdv(Timestamp date_rdv) {
+    public void setDate_rdv(Calendar date_rdv) {
         this.date_rdv = date_rdv;
     }
 
     /**
      * @return the fin_rdv
      */
-    public Timestamp getFin_rdv() {
+    public Calendar getFin_rdv() {
         return fin_rdv;
     }
 
     /**
      * @param fin_rdv the fin_rdvto set
      */
-    public void setFin_rdv(Timestamp fin_rdv) {
+    public void setFin_rdv(Calendar fin_rdv) {
         this.fin_rdv = fin_rdv;
     }
 
     @Override
     public String toString() {
-        return "Soigne{" + "no_malade=" + no_malade + ", no_docteur=" + no_docteur + ", maladie=" + maladie + ", date_rdv=" + date_rdv + ", duree_rdv_min=" + fin_rdv + '}';
+        return "Soigne{" + "no_malade=" + no_malade + ", no_docteur=" + no_docteur + ", maladie=" + maladie + ", date_rdv=" + date_rdv.getTime() + ", duree_rdv_min=" + fin_rdv.getTime() + '}';
     }
 
 }

@@ -25,6 +25,7 @@ import DAO.InfirmierDAO;
 import DAO.MaladeDAO;
 import DAO.ServiceDAO;
 import DAO.SoigneDAO;
+import java.util.Calendar;
 
 /**
  *
@@ -39,7 +40,7 @@ public class TestAll {
     }
 
     public void testFind() {
-        String[] id = new String[2];
+        String[] id = new String[3];
         //Test de batiment
         DAO<Batiment> batDAO = new BatimentDAO(ConnectionEce.getConn());
         Batiment batiment = batDAO.find("A");
@@ -78,6 +79,9 @@ public class TestAll {
         //Test de Soigne
         id[0] = "74";
         id[1] = "80";
+        Calendar cal = Calendar.getInstance();
+        cal.set(2015, 4, 27, 10, 15, 0);
+        id[2] = ToSqlFormat(cal);//+cal.get(Calendar.YEAR)+"-"+cal.get(Calendar.MONTH)+"-"+cal.get(Calendar.DAY_OF_MONTH)+" "+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":"+cal.get(Calendar.SECOND);
         DAO<Soigne> soigneDAO = new SoigneDAO(ConnectionEce.getConn());
         Soigne soigne = soigneDAO.find(id);
         System.out.println(soigne.toString());
@@ -142,6 +146,17 @@ public class TestAll {
         if (test) {
             System.out.println("Création de " + service.toString());
         }
+        //Test de Soigne 
+        Calendar date_rdv = Calendar.getInstance();
+        date_rdv.set(2015, 4, 27, 11, 15, 0);
+        Calendar fin_rdv = Calendar.getInstance();
+        fin_rdv.set(2015, 4, 27, 11, 30, 0);
+        Soigne soigne = new Soigne(3, 19, "EmboliePulmonaire", date_rdv, fin_rdv);
+        DAO<Soigne> soigneDAO = new SoigneDAO(ConnectionEce.getConn());
+        test = soigneDAO.create(soigne);
+        if (test) {
+            System.out.println("Création de " + soigne.toString());
+        }
 
     }
 
@@ -202,6 +217,17 @@ public class TestAll {
         test = serviceDAO.delete(service);
         if (test) {
             System.out.println("Supression de " + service.toString());
+            //Test de Soigne 
+            Calendar date_rdv = Calendar.getInstance();
+            date_rdv.set(2015, 4, 27, 11, 15, 0);
+            Calendar fin_rdv = Calendar.getInstance();
+            fin_rdv.set(2015, 4, 27, 11, 30, 0);
+            Soigne soigne = new Soigne(3, 19, null, date_rdv, fin_rdv);
+            DAO<Soigne> soigneDAO = new SoigneDAO(ConnectionEce.getConn());
+            test = soigneDAO.delete(soigne);
+            if (test) {
+                System.out.println("Supression de " + soigne.toString());
+            }
         }
     }
 
@@ -261,8 +287,26 @@ public class TestAll {
         DAO<Service> serviceDAO = new ServiceDAO(ConnectionEce.getConn());
         test = serviceDAO.update(service);
         if (test) {
-            System.out.println("Création de " + service.toString());
+            System.out.println("Mise à jour de " + service.toString());
         }
+        //Test de Soigne 
+        Calendar date_rdv = Calendar.getInstance();
+        date_rdv.set(2015, 4, 27, 11, 15, 0);
+        Calendar fin_rdv = Calendar.getInstance();
+        fin_rdv.set(2015, 4, 27, 11, 45, 0);
+        Soigne soigne = new Soigne(3, 19, "Peste", date_rdv, fin_rdv);
+        DAO<Soigne> soigneDAO = new SoigneDAO(ConnectionEce.getConn());
+        test = soigneDAO.update(soigne);
+        if (test) {
+            System.out.println("Mise à jour de " + soigne.toString());
+        }
+    }
+
+    //Convertit en format pour sql
+
+    public String ToSqlFormat(Calendar cal) {
+        return +cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH) + " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
+
     }
 
 }
