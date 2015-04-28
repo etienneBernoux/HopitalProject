@@ -1,7 +1,10 @@
 package Main;
 
 
+import BBDspéc.Employe;
 import Connection.ConnectionEce;
+import DAO.DAO;
+import DAO.EmployeDAO;
 import java.sql.SQLException;
 
 /*
@@ -26,7 +29,12 @@ public class Main {
         //connection.Selectiontest("SELECT code_service FROM chambre WHERE code_service='REA'");
         //connection.affichageresultconsole();
         TestAll test=new TestAll(connection);
+        
+        
         test.testFind();
+        test.testCreate();
+        test.testupdate();
+        test.testdelete();
         //On ferme la connection
         connection.fermerConnection();
         System.exit(0);

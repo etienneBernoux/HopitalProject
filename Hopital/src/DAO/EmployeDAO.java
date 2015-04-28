@@ -9,6 +9,9 @@ import BBDspéc.Employe;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,17 +25,71 @@ public class EmployeDAO extends DAO<Employe> {
 
     @Override
     public boolean create(Employe obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(find(obj.getNo_employe())!=null){
+            JOptionPane.showMessageDialog(null, " Employé déjà existant merci d'en saisir un nouveau");
+           }
+        try {
+            this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE
+            ).executeUpdate("INSERT INTO employe (numero,nom,prenom,adresse,tel) "
+                        + "VALUES('" + obj.getNo_employe()
+                        + "','" + obj.getNom()        
+                        + "','" + obj.getPrenom()
+                        + "','" + obj.getAdresse()
+                        + "','" + obj.getTel()
+                        + "')"
+            );
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return true;
     }
 
     @Override
     public boolean delete(Employe obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+         if(find(obj.getNo_employe())==null){
+            JOptionPane.showMessageDialog(null, " Employé non existant ou déja supprimé merci d'en saisir un nouveau");
+        return false;
+        }
+        try {
+           
+           this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE
+           ).executeUpdate("DELETE FROM employe WHERE numero ='" 
+                   + obj.getNo_employe()+"'"
+           );
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
     @Override
     public boolean update(Employe obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if(find(obj.getNo_employe())==null){
+            JOptionPane.showMessageDialog(null, " Batiment non existant ou déja supprimé merci d'en saisir un nouveau");
+        return false;
+        }
+        try {
+            this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE
+            ).executeUpdate("UPDATE employe SET nom='" + obj.getNom()
+                    + "' , prenom='" + obj.getPrenom()
+                    + "' , adresse='" + obj.getAdresse()
+                    + "' , tel='" + obj.getTel()
+                    + "'" + " WHERE numero=" + obj.getNo_employe()
+            );
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
     @Override

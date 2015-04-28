@@ -6,9 +6,15 @@
 package DAO;
 
 import BBDspéc.Chambre;
+import BBDspéc.Hospitalisation;
+import BBDspéc.Infirmier;
+import BBDspéc.Service;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,17 +28,100 @@ public class ChambreDAO extends DAO<Chambre> {
 
     @Override
     public boolean create(Chambre obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DAO<Infirmier> infirmier = new InfirmierDAO(super.connect);
+        DAO<Service> service = new ServiceDAO(super.connect);
+        String[] cle = new String[2];
+        cle[0] = obj.getCode_service();
+        cle[1] = Integer.toString(obj.getNo_chambre());
+
+        if (find(cle) != null) {
+            JOptionPane.showMessageDialog(null, " Chambre déjà existante merci d'en saisir une nouvelle");
+            return false;
+        } else if (infirmier.find(obj.getSurveillant()) == null) {
+            JOptionPane.showMessageDialog(null, "L'infirmier rentré n'existe pas");
+            return false;
+        } else if (service.find(obj.getCode_service()) == null) {
+            JOptionPane.showMessageDialog(null, "Le service rentrée n'existe pas ");
+            return false;
+        } else {
+            try {
+                this.connect.createStatement(
+                        ResultSet.TYPE_SCROLL_INSENSITIVE,
+                        ResultSet.CONCUR_UPDATABLE
+                ).executeUpdate(
+                        "INSERT INTO chambre (code_service,no_chambre,surveillant,nb_lits) "
+                        + "VALUES('" + obj.getCode_service()+ "'"
+                        + ",'" + obj.getNo_chambre()+ "'"
+                        + ",'" + obj.getSurveillant()+ "'"
+                        + ",'" + obj.getNb_lits()+ "')"
+                );
+            } catch (SQLException ex) {
+                Logger.getLogger(ChambreDAO.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return true;
     }
 
     @Override
     public boolean delete(Chambre obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        String[] cle = new String[2];
+        cle[0] = obj.getCode_service();
+        cle[1] = Integer.toString(obj.getNo_chambre());
+        if (find(cle) == null) {
+            JOptionPane.showMessageDialog(null, " Chambre non existante merci d'en saisir une nouvelle");
+            return false;   
+        }
+        try {
+           
+           this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE
+           ).executeUpdate("DELETE FROM chambre"
+                   + "  WHERE chambre.code_service ='" + obj.getCode_service()+"'" 
+                   + "  AND chambre.no_chambre ='" + obj.getNo_chambre()+"'" 
+           
+           );
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+
     }
 
     @Override
     public boolean update(Chambre obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        DAO<Infirmier> infirmier = new InfirmierDAO(super.connect);
+        DAO<Service> service = new ServiceDAO(super.connect);
+        String[] cle = new String[2];
+        cle[0] = obj.getCode_service();
+        cle[1] = Integer.toString(obj.getNo_chambre());
+        if (find(cle) == null) {
+            JOptionPane.showMessageDialog(null, " Chambre non existante merci d'en saisir une nouvelle");
+            return false;
+        } else if (infirmier.find(obj.getSurveillant()) == null) {
+            JOptionPane.showMessageDialog(null, "L'infirmier rentré n'existe pas");
+            return false;
+        } else if (service.find(obj.getCode_service()) == null) {
+            JOptionPane.showMessageDialog(null, "Le service rentrée n'existe pas ");
+            return false;
+        }
+        try {
+            this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE
+            ).executeUpdate(" UPDATE chambre"
+                        + " SET chambre.surveillant='" + obj.getSurveillant()+"'"
+                        + " ,chambre.nb_lits='" + obj.getNb_lits()+"'"
+                        + " WHERE chambre.code_service ='" + obj.getCode_service()+"'"
+                        + " AND chambre.no_chambre ='" + obj.getNo_chambre()+"'"
+            );
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return true;
+        
     }
 
     /**

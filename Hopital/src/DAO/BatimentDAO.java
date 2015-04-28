@@ -9,6 +9,9 @@ import BBDspéc.Batiment;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,17 +25,66 @@ public class BatimentDAO extends DAO<Batiment> {
 
     @Override
     public boolean create(Batiment obj) {
+        if(find(obj.getLettre())!=null){
+            JOptionPane.showMessageDialog(null, " Batiment déjà existant merci d'en saisir un nouveau");
         return false;
+        }
+        try {
+            this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE
+            ).executeUpdate("INSERT INTO batiment (lettre,nom) "
+                        + "VALUES('" + obj.getLettre()
+                        + "','" + obj.getNom() +"')"
+            );
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        return true;
     }
 
     @Override
     public boolean delete(Batiment obj) {
+        if(find(obj.getLettre())==null){
+            JOptionPane.showMessageDialog(null, " Batiment non existant ou déja supprimé merci d'en saisir un nouveau");
         return false;
+        }
+        try {
+           
+           this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE
+           ).executeUpdate("DELETE FROM batiment"
+                   + "  where batiment.lettre ='" + obj.getLettre()+"'" );
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
     @Override
     public boolean update(Batiment obj) {
+        if(find(obj.getLettre())==null){
+            JOptionPane.showMessageDialog(null, " Batiment non existant ou déja supprimé merci d'en saisir un nouveau");
         return false;
+        }
+        try {
+            this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE
+            ).executeUpdate(" UPDATE batiment"
+                        + " SET batiment.nom='" + obj.getNom()+"'"
+                        + " WHERE batiment.lettre ='" + obj.getLettre()+"'"
+            );
+            
+            } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+        
     }
 
     @Override
@@ -52,8 +104,8 @@ public class BatimentDAO extends DAO<Batiment> {
 
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return batiment;
     }

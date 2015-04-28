@@ -8,16 +8,12 @@ public class Hospitalisation {
     private String code_service;
     private int num_chambre;
     private int no_lit;
-    private Timestamp date_debut;
-    private Timestamp date_fin;
 
-    public Hospitalisation(int num_malade, String code_service, int num_chambre, int no_lit, Timestamp date_debut, Timestamp date_fin) {
+    public Hospitalisation(int num_malade, String code_service, int num_chambre, int no_lit) {
         this.num_malade = num_malade;
         this.code_service = code_service;
         this.num_chambre = num_chambre;
         this.no_lit = no_lit;
-        this.date_debut = date_debut;
-        this.date_fin = date_fin;
     }
 
     public Hospitalisation() {
@@ -79,38 +75,9 @@ public class Hospitalisation {
         this.no_lit = no_lit;
     }
 
-    /**
-     * @return the date_debut
-     */
-    public Timestamp getDate_debut() {
-        return date_debut;
-    }
-
-    /**
-     * @param date_debut the date_debut to set
-     */
-    public void setDate_debut(Timestamp date_debut) {
-        this.date_debut = date_debut;
-    }
-
-    /**
-     * @return the date_fin
-     */
-    public Timestamp getDate_fin() {
-        return date_fin;
-    }
-
-    /**
-     * @param date_fin the date_fin to set
-     */
-    public void setDate_fin(Timestamp date_fin) {
-        this.date_fin = date_fin;
-    }
-
     @Override
     public String toString() {
-        return "Hospitalisation{" + "num_malade=" + num_malade + ", code_service=" + code_service + ", num_chambre=" + num_chambre + ", no_lit=" + no_lit + ", date_debut=" + date_debut + ", date_fin=" + date_fin + '}';
+        return "Hospitalisation{" + "num_malade=" + num_malade + ", code_service=" + code_service + ", num_chambre=" + num_chambre + ", no_lit=" + no_lit + '}';
     }
 
-    
 }

@@ -7,9 +7,12 @@ package DAO;
 
 import BBDspéc.Docteur;
 import BBDspéc.Employe;
+import Connection.ConnectionEce;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -23,17 +26,71 @@ public class DocteurDAO extends DAO<Docteur> {
 
     @Override
     public boolean create(Docteur obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Employe employe = new Employe(obj.getNom(),obj.getPrenom(),obj.getTel(),obj.getTel(),obj.getNo_employe());
+        DAO<Employe> empDAO = new EmployeDAO(ConnectionEce.getConn());
+        boolean test=empDAO.create(employe);
+        if(!test){
+            return false;
+        }
+        try {
+            this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE
+            ).executeUpdate("INSERT INTO docteur (numero,specialite) "
+                        + "VALUES('" + obj.getNo_employe()
+                        + "','" + obj.getSpecialite()
+                        + "')"
+            );
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
     @Override
     public boolean delete(Docteur obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Employe employe = new Employe(obj.getNom(),obj.getPrenom(),obj.getTel(),obj.getTel(),obj.getNo_employe());
+        DAO<Employe> empDAO = new EmployeDAO(ConnectionEce.getConn());
+        boolean test=empDAO.delete(employe);
+        if(!test){
+            return false;
+        }
+        try {
+           
+           this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE
+           ).executeUpdate("DELETE FROM docteur WHERE numero ='" 
+                   + obj.getNo_employe()+"'"
+           );
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true; 
     }
 
     @Override
     public boolean update(Docteur obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Employe employe = new Employe(obj.getNom(),obj.getPrenom(),obj.getTel(),obj.getTel(),obj.getNo_employe());
+        DAO<Employe> empDAO = new EmployeDAO(ConnectionEce.getConn());
+        boolean test=empDAO.update(employe);
+        if(!test){
+            return false;
+        }
+        try {
+           
+           this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE
+           ).executeUpdate("UPDATE docteur SET specialite='" + obj.getSpecialite() 
+                   + "'" 
+                   + " WHERE numero=" + obj.getNo_employe()
+           );
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
     }
 
     @Override
