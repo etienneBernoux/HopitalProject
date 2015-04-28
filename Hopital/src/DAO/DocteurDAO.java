@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -26,10 +27,11 @@ public class DocteurDAO extends DAO<Docteur> {
 
     @Override
     public boolean create(Docteur obj) {
-        Employe employe = new Employe(obj.getNom(),obj.getPrenom(),obj.getTel(),obj.getTel(),obj.getNo_employe());
+        Employe employe = new Employe(obj.getNom(),obj.getPrenom(),obj.getTel(),obj.getAdresse(),obj.getNo_employe());
         DAO<Employe> empDAO = new EmployeDAO(ConnectionEce.getConn());
         boolean test=empDAO.create(employe);
         if(!test){
+            JOptionPane.showMessageDialog(null, "L'employé existe déja");
             return false;
         }
         try {
@@ -50,10 +52,11 @@ public class DocteurDAO extends DAO<Docteur> {
 
     @Override
     public boolean delete(Docteur obj) {
-        Employe employe = new Employe(obj.getNom(),obj.getPrenom(),obj.getTel(),obj.getTel(),obj.getNo_employe());
+        Employe employe = new Employe(obj.getNom(),obj.getPrenom(),obj.getTel(),obj.getAdresse(),obj.getNo_employe());
         DAO<Employe> empDAO = new EmployeDAO(ConnectionEce.getConn());
         boolean test=empDAO.delete(employe);
         if(!test){
+            JOptionPane.showMessageDialog(null, "L'employé n'existe pas et n'a pas été supprimé");
             return false;
         }
         try {
@@ -72,10 +75,11 @@ public class DocteurDAO extends DAO<Docteur> {
 
     @Override
     public boolean update(Docteur obj) {
-        Employe employe = new Employe(obj.getNom(),obj.getPrenom(),obj.getTel(),obj.getTel(),obj.getNo_employe());
+        Employe employe = new Employe(obj.getNom(),obj.getPrenom(),obj.getTel(),obj.getAdresse(),obj.getNo_employe());
         DAO<Employe> empDAO = new EmployeDAO(ConnectionEce.getConn());
         boolean test=empDAO.update(employe);
         if(!test){
+            JOptionPane.showMessageDialog(null, "erreur employé");
             return false;
         }
         try {

@@ -6,8 +6,8 @@ public class Infirmier extends Employe {
     private String rotation;
     private double salaire;
 
-    public Infirmier(String code_service, String rotation, double salaire, String Nom, String Prenom, String Tel, String Adresse, int no_employee) {
-        super(Nom, Prenom, Tel, Adresse, no_employee);
+    public Infirmier(String code_service, String rotation, double salaire, String Nom, String Prenom, String Tel, String Adresse, int no_employe) {
+        super(Nom, Prenom, Tel, Adresse, no_employe);
         this.code_service = code_service;
         this.rotation = rotation;
         this.salaire = salaire;

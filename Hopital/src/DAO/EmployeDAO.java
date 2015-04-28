@@ -25,44 +25,44 @@ public class EmployeDAO extends DAO<Employe> {
 
     @Override
     public boolean create(Employe obj) {
-        if(find(obj.getNo_employe())!=null){
+        if (find(obj.getNo_employe()) != null) {
             JOptionPane.showMessageDialog(null, " Employé déjà existant merci d'en saisir un nouveau");
-           }
+            return false;
+        }
         try {
             this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE
             ).executeUpdate("INSERT INTO employe (numero,nom,prenom,adresse,tel) "
-                        + "VALUES('" + obj.getNo_employe()
-                        + "','" + obj.getNom()        
-                        + "','" + obj.getPrenom()
-                        + "','" + obj.getAdresse()
-                        + "','" + obj.getTel()
-                        + "')"
+                    + "VALUES('" + obj.getNo_employe()
+                    + "','" + obj.getNom()
+                    + "','" + obj.getPrenom()
+                    + "','" + obj.getAdresse()
+                    + "','" + obj.getTel()
+                    + "')"
             );
 
         } catch (SQLException ex) {
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
         return true;
     }
 
     @Override
     public boolean delete(Employe obj) {
-         if(find(obj.getNo_employe())==null){
+        if (find(obj.getNo_employe()) == null) {
             JOptionPane.showMessageDialog(null, " Employé non existant ou déja supprimé merci d'en saisir un nouveau");
-        return false;
+            return false;
         }
         try {
-           
-           this.connect.createStatement(
+
+            this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_UPDATABLE
-           ).executeUpdate("DELETE FROM employe WHERE numero ='" 
-                   + obj.getNo_employe()+"'"
-           );
+            ).executeUpdate("DELETE FROM employe WHERE numero ='"
+                    + obj.getNo_employe() + "'"
+            );
         } catch (SQLException ex) {
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -71,9 +71,9 @@ public class EmployeDAO extends DAO<Employe> {
 
     @Override
     public boolean update(Employe obj) {
-        if(find(obj.getNo_employe())==null){
+        if (find(obj.getNo_employe()) == null) {
             JOptionPane.showMessageDialog(null, " Batiment non existant ou déja supprimé merci d'en saisir un nouveau");
-        return false;
+            return false;
         }
         try {
             this.connect.createStatement(
@@ -85,8 +85,8 @@ public class EmployeDAO extends DAO<Employe> {
                     + "' , tel='" + obj.getTel()
                     + "'" + " WHERE numero=" + obj.getNo_employe()
             );
-            
-            } catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
         return true;
