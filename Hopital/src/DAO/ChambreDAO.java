@@ -57,6 +57,7 @@ public class ChambreDAO extends DAO<Chambre> {
                 );
             } catch (SQLException ex) {
                 Logger.getLogger(ChambreDAO.class.getName()).log(Level.SEVERE, null, ex);
+                return false;
             }
         }
         return true;
@@ -83,6 +84,7 @@ public class ChambreDAO extends DAO<Chambre> {
            );
         } catch (SQLException ex) {
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         return true;
 
@@ -118,6 +120,7 @@ public class ChambreDAO extends DAO<Chambre> {
             
             } catch (SQLException ex) {
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         
         return true;

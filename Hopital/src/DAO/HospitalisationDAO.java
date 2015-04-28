@@ -74,6 +74,7 @@ public class HospitalisationDAO extends DAO<Hospitalisation> {
         } catch (SQLException ex) {
 
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
 
         }
         return true;
@@ -95,6 +96,7 @@ public class HospitalisationDAO extends DAO<Hospitalisation> {
             );
         } catch (SQLException ex) {
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         return true;
     }
@@ -148,6 +150,7 @@ public class HospitalisationDAO extends DAO<Hospitalisation> {
         } catch (SQLException ex) {
 
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
 
         }
         return true;

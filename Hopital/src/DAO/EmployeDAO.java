@@ -44,6 +44,7 @@ public class EmployeDAO extends DAO<Employe> {
 
         } catch (SQLException ex) {
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
 
         return true;
@@ -65,6 +66,7 @@ public class EmployeDAO extends DAO<Employe> {
             );
         } catch (SQLException ex) {
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         return true;
     }
@@ -88,6 +90,7 @@ public class EmployeDAO extends DAO<Employe> {
 
         } catch (SQLException ex) {
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         return true;
     }

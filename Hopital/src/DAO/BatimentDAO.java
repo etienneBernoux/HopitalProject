@@ -40,6 +40,7 @@ public class BatimentDAO extends DAO<Batiment> {
 
         } catch (SQLException ex) {
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         
         
@@ -61,6 +62,7 @@ public class BatimentDAO extends DAO<Batiment> {
                    + "  where batiment.lettre ='" + obj.getLettre()+"'" );
         } catch (SQLException ex) {
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         return true;
     }
@@ -82,6 +84,7 @@ public class BatimentDAO extends DAO<Batiment> {
             
             } catch (SQLException ex) {
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
         }
         return true;
         
