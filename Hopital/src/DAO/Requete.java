@@ -25,35 +25,45 @@ public class Requete {
         this.connect = connect;
     }
 
-    public ArrayList Requete1() {
-        ArrayList res = new ArrayList();
+    public ArrayList<ArrayList> Requete1() {
+        ArrayList<ArrayList> res = null;
         try {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY
-            ).executeQuery("SELECT malade.nom , malade.prenom "
-                    + "FROM malade"
-                    + "WHERE malade.mutuelle = 'MAAF'"
+            ).executeQuery("SELECT malade.prenom,malade.nom "
+                    + " FROM malade"
+                    + " WHERE malade.mutuelle = 'MAAF'"
             );
-            //On récupère les MetaData
-            ResultSetMetaData resultMeta = result.getMetaData();
-            String[] titre = new String[resultMeta.getColumnCount()];
-            for (int i = 0; i < resultMeta.getColumnCount(); i++) {
-                titre[i] = resultMeta.getCatalogName(i);
-            }
-            res.add(titre);
-            while (result.next()) {
-                String[] element = new String[resultMeta.getColumnCount()];
-                for (int i = 0; i < resultMeta.getColumnCount(); i++) {
-                    element[i] = result.getNString(i);
-                }
-                res.add(element);
-            }
+            res=Fabrique(result);
 
         } catch (SQLException ex) {
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        return res;
+    }
+
+    public ArrayList<ArrayList> Fabrique(ResultSet result) {
+        ArrayList<ArrayList> res = new ArrayList();
+        try {
+            //On récupère les MetaData
+            ResultSetMetaData resultMeta = result.getMetaData();
+            ArrayList titre = new ArrayList();
+            for (int i = 1; i < resultMeta.getColumnCount()+1; i++) {
+                titre.add(resultMeta.getColumnName(i).toUpperCase());
+            }
+            res.add(titre);
+            while (result.next()) {
+                ArrayList element = new ArrayList();
+                for (int i = 1; i < resultMeta.getColumnCount()+1; i++) {
+                    element.add(result.getObject(i).toString());
+                }
+                res.add(element);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return res;
     }
 

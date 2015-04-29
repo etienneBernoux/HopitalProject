@@ -23,6 +23,7 @@ import DAO.EmployeDAO;
 import DAO.HospitalisationDAO;
 import DAO.InfirmierDAO;
 import DAO.MaladeDAO;
+import DAO.Requete;
 import DAO.ServiceDAO;
 import DAO.SoigneDAO;
 import java.util.ArrayList;
@@ -368,6 +369,21 @@ public class TestAll {
         if (test) {
             System.out.println("Mise à jour de " + soigne.toString());
         }
+    }
+
+    public void testRequete() {
+        Requete requete = new Requete(ConnectionEce.getConn());
+        ArrayList<ArrayList> requetelist;
+        //Test de requete 1
+        System.out.println("Requète 1:\n");
+        requetelist = requete.Requete1();
+        for (int i = 0; i < requetelist.size(); i++) {
+            for (int j = 0; j < requetelist.get(i).size(); j++) {
+                System.out.print(requetelist.get(i).get(j).toString() + "--");
+            }
+            System.out.println("");
+        }
+        //Test de requete 2
     }
 
     //Convertit en format pour sql
