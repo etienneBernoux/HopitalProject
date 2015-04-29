@@ -384,6 +384,23 @@ public class TestAll {
             System.out.println("");
         }
         //Test de requete 2
+        System.out.println("Requète 2:\n");
+        requetelist = requete.Requete2();
+        for (int i = 0; i < requetelist.size(); i++) {
+            for (int j = 0; j < requetelist.get(i).size(); j++) {
+                System.out.print(requetelist.get(i).get(j).toString() + "--");
+            }
+            System.out.println("");
+        }
+        //Test de requete 3
+        System.out.println("Requète 3:\n");
+        requetelist = requete.Requete3();
+        for (int i = 0; i < requetelist.size(); i++) {
+            for (int j = 0; j < requetelist.get(i).size(); j++) {
+                System.out.print(requetelist.get(i).get(j).toString() + "--");
+            }
+            System.out.println("");
+        }
     }
 
     //Convertit en format pour sql
