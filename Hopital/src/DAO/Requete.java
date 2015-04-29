@@ -63,6 +63,25 @@ public class Requete {
 
         return res;
     }
+    
+    public ArrayList<ArrayList> Requete3() {
+        ArrayList<ArrayList> res = null;
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT service.nom,service.batiment,employe.prenom,employe.nom,docteur.specialite"
+                    + " FROM docteur NATURAL JOIN employe INNER JOIN service ON service.directeur=docteur.numero"
+                    + " ORDER BY service.nom"
+            );
+            res=Fabrique(result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
 
     public ArrayList<ArrayList> Fabrique(ResultSet result) {
         ArrayList<ArrayList> res = new ArrayList();
