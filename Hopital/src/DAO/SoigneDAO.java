@@ -5,12 +5,14 @@
  */
 package DAO;
 
+import BBDspéc.Chambre;
 import BBDspéc.Docteur;
 import BBDspéc.Malade;
 import BBDspéc.Soigne;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -245,7 +247,7 @@ public class SoigneDAO extends DAO<Soigne> {
         Soigne soigne = null;
         String[] cle = (String[]) id;
         try {
-            System.out.println(cle[2]);
+            //System.out.println(cle[2]);
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY
@@ -269,9 +271,34 @@ public class SoigneDAO extends DAO<Soigne> {
     }
 
     @Override
-    public Soigne findall() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Soigne> findall() {
+                ArrayList<Soigne> list= new ArrayList<>();
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT * FROM soigne"  
+            );
+            if (result.first()) {
+                Calendar cal1 = Calendar.getInstance();
+                cal1.setTime(result.getDate("date_rdv"));
+                Calendar cal2 = Calendar.getInstance();
+                cal2.setTime(result.getDate("fin_rdv"));
+                list.add(new Soigne(result.getInt("no_malade"), result.getInt("no_docteur"), result.getString("maladie"), cal1, cal2));
+                while(result.next()){
+                    cal1.setTime(result.getDate("date_rdv"));
+                    cal2.setTime(result.getDate("fin_rdv"));
+                    list.add(new Soigne(result.getInt("no_malade"), result.getInt("no_docteur"), result.getString("maladie"), cal1, cal2));
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return (list);
     }
+      
     //Convertit en format pour sql
     public String ToSqlFormat(Calendar cal){
         return +cal.get(Calendar.YEAR)+"-"+cal.get(Calendar.MONTH)+"-"+cal.get(Calendar.DAY_OF_MONTH)+" "+cal.get(Calendar.HOUR_OF_DAY)+":"+cal.get(Calendar.MINUTE)+":"+cal.get(Calendar.SECOND);

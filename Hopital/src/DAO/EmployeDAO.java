@@ -5,10 +5,12 @@
  */
 package DAO;
 
+import BBDspéc.Chambre;
 import BBDspéc.Employe;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -117,8 +119,26 @@ public class EmployeDAO extends DAO<Employe> {
     }
 
     @Override
-    public Employe findall() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Employe> findall() {
+        ArrayList<Employe> list= new ArrayList<>();
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT * FROM employe "  
+            );
+            if (result.first()) {
+                list.add(new Employe(result.getString("employe.nom"), result.getString("employe.prenom"), result.getString("employe.tel"), result.getString("employe.adresse"), result.getInt("numero")));
+                while(result.next()){
+                    list.add(new Employe(result.getString("employe.nom"), result.getString("employe.prenom"), result.getString("employe.tel"), result.getString("employe.adresse"), result.getInt("numero")));
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return (list);
     }
 
 }

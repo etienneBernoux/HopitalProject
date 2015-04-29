@@ -5,6 +5,7 @@
  */
 package DAO;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 //Méthode général des DAO
 
@@ -47,5 +48,5 @@ public abstract class DAO<T> {
    * Méthode re récupération de toutes les informations
    * @return T
    */
-  public abstract T findall();
+  public abstract ArrayList<T> findall();
 }

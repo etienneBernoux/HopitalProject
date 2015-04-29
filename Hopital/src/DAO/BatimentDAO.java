@@ -9,6 +9,7 @@ import BBDspéc.Batiment;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -114,8 +115,26 @@ public class BatimentDAO extends DAO<Batiment> {
     }
 
     @Override
-    public Batiment findall() {
-        return (null);
+    public ArrayList<Batiment> findall() {
+        ArrayList<Batiment> list= new ArrayList<>();
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT * FROM batiment "  
+            );
+            if (result.first()) {
+                list.add(new Batiment(result.getString("lettre"), result.getString("nom")));
+                while(result.next()){
+                    list.add(new Batiment(result.getString("lettre"), result.getString("nom")));
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return (list);
     }
 
 }

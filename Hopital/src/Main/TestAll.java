@@ -25,6 +25,7 @@ import DAO.InfirmierDAO;
 import DAO.MaladeDAO;
 import DAO.ServiceDAO;
 import DAO.SoigneDAO;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 /**
@@ -46,7 +47,6 @@ public class TestAll {
         Batiment batiment = batDAO.find("A");
         System.out.println(batiment.toString());
         //Test de chambre
-
         id[0] = "REA";
         id[1] = "102";
         DAO<Chambre> chambreDAO = new ChambreDAO(ConnectionEce.getConn());
@@ -85,6 +85,74 @@ public class TestAll {
         DAO<Soigne> soigneDAO = new SoigneDAO(ConnectionEce.getConn());
         Soigne soigne = soigneDAO.find(id);
         System.out.println(soigne.toString());
+    }
+
+    public void testFindall() {
+        //Test de batiment
+        DAO<Batiment> batDAO = new BatimentDAO(ConnectionEce.getConn());
+        ArrayList<Batiment> batiment = batDAO.findall();
+        System.out.println("***Affichage de tous les batiment:");
+        batiment.stream().forEach((batiment1) -> {
+            System.out.println(batiment1.toString());
+        });
+        //Test de chambre
+        DAO<Chambre> chambreDAO = new ChambreDAO(ConnectionEce.getConn());
+        ArrayList<Chambre> chambre = chambreDAO.findall();
+        System.out.println("***Affichage de toutes les chambres:");
+        chambre.stream().forEach((chambre1) -> {
+            System.out.println(chambre1.toString());
+        });
+        //Test de docteur
+        DAO<Docteur> docDAO = new DocteurDAO(ConnectionEce.getConn());
+        ArrayList<Docteur> docteur = docDAO.findall();
+        System.out.println("***Affichage de tout les docteurs:");
+        docteur.stream().forEach((docteur1) -> {
+            System.out.println(docteur1.toString());
+        });
+        //Test de employe
+        DAO<Employe> empDAO = new EmployeDAO(ConnectionEce.getConn());
+        ArrayList<Employe> employe = empDAO.findall();
+        System.out.println("***Affichage de tout les employés:");
+        employe.stream().forEach((employe1) -> {
+            System.out.println(employe1.toString());
+        });
+        //Test de hospitalisation
+        DAO<Hospitalisation> hosDAO = new HospitalisationDAO(ConnectionEce.getConn());
+        ArrayList<Hospitalisation> hospitalisation = hosDAO.findall();
+        System.out.println("***Affichage de toutes les hospitalisations:");
+        hospitalisation.stream().forEach((hospitalisation1) -> {
+            System.out.println(hospitalisation1.toString());
+        });
+        //Test de infirmier
+        DAO<Infirmier> infDAO = new InfirmierDAO(ConnectionEce.getConn());
+        ArrayList<Infirmier> infirmier = infDAO.findall();
+        System.out.println("***Affichage de tous les infirmier:");
+        infirmier.stream().forEach((infirmier1) -> {
+            System.out.println(infirmier1.toString());
+        });
+        //Test de malade
+        DAO<Malade> maladeDAO = new MaladeDAO(ConnectionEce.getConn());
+        ArrayList<Malade> malade = maladeDAO.findall();
+        System.out.println("***Affichage de tous les malades:");
+        malade.stream().forEach((malade1) -> {
+            System.out.println(malade1.toString());
+        });
+        //Test de Service
+        DAO<Service> serviceDAO = new ServiceDAO(ConnectionEce.getConn());
+        ArrayList<Service> service = serviceDAO.findall();
+        System.out.println("***Affichage de tous les services:");
+        service.stream().forEach((service1) -> {
+            System.out.println(service1.toString());
+        });
+        //Test de Soigne 
+        /* erreur car la base de donée n'est pas remplie corectement
+         DAO<Soigne> soigneDAO = new SoigneDAO(ConnectionEce.getConn());
+         ArrayList<Soigne> soigne = soigneDAO.findall();
+         System.out.println("***Affichage de tous les services:");
+         soigne.stream().forEach((soigne1) -> {
+         System.out.println(soigne1.toString());
+         });
+         */
     }
 
     public void testCreate() {
@@ -303,7 +371,6 @@ public class TestAll {
     }
 
     //Convertit en format pour sql
-
     public String ToSqlFormat(Calendar cal) {
         return +cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH) + " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
 

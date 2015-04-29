@@ -32,6 +32,7 @@ public class Main {
         
         
         test.testFind();
+        test.testFindall();
         test.testCreate();
         test.testupdate();
         test.testdelete();

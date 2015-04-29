@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import BBDspéc.Batiment;
 import BBDspéc.Chambre;
 import BBDspéc.Hospitalisation;
 import BBDspéc.Infirmier;
@@ -12,6 +13,7 @@ import BBDspéc.Service;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -156,8 +158,26 @@ public class ChambreDAO extends DAO<Chambre> {
     }
 
     @Override
-    public Chambre findall() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Chambre> findall() {
+        ArrayList<Chambre> list= new ArrayList<>();
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT * FROM chambre "  
+            );
+            if (result.first()) {
+                list.add(new Chambre(result.getString("chambre.code_service"), result.getInt("no_chambre"), result.getInt("surveillant"), result.getInt("nb_lits")));
+                while(result.next()){
+                    list.add(new Chambre(result.getString("chambre.code_service"), result.getInt("no_chambre"), result.getInt("surveillant"), result.getInt("nb_lits")));
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return (list);
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package DAO;
 
+import BBDspéc.Chambre;
 import BBDspéc.Employe;
 import BBDspéc.Infirmier;
 import BBDspéc.Service;
@@ -12,6 +13,7 @@ import Connection.ConnectionEce;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -139,8 +141,26 @@ public class InfirmierDAO extends DAO<Infirmier> {
     }
 
     @Override
-    public Infirmier findall() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Infirmier> findall() {
+        ArrayList<Infirmier> list = new ArrayList<>();
+        DAO<Employe> empDAO = new EmployeDAO(super.connect);
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT * FROM infirmier"
+            );
+            if (result.first()) {
+                Employe employe = empDAO.find(result.getInt("numero"));
+                list.add(new Infirmier(result.getString("code_service"), result.getString("rotation"), result.getDouble("salaire"), employe.getNom(), employe.getPrenom(), employe.getTel(), employe.getAdresse(), result.getInt("numero")));
+                while (result.next()) {
+                    employe = empDAO.find(result.getInt("numero"));
+                    list.add(new Infirmier(result.getString("code_service"), result.getString("rotation"), result.getDouble("salaire"), employe.getNom(), employe.getPrenom(), employe.getTel(), employe.getAdresse(), result.getInt("numero")));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return (list);
     }
-
 }

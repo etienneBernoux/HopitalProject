@@ -13,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -182,8 +183,26 @@ public class HospitalisationDAO extends DAO<Hospitalisation> {
     }
 
     @Override
-    public Hospitalisation findall() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Hospitalisation> findall() {
+        ArrayList<Hospitalisation> list= new ArrayList<>();
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT * FROM hospitalisation"  
+            );
+            if (result.first()) {
+                list.add(new Hospitalisation(result.getInt("no_malade"), result.getString("code_service"), result.getInt("no_chambre"), result.getInt("lit")));
+                while(result.next()){
+                    list.add(new Hospitalisation(result.getInt("no_malade"), result.getString("code_service"), result.getInt("no_chambre"), result.getInt("lit")));
+                }
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return (list);
     }
 
 }

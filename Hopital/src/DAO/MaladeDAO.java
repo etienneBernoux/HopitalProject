@@ -6,10 +6,12 @@
 package DAO;
 
 import BBDspéc.Batiment;
+import BBDspéc.Chambre;
 import BBDspéc.Malade;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -122,8 +124,25 @@ public class MaladeDAO extends DAO<Malade> {
     }
 
     @Override
-    public Malade findall() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    public ArrayList<Malade> findall() {
+        ArrayList<Malade> list= new ArrayList<>();
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT * FROM malade "  
+            );
+            if (result.first()) {
+                list.add(new Malade(result.getInt("numero"), result.getString("mutuelle"), result.getString("nom"), result.getString("prenom"), result.getString("tel"), result.getString("adresse")));
+                while(result.next()){
+                    list.add(new Malade(result.getInt("numero"), result.getString("mutuelle"), result.getString("nom"), result.getString("prenom"), result.getString("tel"), result.getString("adresse")));
+                }
 
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return (list);
+    }
 }

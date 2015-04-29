@@ -5,12 +5,14 @@
  */
 package DAO;
 
+import BBDspéc.Chambre;
 import BBDspéc.Docteur;
 import BBDspéc.Employe;
 import Connection.ConnectionEce;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -125,8 +127,26 @@ public class DocteurDAO extends DAO<Docteur> {
     }
 
     @Override
-    public Docteur findall() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public ArrayList<Docteur> findall() {
+        ArrayList<Docteur> list= new ArrayList<>();
+        DAO<Employe> empDAO = new EmployeDAO(super.connect);
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT * FROM docteur"  
+            );
+            if (result.first()) {
+                Employe employe = empDAO.find(result.getInt("numero"));
+                list.add(new Docteur(employe.getNom(), employe.getPrenom(), employe.getTel(), employe.getAdresse(), result.getInt("numero"), result.getString("specialite")));
+                while(result.next()){
+                    employe = empDAO.find(result.getInt("numero"));
+                    list.add(new Docteur(employe.getNom(), employe.getPrenom(), employe.getTel(), employe.getAdresse(), result.getInt("numero"), result.getString("specialite")));
+                }
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return (list);
     }
-
 }
