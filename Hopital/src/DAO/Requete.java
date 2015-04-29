@@ -43,6 +43,26 @@ public class Requete {
 
         return res;
     }
+    
+    public ArrayList<ArrayList> Requete2() {
+        ArrayList<ArrayList> res = null;
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT employe.prenom,employe.nom "
+                    + " FROM infirmier NATURAL JOIN employe"
+                    + " WHERE infirmier.rotation = 'NUIT'"
+                    + " ORDER BY employe.nom"
+            );
+            res=Fabrique(result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
 
     public ArrayList<ArrayList> Fabrique(ResultSet result) {
         ArrayList<ArrayList> res = new ArrayList();
