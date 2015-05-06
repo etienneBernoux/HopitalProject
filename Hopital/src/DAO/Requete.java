@@ -134,7 +134,7 @@ public class Requete {
                     ResultSet.CONCUR_READ_ONLY
             ).executeQuery("SELECT DISTINCT service.code, AVG(chambre.nb_lits)" +
                             " FROM service, batiment, chambre" +
-                            " WHERE service.batiment = batiment.lettre" +
+                            " WHERE service.batiment = 'A' " +
                             " AND service.code = chambre.code_service" +
                             " GROUP BY code_service "
             );
@@ -179,7 +179,7 @@ public class Requete {
                             " (SELECT COUNT(malade.nom) " +
                             " FROM hospitalisation,malade " +
                             " WHERE  malade.numero = hospitalisation.no_malade " +
-                            " AND hospitalisation.code_service = A.code)" +
+                            " AND hospitalisation.code_service = A.code) AS NB_AVG-lit" +
                             " FROM service A"
             );
             res=Fabrique(result);
