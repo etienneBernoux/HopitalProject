@@ -11,6 +11,7 @@ import Connection.*;
 import DAO.DAO;
 import DAO.EmployeDAO;
 import BBDspéc.Batiment;
+import DAO.Requete;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,16 +63,18 @@ public class PanelRequete extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Title 1", "Title 2", "Title 3", "Title 4","Titre 5"
             }
         ));
+        jTable1.setColumnSelectionAllowed(true);
         jScrollPane2.setViewportView(jTable1);
+        jTable1.getColumnModel().getSelectionModel().setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
 
         jLabel2.setText("Requetes 1 à 10, parmis celles du DAO dans la classe requête ");
 
@@ -140,17 +143,51 @@ public class PanelRequete extends javax.swing.JPanel {
     /*OBJECTIF:
       Selon la requête, remplir un ArrayList tabVal. 
         Il permettra de remplir un tableauModel de l'interface.
-        
+        arrayList length();
         */ 
+      //layout.add(new JScrollPane(jTable1));
+      
+
     System.out.println("La requète choisie est "+ requeteChoisie);
     
     if("Requête 1".equals(requeteChoisie))//pour employé
         {
         //ICI TESTE SI LA LISTE DE TOUS LES EMPLOYES EST BIEN ENREGISTREE DANS TABVAL
             System.out.println("C'est le find all employé !!! BRAVO e3lik!");
+          //les tests  
+            Requete firstRequete = new Requete(ConnectionEce.getConn());
+            ArrayList<ArrayList> sortie = firstRequete.Requete1();
+           
+           // jTable1 = JTable(valeurs, noms);
+      /*  ArrayList<Integer> foo = new ArrayList<Integer>();
+        foo.add(1);
+        foo.add(1);
+        foo.add(2);
+        foo.add(3);
+        foo.add(5);
+       // JTable table = new JTable(new Object[nblignes][columnNames.length], columnNames);
+
+        String[][] contenuJTable = sortie.toArray(new String[sortie.size()][sortie.size()]);
+        Object[] sortieT= sortie.toArray(new Object[sortie.size()]);
+
+        String[] bar = foo.toArray(new String[foo.size()]);
+
+System.out.println("bar.length = " + bar.length);
+            */
             
             EmployeDAO retourEmployeAll = new EmployeDAO(ConnectionEce.getConn());
             tabVal = retourEmployeAll.findall();
+            //int longueurTableau = tabVal.size();
+           // tabVal.get(0).size();
+             
+     
+            
+      /* objectif : remplir un tableau à deux dimensions pour remplir le JTable.
+           Object[][] data  = new Object[5][]();
+      
+            /*for(int i=0;i<tabVal.size();i++)
+                for(int j=0; j<5;j++)
+              Object[i][j] data = tabVal;*/
        
         System.out.println("***Affichage de tout les employés:");
         tabVal.stream().forEach((employe1) -> {
