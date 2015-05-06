@@ -13,6 +13,8 @@ import java.awt.event.*;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import Connection.ConnectionEce;
+
 
 /**
  *
@@ -26,9 +28,15 @@ private JTextField idECEConnection = new JTextField("Identifiant ECE");
 private JTextField mdpECEConnection = new JTextField("Mot de passe ECE");
 private JTextField idSQLConnection = new JTextField("Identifiant SQL");
 private JTextField mdpSQLConnection = new JTextField("Mot de passe SQL");
+private ConnectionEce connexion1;
 //private JTextField ipText = new JTextField("Adresse IP du serveur", 15); // no properties private TextField portText = new TextField("Port",30);
     
-    public FenetreConnection() {
+    public FenetreConnection(ConnectionEce connection) {
+        connexion1 = new ConnectionEce("0","","","");
+        //stocke les valeurs de la connection effectuée en amont
+        //cette action est à mettre dans l'ActionPerformed au niveau du bouton
+        connexion1= connection;
+        
     this.setTitle("Application Hôpital");
     this.setSize(300,300);
     
@@ -67,8 +75,12 @@ private JTextField mdpSQLConnection = new JTextField("Mot de passe SQL");
                        //try{ 
    //FenetrePrincipale nouvelleFenPrin = new FenetrePrincipale(idECEConnection.getText(),mdpECEConnection.getText(),idSQLConnection.getText(),mdpSQLConnection.getText());
                        //PanelPrin test2 = new PanelPrin();
-                     //  this.setContentPane(test2);
-                       this.setSize(400,400);
+                     PanelRequete Pan1 = new PanelRequete(connexion1);
+                      this.setContentPane(Pan1);
+                      this.setSize(800,600);
+                     // TableauModel test = new TableauModel();
+                     //containerConnection.add(test);
+                      
                        
                        //} catch(IOException e1) //(SQLException e1) {
 			// TODO Auto-generated catch block

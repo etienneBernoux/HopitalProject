@@ -5,6 +5,7 @@ import BBDspéc.Employe;
 import Connection.ConnectionEce;
 import DAO.DAO;
 import DAO.EmployeDAO;
+import Interface.FenetreConnection;
 import java.sql.SQLException;
 
 /*
@@ -29,6 +30,9 @@ public class Main {
         ConnectionEce connection = new ConnectionEce("ebernoux","J@hab16AR"," ebernoux-rw","erWVgk63");
         //connection.Selectiontest("SELECT code_service FROM chambre WHERE code_service='REA'");
         //connection.affichageresultconsole();
+        
+        FenetreConnection testFenetre = new FenetreConnection(connection);
+        
         TestAll test=new TestAll(connection);
         
         

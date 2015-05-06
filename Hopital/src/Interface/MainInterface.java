@@ -5,14 +5,20 @@
  */
 package Interface;
 
+import Connection.ConnectionEce;
+import java.sql.SQLException;
+
 /**
  *
  * @author travail
  */
 public class MainInterface {
     
-        public static void main(String[] args) {
-            FenetreConnection test = new FenetreConnection();
+        public static void main(String[] args) throws SQLException {
+            
+            //ConnectionEce connection = new ConnectionEce("ebernoux","J@hab16AR"," ebernoux-rw","erWVgk63");
+
+            //FenetreConnection test = new FenetreConnection(connection);
         
         }
         

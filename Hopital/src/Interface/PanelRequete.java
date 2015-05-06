@@ -4,18 +4,34 @@
  * and open the template in the editor.
  */
 package Interface;
-
+import javax.swing.*;
+import BBDspéc.Employe;
+import Connection.ConnectionEce;
+import Connection.*;
+import DAO.DAO;
+import DAO.EmployeDAO;
+import BBDspéc.Batiment;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 /**
  *
  * @author travail
  */
 public class PanelRequete extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PanelRequete
-     */
-    public PanelRequete() {
+
+    private String requeteChoisie = "0";
+    private ConnectionEce conn1= new ConnectionEce("0","","",""); //erreur
+    private ArrayList tabVal = new ArrayList();
+    
+    public PanelRequete(ConnectionEce connIN) {
         initComponents();
+        conn1 = connIN;
     }
 
     /**
@@ -27,30 +43,22 @@ public class PanelRequete extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
         jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
-        jList1.addContainerListener(new java.awt.event.ContainerAdapter() {
-            public void componentAdded(java.awt.event.ContainerEvent evt) {
-                jList1ComponentAdded(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jList1);
+        jComboBox1 = new javax.swing.JComboBox();
 
         jLabel1.setText("1 bouton lancement.");
 
         jButton1.setText("MAJ");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -69,65 +77,97 @@ public class PanelRequete extends javax.swing.JPanel {
 
         jLabel3.setText("Affiche le résultat de la requête dans le tableau");
 
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Requête à choisir", "Requête 1", "Requête 2", "Requête 3", "Requête 4", "Requête 5", "Requête 6", "Requête 7", "Requête 8", "Requête 9", "Requête 10" }));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 586, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(80, 80, 80)
                                 .addComponent(jLabel2))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(183, 183, 183)
+                                .addGap(257, 257, 257)
                                 .addComponent(jButton1))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(161, 161, 161)
+                                .addGap(235, 235, 235)
                                 .addComponent(jLabel1))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabel3)))))
+                                .addGap(102, 102, 102)
+                                .addComponent(jLabel3))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(33, 33, 33)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)))
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButton1)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 323, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 317, Short.MAX_VALUE)
                 .addGap(19, 19, 19))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jList1ComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_jList1ComponentAdded
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    requeteChoisie =  (String)jComboBox1.getSelectedItem();   
+    //Recupère le String de la requête choisie.
+// TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    /*OBJECTIF:
+      Selon la requête, remplir un ArrayList tabVal. 
+        Il permettra de remplir un tableauModel de l'interface.
         
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jList1ComponentAdded
+        */ 
+    System.out.println("La requète choisie est "+ requeteChoisie);
+    
+    if("Requête 1".equals(requeteChoisie))//pour employé
+        {
+        //ICI TESTE SI LA LISTE DE TOUS LES EMPLOYES EST BIEN ENREGISTREE DANS TABVAL
+            System.out.println("C'est le find all employé !!! BRAVO e3lik!");
+            
+            EmployeDAO retourEmployeAll = new EmployeDAO(ConnectionEce.getConn());
+            tabVal = retourEmployeAll.findall();
+       
+        System.out.println("***Affichage de tout les employés:");
+        tabVal.stream().forEach((employe1) -> {
+            System.out.println(employe1.toString());
+        });
+        //C'est le cas, mais ils sont complètement dans le désordre. 
+        }
+    
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JList jList1;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
