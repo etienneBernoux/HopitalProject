@@ -4,7 +4,7 @@ public enum Maladie {
 
     Rhume,
     Tuberculose,
-    Colera,
+    Cholera,
     Peste,
     CancerDuRectum,
     EmboliePulmonaire;
@@ -17,8 +17,8 @@ public enum Maladie {
         return Tuberculose;
     }
 
-    public static Maladie getColera() {
-        return Colera;
+    public static Maladie getCholera() {
+        return Cholera;
     }
 
     public static Maladie getPeste() {
