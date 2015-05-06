@@ -152,7 +152,10 @@ public class Requete {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY
-            ).executeQuery(" "
+            ).executeQuery("SELECT malade.prenom, malade.nom,COUNT(docteur.numero) AS NB_soignant, COUNT(DISTINCT docteur.specialite) AS Nb_specialite" +
+" FROM malade JOIN soigne ON malade.numero = soigne.no_malade JOIN docteur ON soigne.no_docteur = docteur.numero" +
+" GROUP BY malade.numero" +
+" HAVING COUNT(docteur.numero)>=3"
             );
             res=Fabrique(result);
 
