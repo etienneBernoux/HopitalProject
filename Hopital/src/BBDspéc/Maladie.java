@@ -2,23 +2,23 @@ package BBDspéc;
 
 public enum Maladie {
 
-    Rhum,
+    Rhume,
     Tuberculose,
-    Colera,
+    Cholera,
     Peste,
     CancerDuRectum,
     EmboliePulmonaire;
     
-    public static Maladie getRhum() {
-        return Rhum;
+    public static Maladie getRhume() {
+        return Rhume;
     }
 
     public static Maladie getTuberculose() {
         return Tuberculose;
     }
 
-    public static Maladie getColera() {
-        return Colera;
+    public static Maladie getCholera() {
+        return Cholera;
     }
 
     public static Maladie getPeste() {

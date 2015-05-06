@@ -49,7 +49,7 @@ public class ConnectionEce {
                 String passwd = "erWVgk63";
 
                 //création d'une connexion JDBC à la base
-                this.conn = DriverManager.getConnection(urlDatabase, user, passwd);
+                ConnectionEce.conn = DriverManager.getConnection(urlDatabase, user, passwd);
                 
                 System.out.println("Connexion fonctionel !");
                 this.requeteactive=false;
@@ -67,9 +67,10 @@ public class ConnectionEce {
     
     public void Selectiontest (String requete) throws SQLException{
         // création d'un ordre SQL (statement)
-                stmt = conn.createStatement();
+                ConnectionEce.stmt = ConnectionEce.conn.createStatement();
+                
                 //L'objet ResultSet contient le résultat de la requête SQL
-                rset = stmt.executeQuery(requete);
+                this.rset = ConnectionEce.stmt.executeQuery(requete);
                 //On récupère les MetaData
                 this.rsetMeta =this.rset.getMetaData();
                 this.requeteactive=true;
