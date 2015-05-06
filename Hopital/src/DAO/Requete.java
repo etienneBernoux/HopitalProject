@@ -216,11 +216,10 @@ public class Requete {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY
-            ).executeQuery("SELECT  employe.nom, employe.prenom, employe.numero" +
-                            " FROM docteur,employe" +
-                            " WHERE docteur.numero = employe.numero" +
-                            " AND employe.numero NOT IN (SELECT DISTINCT soigne.no_docteur FROM soigne)" +
-                            " ORDER BY employe.nom ASC"
+            ).executeQuery("SELECT DISTINCT employe.nom, employe.Prenom" +
+" FROM docteur JOIN employe ON docteur.numero = employe.numero JOIN soigne ON soigne.no_docteur = docteur.numero JOIN malade ON malade.numero = soigne.no_malade JOIN hospitalisation " +
+" WHERE docteur.numero NOT IN (SELECT soigne.no_docteur FROM hospitalisation JOIN malade ON hospitalisation.no_malade = malade.numero JOIN soigne ON malade.numero = soigne.no_malade)" +
+" ORDER BY employe.nom DESC"
             );
             res=Fabrique(result);
 
