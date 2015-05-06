@@ -82,6 +82,151 @@ public class Requete {
 
         return res;
     }
+    
+    public ArrayList<ArrayList> Requete4() {
+        ArrayList<ArrayList> res = null;
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT DISTINCT hospitalisation.lit, chambre.no_chambre, malade.nom, malade.prenom, malade.mutuelle" +
+                            " FROM batiment, service, chambre, hospitalisation, malade" +
+                            " WHERE hospitalisation.no_chambre = chambre.no_chambre " +
+                            " AND chambre.code_service = service.code " +
+                            " AND batiment.lettre = service.batiment " +
+                            " AND hospitalisation.no_malade = malade.numero" +
+                            " AND malade.mutuelle LIKE 'MN%'" +
+                            " AND batiment.lettre = 'B' "
+            );
+            res=Fabrique(result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
+    public ArrayList<ArrayList> Requete5() {
+        ArrayList<ArrayList> res = null;
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT DISTINCT service.code, AVG( infirmier.salaire ) " +
+                            " FROM service, infirmier" +
+                            " WHERE service.code = infirmier.code_service" +
+                            " GROUP BY code_service" +
+                            " LIMIT 0 , 100"
+            );
+            res=Fabrique(result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
+    public ArrayList<ArrayList> Requete6() {
+        ArrayList<ArrayList> res = null;
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT DISTINCT service.code, AVG(chambre.nb_lits)" +
+                            " FROM service, batiment, chambre" +
+                            " WHERE service.batiment = batiment.lettre" +
+                            " AND service.code = chambre.code_service" +
+                            " GROUP BY code_service "
+            );
+            res=Fabrique(result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
+    public ArrayList<ArrayList> Requete7() {
+        ArrayList<ArrayList> res = null;
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery(" "
+            );
+            res=Fabrique(result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
+    public ArrayList<ArrayList> Requete8() {
+        ArrayList<ArrayList> res = null;
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT A.nom," +
+                            " (SELECT COUNT(infirmier.rotation) " +
+                            " FROM infirmier,service " +
+                            " WHERE infirmier.code_service=service.code " +
+                            " AND A.code = infirmier.code_service)/" +
+                            " (SELECT COUNT(malade.nom) " +
+                            " FROM hospitalisation,malade " +
+                            " WHERE  malade.numero = hospitalisation.no_malade " +
+                            " AND hospitalisation.code_service = A.code)" +
+                            " FROM service A"
+            );
+            res=Fabrique(result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
+    public ArrayList<ArrayList> Requete9() {
+        ArrayList<ArrayList> res = null;
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT  employe.nom, employe.prenom, employe.numero" +
+                            " FROM docteur,employe" +
+                            " WHERE docteur.numero = employe.numero" +
+                            " AND employe.numero IN (SELECT DISTINCT soigne.no_docteur FROM soigne)" +
+                            " ORDER BY employe.nom ASC"
+            );
+            res=Fabrique(result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
+    public ArrayList<ArrayList> Requete10() {
+        ArrayList<ArrayList> res = null;
+        try {
+            ResultSet result = this.connect.createStatement(
+                    ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_READ_ONLY
+            ).executeQuery("SELECT  employe.nom, employe.prenom, employe.numero" +
+                            " FROM docteur,employe" +
+                            " WHERE docteur.numero = employe.numero" +
+                            " AND employe.numero NOT IN (SELECT DISTINCT soigne.no_docteur FROM soigne)" +
+                            " ORDER BY employe.nom ASC"
+            );
+            res=Fabrique(result);
+
+        } catch (SQLException ex) {
+            Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return res;
+    }
 
     public ArrayList<ArrayList> Fabrique(ResultSet result) {
         ArrayList<ArrayList> res = new ArrayList();

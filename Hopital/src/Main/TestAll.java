@@ -401,6 +401,70 @@ public class TestAll {
             }
             System.out.println("");
         }
+        //Test de requete 4
+        System.out.println("Requète 4:\n");
+        requetelist = requete.Requete4();
+        for (int i = 0; i < requetelist.size(); i++) {
+            for (int j = 0; j < requetelist.get(i).size(); j++) {
+                System.out.print(requetelist.get(i).get(j).toString() + "--");
+            }
+            System.out.println("");
+        }
+        //Test de requete 5
+        System.out.println("Requète 5:\n");
+        requetelist = requete.Requete5();
+        for (int i = 0; i < requetelist.size(); i++) {
+            for (int j = 0; j < requetelist.get(i).size(); j++) {
+                System.out.print(requetelist.get(i).get(j).toString() + "--");
+            }
+            System.out.println("");
+        }
+        //Test de requete 6
+        System.out.println("Requète 6:\n");
+        requetelist = requete.Requete6();
+        for (int i = 0; i < requetelist.size(); i++) {
+            for (int j = 0; j < requetelist.get(i).size(); j++) {
+                System.out.print(requetelist.get(i).get(j).toString() + "--");
+            }
+            System.out.println("");
+        }
+        //Test de requete 7
+        System.out.println("Requète 7:\n");
+        requetelist = requete.Requete7();
+        for (int i = 0; i < requetelist.size(); i++) {
+            for (int j = 0; j < requetelist.get(i).size(); j++) {
+                System.out.print(requetelist.get(i).get(j).toString() + "--");
+            }
+            System.out.println("");
+        }
+        //Test de requete 8
+        System.out.println("Requète 8:\n");
+        requetelist = requete.Requete8();
+        for (int i = 0; i < requetelist.size(); i++) {
+            for (int j = 0; j < requetelist.get(i).size(); j++) {
+                System.out.print(requetelist.get(i).get(j).toString() + "--");
+            }
+            System.out.println("");
+        }
+        //Test de requete 9
+        System.out.println("Requète 9:\n");
+        requetelist = requete.Requete9();
+        for (int i = 0; i < requetelist.size(); i++) {
+            for (int j = 0; j < requetelist.get(i).size(); j++) {
+                System.out.print(requetelist.get(i).get(j).toString() + "--");
+            }
+            System.out.println("");
+        }
+        //Test de requete 10
+        System.out.println("Requète 10:\n");
+        requetelist = requete.Requete10();
+        for (int i = 0; i < requetelist.size(); i++) {
+            for (int j = 0; j < requetelist.get(i).size(); j++) {
+                System.out.print(requetelist.get(i).get(j).toString() + "--");
+            }
+            System.out.println("");
+        }
+        
     }
 
     //Convertit en format pour sql
