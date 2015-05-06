@@ -31,7 +31,6 @@ public class ConnectionEce {
     
     public ConnectionEce(String usernameECE, String passwordECE, String loginDatabase, String passwordDatabase){
         
-    
         try {
 
             // chargement driver "com.mysql.jdbc.Driver"
@@ -59,22 +58,23 @@ public class ConnectionEce {
                 etat=false;
                 System.out.println("Erreur de connection");
             }
-        
+            
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            System.out.println("erreur de connection");
+            System.out.println("Erreur de connection");
         }
     }
+    
     public void Selectiontest (String requete) throws SQLException{
         // création d'un ordre SQL (statement)
-                this.stmt = this.conn.createStatement();
-                
+                stmt = conn.createStatement();
                 //L'objet ResultSet contient le résultat de la requête SQL
-                this.rset = this.stmt.executeQuery(requete);
+                rset = stmt.executeQuery(requete);
                 //On récupère les MetaData
                 this.rsetMeta =this.rset.getMetaData();
                 this.requeteactive=true;
     }
+    
     public void affichageresultconsole() throws SQLException{
         if (!this.requeteactive)
         {
@@ -104,7 +104,7 @@ public class ConnectionEce {
     }
     public void fermerConnection() throws SQLException{
         this.conn.close();
-        System.out.println("connection fermé");
+        System.out.println("Connection fermée");
     }
     public static Connection getConn() {
         return conn;
