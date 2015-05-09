@@ -30,8 +30,6 @@ public class ConnectionEce {
     private boolean requeteactive;
     
     public ConnectionEce(String usernameECE, String passwordECE, String loginDatabase, String passwordDatabase){
-        
-    
         try {
 
             // chargement driver "com.mysql.jdbc.Driver"
@@ -52,17 +50,17 @@ public class ConnectionEce {
                 //création d'une connexion JDBC à la base
                 ConnectionEce.conn = DriverManager.getConnection(urlDatabase, user, passwd);
                 
-                System.out.println("Connexion fonctionel !");
+                System.out.println("Connexion fonctioNnelLE LOL !");
                 this.requeteactive=false;
             }
             else {
                 etat=false;
-                System.out.println("Erreur de connection");
+                System.out.println("Erreur de connection 1 ");
             }
         
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-            System.out.println("erreur de connection");
+            System.out.println("erreur de connection 2");
         }
     }
     public void Selectiontest (String requete) throws SQLException{

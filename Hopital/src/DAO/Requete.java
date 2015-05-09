@@ -179,7 +179,7 @@ public class Requete {
                             " (SELECT COUNT(malade.nom) " +
                             " FROM hospitalisation,malade " +
                             " WHERE  malade.numero = hospitalisation.no_malade " +
-                            " AND hospitalisation.code_service = A.code) AS NB_AVG-lit" +
+                            " AND hospitalisation.code_service = A.code) AS NB_AVG_lit" +
                             " FROM service A"
             );
             res=Fabrique(result);

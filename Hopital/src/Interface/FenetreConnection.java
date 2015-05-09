@@ -32,7 +32,7 @@ private ConnectionEce connexion1;
 //private JTextField ipText = new JTextField("Adresse IP du serveur", 15); // no properties private TextField portText = new TextField("Port",30);
     
     public FenetreConnection(ConnectionEce connection) {
-        connexion1 = new ConnectionEce("0","","","");
+        //connexion1 = new ConnectionEce("0","","","");
         //stocke les valeurs de la connection effectuée en amont
         //cette action est à mettre dans l'ActionPerformed au niveau du bouton
         connexion1= connection;
@@ -42,7 +42,8 @@ private ConnectionEce connexion1;
     
     //pour fermer la fenêtre en cliquant sur le bouton d’arret de la fenêtre
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-    this.setLocationRelativeTo(null);
+    
+    //this.setLocationRelativeTo(null);
     //Ajout des composants Swing dans une boite verticale 
     containerConnection.setBackground(Color.GREEN);
     Box b1 = Box.createVerticalBox();
@@ -64,8 +65,8 @@ private ConnectionEce connexion1;
     this.launchButton.addActionListener(this); 
     //Mise en place globale
     this.setContentPane(containerConnection);
-    setResizable(true); 
-    setAlwaysOnTop(true); 
+    setResizable(false); 
+    setAlwaysOnTop(true);
     this.setVisible(true);
     } 
     
@@ -75,9 +76,10 @@ private ConnectionEce connexion1;
                        //try{ 
    //FenetrePrincipale nouvelleFenPrin = new FenetrePrincipale(idECEConnection.getText(),mdpECEConnection.getText(),idSQLConnection.getText(),mdpSQLConnection.getText());
                        //PanelPrin test2 = new PanelPrin();
-                     PanelRequete Pan1 = new PanelRequete(connexion1);
+                     PanelMajFinal Pan1 = new PanelMajFinal(connexion1);
                       this.setContentPane(Pan1);
-                      this.setSize(800,600);
+                      this.setSize(1250,795);
+                      setAlwaysOnTop(false);
                      // TableauModel test = new TableauModel();
                      //containerConnection.add(test);
                       

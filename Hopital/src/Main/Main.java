@@ -43,8 +43,8 @@ public class Main {
         test.testdelete();
         test.testRequete();
         //On ferme la connection
-        connection.fermerConnection();
-        System.exit(0);
+        //connection.fermerConnection();
+        //System.exit(0);
              
     }
     
