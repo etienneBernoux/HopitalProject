@@ -34,7 +34,7 @@ import Interface.PanelConnection;
 import Interface.PanelMain;
 import Interface.PanelMajFinal;
 import Interface.PanelReporting;
-import Interface.PanelRequete_Paul;
+import Interface.PanelRequete_Auguste;
 import Interface.ReadMeConnection;
 
 /**

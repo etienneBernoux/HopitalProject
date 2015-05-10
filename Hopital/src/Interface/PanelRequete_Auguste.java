@@ -27,7 +27,7 @@ import javax.swing.table.TableModel;
  *
  * @author travail
  */
-public class PanelRequete_Paul extends javax.swing.JPanel {
+public class PanelRequete_Auguste extends javax.swing.JPanel {
 
     private String requeteChoisie = "0";
     private final ConnectionEce conn1;//= new ConnectionEce("0","","",""); //erreur
@@ -38,7 +38,7 @@ public class PanelRequete_Paul extends javax.swing.JPanel {
     
     private final EmployeDAO retourEmployeAll = new EmployeDAO(ConnectionEce.getConn());
     
-    public PanelRequete_Paul(ConnectionEce connIN) {
+    public PanelRequete_Auguste(ConnectionEce connIN) {
         initComponents();
         conn1 = connIN; 
     }
