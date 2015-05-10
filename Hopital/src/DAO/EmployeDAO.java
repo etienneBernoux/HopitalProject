@@ -48,7 +48,6 @@ public class EmployeDAO extends DAO<Employe> {
             Logger.getLogger(MaladeDAO.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-
         return true;
     }
 
@@ -125,7 +124,7 @@ public class EmployeDAO extends DAO<Employe> {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY
-            ).executeQuery("SELECT * FROM employe "  
+            ).executeQuery("SELECT * FROM employe ORDER BY numero  "  //modification ici pour l'affichage
             );
             if (result.first()) {
                 list.add(new Employe(result.getString("employe.nom"), result.getString("employe.prenom"), result.getString("employe.tel"), result.getString("employe.adresse"), result.getInt("numero")));
@@ -140,5 +139,4 @@ public class EmployeDAO extends DAO<Employe> {
         }
         return (list);
     }
-
 }

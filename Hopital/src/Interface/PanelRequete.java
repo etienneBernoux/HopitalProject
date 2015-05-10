@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 /**
  *
  * @author travail
@@ -33,6 +34,7 @@ public class PanelRequete extends javax.swing.JPanel {
     private ArrayList tabVal = new ArrayList();
     private Object MAJTableau[] ;
     private JTable leTableau = new JTable();
+    private DefaultTableModel modelTabGlobal = new DefaultTableModel();
     
     private EmployeDAO retourEmployeAll = new EmployeDAO(ConnectionEce.getConn());
     
@@ -50,14 +52,13 @@ public class PanelRequete extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jButton2 = new javax.swing.JButton();
-
-        jLabel1.setText("1 bouton lancement.");
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
 
         jButton1.setText("MAJ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -66,21 +67,40 @@ public class PanelRequete extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setText("Requetes 1 à 10, parmis celles du DAO dans la classe requête ");
+        jLabel2.setText("AFFICHAGE ET MISE A JOUR DE VOS DONNEES");
 
-        jLabel3.setText("Affiche le résultat de la requête dans le tableau");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Requête à choisir", "Requête 1", "Requête 2", "Requête 3", "Requête 4", "Requête 5", "Requête 6", "Requête 7", "Requête 8", "Requête 9", "Requête 10" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Table à afficher", "Batiment", "Chambre", "Docteur", "Employe", "Infirmier", "Hospitalisation", "Malade", "Service", "Soigne", "Requête 10" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Enregistrer");
+        jButton2.setText("Insérer");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Supprimer");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Aide");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setText("Indice");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
             }
         });
 
@@ -91,39 +111,41 @@ public class PanelRequete extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addGap(83, 83, 83)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(261, 261, 261)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
+                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addComponent(jLabel3))))
-                .addContainerGap(136, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addComponent(jLabel2)))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(5, 5, 5)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addContainerGap(354, Short.MAX_VALUE))
+                    .addComponent(jButton2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(392, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -143,16 +165,11 @@ public class PanelRequete extends javax.swing.JPanel {
         Il permettra de remplir un tableauModel de l'interface.
         arrayList length();
         */ 
-      //layout.add(new JScrollPane(jTable1));
-      
-    System.out.println("La requète choisie est "+ requeteChoisie);
+      //layout.add(new JScrollPane(jTable1));    
+    System.out.println("La table choisie est "+ requeteChoisie);
     
-    if("Requête 1".equals(requeteChoisie))//pour employé
-        {
-          //Test de sortie
-           // System.out.println("ON VA Y ARRIVER !!! 11111");
-            
- 
+    if("Employe".equals(requeteChoisie))//pour employé
+        {      
 //réception des valeurs de la table
             ArrayList<Employe> tabVal1 = retourEmployeAll.findall();
            //Test de sortie 
@@ -161,12 +178,13 @@ public class PanelRequete extends javax.swing.JPanel {
            String[] entetes = { "No employé","Nom", "Prénom", "Tel", "Adresse" };
            //mise en place du Model du tableau
            DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
+           //modification du model stocké
+           modelTabGlobal = tableModel;
            //allocation de MAJTableau=> stockage pour utilisation future
-           System.out.println("BOUUUU "+tabVal1.size());
+          // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
           
            MAJTableau = new Object[tabVal1.size()];
            
-         
            //remplissage des data => objectTab          
            for(int i = 0; i<tabVal1.size();i++)
            {
@@ -190,7 +208,7 @@ public class PanelRequete extends javax.swing.JPanel {
         scrollPane11.setBounds(50,180,1100,500);
        
         //Test de sortie
-        System.out.println("C'est le find all employé !!! BRAVO e3lik!");  
+        System.out.println("Test Find All Employe");  
         
         //Fermeture du connection =>  à mettre dans un bouton.
        /* try {
@@ -199,21 +217,20 @@ public class PanelRequete extends javax.swing.JPanel {
              } catch (SQLException ex) {
                 Logger.getLogger(PanelRequete.class.getName()).log(Level.SEVERE, null, ex);
                  }*/
-        
         tableModel.addTableModelListener( new TableModelListener(){
                 @Override
                 public void tableChanged(TableModelEvent e) {
                    // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    updateFonction();
+                    updateFonctionEmp();
                 }
        });
     }    
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    public void updateFonction()
+    public void updateFonctionEmp()
     {
         //créer l'objet Employe à envoyer pour l'update
-    Employe MAJEmployRecu = new Employe();  
+       Employe MAJEmployRecu = new Employe();  
        //regarde là où l'utilisateur effectue la modification dans le tableau
        int ligne = leTableau.getSelectedRow();//Si tu veut la cellule selectionnée, sinon une autre valeur
        int colonne = leTableau.getSelectedColumn();//Si tu veut la cellule selectionnée, sinon une autre valeur
@@ -223,7 +240,6 @@ public class PanelRequete extends javax.swing.JPanel {
        
     //enregistre les informations de l'employe de la ligne où l'utilisateur  
     //effectue des modifications
-
        int curNo = (Integer)leTableau.getValueAt(ligne,0); //d'abord le N°
        MAJEmployRecu.setNo_employe(curNo);
        //puis les autres attributs String
@@ -256,18 +272,51 @@ public class PanelRequete extends javax.swing.JPanel {
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
   //Mise à jour en direct des modifications du tableau => dans la base de données, via EmployeeDAO update
-      
-        
-        
-        
+  //Noter que l'update ne sera validée que si les conditions de la methode update dans DAO sont respectées     
+        int lenghtEntete = modelTabGlobal.getColumnCount();
+        Object newRow[]= new Object[lenghtEntete];
+      for(int i =0; i<lenghtEntete;i++)
+          newRow[i] = "data";
+        modelTabGlobal.addRow(newRow);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // SUPPRESSION :=> basée sur le N° de la valeur.
+        //attention=> irréversible.//il est préférable de Supprimer une ligne précedemment ajoutée
+       
+        int entreeLigneASupprimer= Integer.parseInt(jTextField1.getText());
+        int curNo;
+  
+       //On rempli l'object Employe à supprimer => seul le Numero_emp est utile
+       Employe EmployASuppr = new Employe(); 
+       EmployASuppr.setNo_employe(entreeLigneASupprimer); 
+       /*EmployASuppr.setNom(curVal);     EmployASuppr.setPrenom("Suppr");
+       EmployASuppr.setTel("Suppr"); EmployASuppr.setAdresse("Suppr");*/
+       //Test sur toutes les lignes
+       for(int i =0; i< modelTabGlobal.getRowCount();i++ )
+            {       
+                curNo = (Integer)leTableau.getValueAt(i,0);
+                if(curNo == entreeLigneASupprimer && retourEmployeAll.delete(EmployASuppr))
+                    modelTabGlobal.removeRow(entreeLigneASupprimer);
+            }          
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        //AIDE :=> ouvre une JFrame qui indique les actions possibles avec les bouttons et sur le tableau
+      ReadMeConnection aideUtil = new ReadMeConnection("MAJ");
+    }//GEN-LAST:event_jButton4ActionPerformed
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+       
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }

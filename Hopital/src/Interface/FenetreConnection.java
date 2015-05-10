@@ -75,30 +75,16 @@ private ConnectionEce connexion1;
 		  { 
                        //try{ 
    //FenetrePrincipale nouvelleFenPrin = new FenetrePrincipale(idECEConnection.getText(),mdpECEConnection.getText(),idSQLConnection.getText(),mdpSQLConnection.getText());
-                       //PanelPrin test2 = new PanelPrin();
                      PanelMajFinal Pan1 = new PanelMajFinal(connexion1);
                       this.setContentPane(Pan1);
                       this.setSize(1250,795);
                       setAlwaysOnTop(false);
-                     // TableauModel test = new TableauModel();
-                     //containerConnection.add(test);
-                      
-                       
-                       //} catch(IOException e1) //(SQLException e1) {
-			// TODO Auto-generated catch block
-			//e1.printStackTrace();
-		//	}
-                     // this.setVisible(true);
+                    
                   }
 		  else if((JButton)e.getSource()==readme)
 		  {
-                      try {
-                          FenetrePrincipale nouvelleFenPrin = new FenetrePrincipale("ebernoux","J@hab16AR"," ebernoux-rw","erWVgk63");
-                          
-                          //ReadMeConnection read = new ReadMeConnection();
-                      } catch (SQLException ex) {
-                          Logger.getLogger(FenetreConnection.class.getName()).log(Level.SEVERE, null, ex);
-                      }
+                      ReadMeConnection read = new ReadMeConnection("Connection");
+                      read.setVisible(true);
 		  }
     }
     

@@ -134,7 +134,7 @@ public class DocteurDAO extends DAO<Docteur> {
             ResultSet result = this.connect.createStatement(
                     ResultSet.TYPE_SCROLL_INSENSITIVE,
                     ResultSet.CONCUR_READ_ONLY
-            ).executeQuery("SELECT * FROM docteur"  
+            ).executeQuery("SELECT * FROM docteur ORDER BY numero"  
             );
             if (result.first()) {
                 Employe employe = empDAO.find(result.getInt("numero"));

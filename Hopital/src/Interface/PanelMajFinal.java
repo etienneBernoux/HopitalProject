@@ -5,13 +5,13 @@
  */
 package Interface;
 import javax.swing.*;
-import BBDspéc.Employe;
+import BBDspéc.*;
 import Connection.ConnectionEce;
 import Connection.*;
 import DAO.DAO;
 import DAO.EmployeDAO;
 import BBDspéc.Batiment;
-import DAO.Requete;
+import DAO.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 /**
  *
  * @author travail
@@ -31,10 +32,17 @@ public class PanelMajFinal extends javax.swing.JPanel {
     private String requeteChoisie = "0";
     private ConnectionEce conn1;//= new ConnectionEce("0","","",""); //erreur
     private ArrayList tabVal = new ArrayList();
+    
     private Object MAJTableau[] ;
     private JTable leTableau = new JTable();
+    private DefaultTableModel modelTabGlobal = new DefaultTableModel();
+    private JScrollPane scrollPane11 = new JScrollPane();
     
     private EmployeDAO retourEmployeAll = new EmployeDAO(ConnectionEce.getConn());
+    private DocteurDAO retourDocteurAll = new DocteurDAO(ConnectionEce.getConn());
+
+    boolean affTabEMp = false; //pour raffraichir le tableau
+    boolean affTabDoc = false;
     
     public PanelMajFinal(ConnectionEce connIN) {
         initComponents();
@@ -50,14 +58,13 @@ public class PanelMajFinal extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">                          
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
         jButton2 = new javax.swing.JButton();
-
-        jLabel1.setText("1 bouton lancement.");
+        jButton3 = new javax.swing.JButton();
+        jButton4 = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
 
         jButton1.setText("MAJ");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -66,21 +73,40 @@ public class PanelMajFinal extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setText("Requetes 1 à 10, parmis celles du DAO dans la classe requête ");
+        jLabel2.setText("AFFICHAGE ET MISE A JOUR DE VOS DONNEES");
 
-        jLabel3.setText("Affiche le résultat de la requête dans le tableau");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Requête à choisir", "Requête 1", "Requête 2", "Requête 3", "Requête 4", "Requête 5", "Requête 6", "Requête 7", "Requête 8", "Requête 9", "Requête 10" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Table à afficher", "Batiment", "Chambre", "Docteur", "Employe", "Infirmier", "Hospitalisation", "Malade", "Service", "Soigne", "Requête 10" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Enregistrer");
+        jButton2.setText("Insérer");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jButton3.setText("Supprimer");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
+
+        jButton4.setText("Aide");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+
+        jTextField1.setText("Indice");
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
             }
         });
 
@@ -91,183 +117,339 @@ public class PanelMajFinal extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(19, 19, 19)
+                        .addGap(83, 83, 83)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(261, 261, 261)
-                        .addComponent(jButton1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
+                        .addGap(33, 33, 33)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addComponent(jLabel3))))
-                .addContainerGap(136, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jButton1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton2))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(163, 163, 163)
+                        .addComponent(jLabel2)))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(5, 5, 5)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3)
-                .addContainerGap(354, Short.MAX_VALUE))
+                    .addComponent(jButton2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton3)
+                    .addComponent(jButton4)
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(392, Short.MAX_VALUE))
         );
     }// </editor-fold>                        
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {                                           
     requeteChoisie =  (String)jComboBox1.getSelectedItem(); 
-    
-    
-    //JScrollPane scrollPane = new JScrollPane(jTable1);
-
-    //Recupère le String de la requête choisie.
-// TODO add your handling code here:
     }                                          
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {                                         
     /*OBJECTIF:
       Selon la requête, remplir un ArrayList tabVal. 
-        Il permettra de remplir un tableauModel de l'interface.
-        arrayList length();
-        */ 
-      //layout.add(new JScrollPane(jTable1));
-      
-    System.out.println("La requète choisie est "+ requeteChoisie);
-    
-    if("Requête 1".equals(requeteChoisie))//pour employé
-        {
-          //Test de sortie
-           // System.out.println("ON VA Y ARRIVER !!! 11111");
+        Il permettra de remplir un tableauModel de l'interface.*/ 
+    System.out.println("La table choisie est "+ requeteChoisie);
+    switch(requeteChoisie){
+        case "Employe":
+        {     
+            //si le tableau n'a pas encore été défini
+          if(affTabEMp==false)
+          {//réception des valeurs de la table
+                    ArrayList<Employe> tabVal1 = retourEmployeAll.findall();
+                   //entetes du tableau
+                   String[] entetes = { "No employé","Nom", "Prénom", "Tel", "Adresse" };
+                   //mise en place du Model du tableau
+                   //DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
+                   //modification du model stocké
+                  modelTabGlobal.setColumnIdentifiers(entetes);
+                   //allocation de MAJTableau=> stockage pour utilisation future
+                  // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
+                   MAJTableau = new Object[tabVal1.size()];
+                   //remplissage des data => objectTab          
+                   for(int i = 0; i<tabVal1.size();i++)
+                   {
+                        Employe emp = new Employe();
+                        emp =(Employe) tabVal1.get(i);
+                        Object objectTab[]= { //objectTab permet de remplir le JTable
+                        emp.getNo_employe(),
+                        emp.getNom(),
+                        emp.getPrenom(),
+                        emp.getTel(),
+                        emp.getAdresse()
+                         };
+                       MAJTableau[i]=  objectTab; 
+                        modelTabGlobal.addRow(objectTab);
+                   }            
+                //modelTabGlobal = tableModel;
+                //permet de changer le model du tableau  
+                leTableau.setModel(modelTabGlobal);
+                //Ajout du scrollPane dans le JPanel
+                scrollPane11 = new JScrollPane(leTableau);
+                this.add(scrollPane11);  
+                scrollPane11.setBounds(50,180,1100,500);
+                //Test de sortie
+                System.out.println("Test Find All Employe Fin");  
+
+               
+               /* modelTabGlobal.addTableModelListener( new TableModelListener(){
+                        @Override
+                        public void tableChanged(TableModelEvent e) {
+                           // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            updateFonctionEmp();
+                        }
+                       });*/
+          //Le tableau a déjà été chargé une fois. on modifie le booléen de test pour pourvoir
+          //raffraichir le panel      
+                affTabEMp = true;
+                affTabDoc=false;
+          }  
+        }break;
+ /*****************************************           
+  *///////////////
+        case "Docteur":
+             {     
+            //si le tableau n'a pas encore été défini
+          if(affTabDoc==false)
+          {//réception des valeurs de la table
+                    ArrayList<Docteur> tabVal1 = retourDocteurAll.findall();
+                   //entetes du tableau
+                   // String Nom, String Prenom, String Tel, String Adresse, int no_employee,String specialite
+                   String[] entetes = { "No employé","Nom", "Prénom", "Tel", "Adresse","Specialite" }; //6
+                   //mise en place du Model du tableau
+                   DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
+                   //modification du model stocké
+                   //allocation de MAJTableau=> stockage pour utilisation future
+                  // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
+                   MAJTableau = new Object[tabVal1.size()];
+                   //remplissage des data => objectTab          
+                   for(int i = 0; i<tabVal1.size();i++)
+                   {
+                        Docteur emp = new Docteur();
+                        emp =(Docteur) tabVal1.get(i);
+                        Object objectTab[]= { //objectTab permet de remplir le JTable
+                        emp.getNo_employe(),
+                        emp.getNom(),
+                        emp.getPrenom(),
+                        emp.getTel(),
+                        emp.getAdresse(),
+                        emp.getSpecialite()
+                         };
+                       MAJTableau[i]=  objectTab; 
+                        tableModel.addRow(objectTab);
+                   }            
+                modelTabGlobal = tableModel;
+                //permet de changer le model du tableau  
+                leTableau.setModel(modelTabGlobal);
+                //Ajout du scrollPane dans le JPanel
+                scrollPane11 = new JScrollPane(leTableau);
+                this.add(scrollPane11);  
+                scrollPane11.setBounds(50,180,1100,500);
+                //Test de sortie
+                System.out.println("Test Find All Docteur Fin");  
+
+                //Fermeture du connection =>  à mettre dans un bouton.
+               /* try {
+                        conn1.fermerConnection();
+                        //C'est le cas, mais ils sont complètement dans le désordre. 
+                     } catch (SQLException ex) {
+                        Logger.getLogger(PanelRequete.class.getName()).log(Level.SEVERE, null, ex);
+                         }*/
+                
+          //Le tableau a déjà été chargé une fois. on modifie le booléen de test pour pourvoir
+          //raffraichir le panel      
+                affTabDoc = true;
+                affTabEMp = false;
+          }  
+        }break;  
+        case "Chambre":
+            affTabDoc = true;
+                affTabEMp = false;
+            break;
             
- 
-//réception des valeurs de la table
-            ArrayList<Employe> tabVal1 = retourEmployeAll.findall();
-           //Test de sortie 
-          // System.out.println("ON VA Y ARRIVER !!! 22222");
-           //entetes du tableau
-           String[] entetes = { "No employé","Nom", "Prénom", "Tel", "Adresse" };
-           //mise en place du Model du tableau
-           DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
-           //allocation de MAJTableau=> stockage pour utilisation future
-           System.out.println("BOUUUU "+tabVal1.size());
-          
-           MAJTableau = new Object[tabVal1.size()];
-           
-         
-           //remplissage des data => objectTab          
-           for(int i = 0; i<tabVal1.size();i++)
-           {
-                Employe emp = new Employe();
-                emp =(Employe) tabVal1.get(i);
-                Object objectTab[]= { //objectTab permet de remplir le JTable
-                emp.getNo_employe(),
-                emp.getNom(),
-                emp.getPrenom(),
-                emp.getTel(),
-                emp.getAdresse()
-                 };
-               MAJTableau[i]=  objectTab; 
-                tableModel.addRow(objectTab);
-           }              
-        //permet de changer le model du tableau  
-        leTableau.setModel(tableModel);
-        //Ajout du scrollPane dans le JPanel
-        JScrollPane scrollPane11 = new JScrollPane(leTableau);
-        this.add(scrollPane11);  
-        scrollPane11.setBounds(50,180,1100,500);
-       
-        //Test de sortie
-        System.out.println("C'est le find all employé !!! BRAVO e3lik!");  
-        
-        //Fermeture du connection =>  à mettre dans un bouton.
-       /* try {
-                conn1.fermerConnection();
-                //C'est le cas, mais ils sont complètement dans le désordre. 
-             } catch (SQLException ex) {
-                Logger.getLogger(PanelRequete.class.getName()).log(Level.SEVERE, null, ex);
-                 }*/
-        
-        tableModel.addTableModelListener( new TableModelListener(){
-                @Override
-                public void tableChanged(TableModelEvent e) {
-                   // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                    updateFonction();
-                }
-       });
-    }    
-    }                                        
-
-    public void updateFonction()
-    {
-        //créer l'objet Employe à envoyer pour l'update
-    Employe MAJEmployRecu = new Employe();  
-       //regarde là où l'utilisateur effectue la modification dans le tableau
-       int ligne = leTableau.getSelectedRow();//Si tu veut la cellule selectionnée, sinon une autre valeur
-       int colonne = leTableau.getSelectedColumn();//Si tu veut la cellule selectionnée, sinon une autre valeur
-       Object cellule = leTableau.getValueAt(ligne,colonne);
-       String currentVal = (String)cellule;
-       //"No employé","Nom", "Prénom", "Tel", "Adresse":=> 5 colonnes
-       
-    //enregistre les informations de l'employe de la ligne où l'utilisateur  
-    //effectue des modifications
-
-       int curNo = (Integer)leTableau.getValueAt(ligne,0); //d'abord le N°
-       MAJEmployRecu.setNo_employe(curNo);
-       //puis les autres attributs String
-       for(int i=1; i<5;i++)
-       { 
-           String curVal= (String)leTableau.getValueAt(ligne,i);
-           switch(i)
-           {
-           case 1: MAJEmployRecu.setNom(curVal);    break;
-           case 2: MAJEmployRecu.setPrenom(curVal); break;
-           case 3: MAJEmployRecu.setTel(curVal);    break;
-           case 4: MAJEmployRecu.setAdresse(curVal);break;
-           default : break;
-            }  
-       }
-       //le programme regarde dans quelle colonne est effectuée la modification
-       //en fonction, il détermine quel attribut a changé
-       //et l'enregistre dans l'employé correspondant
-       switch(colonne){
-           case 0: MAJEmployRecu.setNo_employe(Integer.parseInt(currentVal));break;
-           case 1: MAJEmployRecu.setNom(currentVal);    break;
-           case 2: MAJEmployRecu.setPrenom(currentVal); break;
-           case 3: MAJEmployRecu.setTel(currentVal);    break;
-           case 4: MAJEmployRecu.setAdresse(currentVal);break;
-           default : break;       
-       }
-      //l'instance modifiée de la classe Employé et ensuite envoyée pour update
-       retourEmployeAll.update(MAJEmployRecu);
     }
+    modelTabGlobal.addTableModelListener( new TableModelListener(){
+                        @Override
+                        public void tableChanged(TableModelEvent e) {
+                           // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                            updateFonctionEmp();
+                        }
+                       });
+}
+
+    public void updateFonctionEmp ()
+    {
+        switch(requeteChoisie){
+        
+        case "Employe":
+            {     
+            //créer l'objet Employe à envoyer pour l'update
+           Employe MAJEmployRecu = new Employe();  
+           //regarde là où l'utilisateur effectue la modification dans le tableau
+           int ligne = leTableau.getSelectedRow();//Si tu veut la cellule selectionnée, sinon une autre valeur
+           int colonne = leTableau.getSelectedColumn();//Si tu veut la cellule selectionnée, sinon une autre valeur
+           Object cellule = leTableau.getValueAt(ligne,colonne);
+           String currentVal = (String)cellule;
+           //"No employé","Nom", "Prénom", "Tel", "Adresse":=> 5 colonnes
+        //enregistre les informations de l'employe de la ligne où l'utilisateur  
+        //effectue des modifications
+           int curNo = (Integer)leTableau.getValueAt(ligne,0); //d'abord le N°
+           MAJEmployRecu.setNo_employe(curNo);
+           //puis les autres attributs String
+           for(int i=1; i<5;i++)
+           { 
+               String curVal= (String)leTableau.getValueAt(ligne,i);
+               switch(i)
+               {
+               case 1: MAJEmployRecu.setNom(curVal);    break;
+               case 2: MAJEmployRecu.setPrenom(curVal); break;
+               case 3: MAJEmployRecu.setTel(curVal);    break;
+               case 4: MAJEmployRecu.setAdresse(curVal);break;
+               default : break;
+                }  
+           }
+           //le programme regarde dans quelle colonne est effectuée la modification
+           //en fonction, il détermine quel attribut a changé
+           //et l'enregistre dans l'employé correspondant
+           switch(colonne){
+               case 0: MAJEmployRecu.setNo_employe(Integer.parseInt(currentVal));break;
+               case 1: MAJEmployRecu.setNom(currentVal);    break;
+               case 2: MAJEmployRecu.setPrenom(currentVal); break;
+               case 3: MAJEmployRecu.setTel(currentVal);    break;
+               case 4: MAJEmployRecu.setAdresse(currentVal);break;
+               default : break;       
+           }
+          //l'instance modifiée de la classe Employé et ensuite envoyée pour update
+           retourEmployeAll.update(MAJEmployRecu);
+        }break;
+        case "Docteur":
+            {     
+            //créer l'objet Employe à envoyer pour l'update
+           Docteur MAJEmployRecu = new Docteur();  
+           //regarde là où l'utilisateur effectue la modification dans le tableau
+           int ligne = leTableau.getSelectedRow();//Si tu veut la cellule selectionnée, sinon une autre valeur
+           int colonne = leTableau.getSelectedColumn();//Si tu veut la cellule selectionnée, sinon une autre valeur
+           Object cellule = leTableau.getValueAt(ligne,colonne);
+           String currentVal = (String)cellule;
+           //"No employé","Nom", "Prénom", "Tel", "Adresse":=> 5 colonnes
+
+        //enregistre les informations de l'employe de la ligne où l'utilisateur  
+        //effectue des modifications
+           int curNo = (Integer)leTableau.getValueAt(ligne,0); //d'abord le N°
+           MAJEmployRecu.setNo_employe(curNo);
+           //puis les autres attributs String
+           for(int i=1; i<6;i++)
+           { 
+               String curVal= (String)leTableau.getValueAt(ligne,i);
+               switch(i)
+               {
+               case 1: MAJEmployRecu.setNom(curVal);    break;
+               case 2: MAJEmployRecu.setPrenom(curVal); break;
+               case 3: MAJEmployRecu.setTel(curVal);    break;
+               case 4: MAJEmployRecu.setAdresse(curVal);break;
+               case 5: MAJEmployRecu.setSpecialite(curVal);break;
+               default : break;
+                }  
+           }
+           //le programme regarde dans quelle colonne est effectuée la modification
+           //en fonction, il détermine quel attribut a changé
+           //et l'enregistre dans l'employé correspondant
+           switch(colonne){
+               case 0: MAJEmployRecu.setNo_employe(Integer.parseInt(currentVal));break;
+               case 1: MAJEmployRecu.setNom(currentVal);    break;
+               case 2: MAJEmployRecu.setPrenom(currentVal); break;
+               case 3: MAJEmployRecu.setTel(currentVal);    break;
+               case 4: MAJEmployRecu.setAdresse(currentVal);break;
+               default : break;       
+           }
+          //l'instance modifiée de la classe Employé et ensuite envoyée pour update
+           retourEmployeAll.update(MAJEmployRecu);
+        }break;
+        default: ;    
+      }
+ }
     
+  //insertion  
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
-  //Mise à jour en direct des modifications du tableau => dans la base de données, via EmployeeDAO update
-      
-        
-        
-        
+  //insertion=> je donne automatiquement un N0 d'employe.
+  // ensuite c'est l'utilisateur qui l'update sur le tableau
+                 //int lenghtEntete = modelTabGlobal.getColumnCount();
+        //je récupère le N°employé maximal
+     int max= (Integer)leTableau.getValueAt(0,0);
+     for(int j =1; j< modelTabGlobal.getRowCount();j++ )
+      {
+          if(max < (Integer)leTableau.getValueAt(j,0))
+              max =(Integer)leTableau.getValueAt(j,0);
+      }    
+     //Je créé un object Employe avec son numéro := max+1
+     Employe nouvelEmploye = new Employe();
+     nouvelEmploye.setNo_employe(max+1);
+     nouvelEmploye.setNom("data"); nouvelEmploye.setPrenom("data");
+     nouvelEmploye.setAdresse("data");nouvelEmploye.setTel("data");  
+    //je créé  un tableau d'Objet pour le model du JTable 
+    Object newRow[]= { //objectTab permet de remplir le JTable
+                nouvelEmploye.getNo_employe(),
+                nouvelEmploye.getNom(),
+                nouvelEmploye.getPrenom(),
+                nouvelEmploye.getTel(),
+                nouvelEmploye.getAdresse()
+                 };
+    //si la création fonctionne := on ajoute la nouvelle ligne au modele
+      if(retourEmployeAll.create(nouvelEmploye))
+        modelTabGlobal.addRow(newRow);
     }                                        
+
+    //suppression
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        // SUPPRESSION :=> basée sur le N° de la valeur.
+        //attention=> irréversible.//il est préférable de Supprimer une ligne précedemment ajoutée
+        int entreeLigneASupprimer= Integer.parseInt(jTextField1.getText());
+        int curNo;
+       //On rempli l'object Employe à supprimer => seul le Numero_emp est utile
+       Employe EmployASuppr = new Employe(); 
+       EmployASuppr.setNo_employe(entreeLigneASupprimer); 
+       
+       //Test sur toutes les lignes
+       for(int i =0; i< modelTabGlobal.getRowCount();i++ )
+            {       
+                curNo = (Integer)leTableau.getValueAt(i,0);
+                System.out.println(curNo);
+                if(curNo == entreeLigneASupprimer)
+                    if(retourEmployeAll.delete(EmployASuppr))
+                    modelTabGlobal.removeRow(i);
+            }          
+    }                                        
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        //AIDE :=> ouvre une JFrame qui indique les actions possibles avec les bouttons et sur le tableau
+      ReadMeConnection aideUtil = new ReadMeConnection("MAJ");
+    }                                        
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {                                            
+       
+    }                                           
 
     // Variables declaration - do not modify                     
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
     private javax.swing.JComboBox jComboBox1;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JTextField jTextField1;
     // End of variables declaration                   
 }
