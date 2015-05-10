@@ -42,11 +42,19 @@ public class PanelMajFinal extends javax.swing.JPanel {
 
     private EmployeDAO retourEmployeAll = new EmployeDAO(ConnectionEce.getConn());
     private DocteurDAO retourDocteurAll = new DocteurDAO(ConnectionEce.getConn());
-    private ChambreDAO retourChambreAll = new ChambreDAO(ConnectionEce.getConn());
+    private InfirmierDAO retourInfirmierAll = new InfirmierDAO(ConnectionEce.getConn());
+    private MaladeDAO retourMaladeAll = new MaladeDAO(ConnectionEce.getConn());
 
-    boolean affTabEMp = false; //pour raffraichir le tableau
-    boolean affTabDoc = false;
-     boolean affTabCH = false;
+    private SoigneDAO retourSoigneAll = new SoigneDAO(ConnectionEce.getConn());
+
+    private ChambreDAO retourChambreAll = new ChambreDAO(ConnectionEce.getConn());
+    private BatimentDAO retourBatimentAll = new BatimentDAO(ConnectionEce.getConn());
+    private HospitalisationDAO retourHospitalisationAll = new HospitalisationDAO(ConnectionEce.getConn());
+    private ServiceDAO retourServiceAll = new ServiceDAO(ConnectionEce.getConn());
+
+    boolean affTabEMp = false, affTabDoc = false, affTablInf = false, affTabMal = false;
+    boolean affTabCH = false, affTabBat = false, affTabHosp = false;
+    boolean affTabSoi = false, affTabServ = false;
 
     public PanelMajFinal(ConnectionEce connIN) {
         initComponents();
@@ -83,7 +91,7 @@ public class PanelMajFinal extends javax.swing.JPanel {
 
         jLabel2.setText("AFFICHAGE ET MISE A JOUR DE VOS DONNEES");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Table à afficher", "Batiment", "Chambre", "Docteur", "Employe", "Infirmier", "Hospitalisation", "Malade", "Service", "Soigne", "Requête 10"}));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Table à afficher", "Batiment", "Chambre", "Docteur", "Employe", "Infirmier", "Hospitalisation", "Malade", "Service", "Soigne"}));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -172,7 +180,7 @@ public class PanelMajFinal extends javax.swing.JPanel {
          Selon la requête, remplir un ArrayList tabVal. 
          Il permettra de remplir un tableauModel de l'interface.*/
         System.out.println("La table choisie est " + requeteChoisie);
-    
+
         switch (requeteChoisie) {
             case "Employe": {
                 //si le tableau n'a pas encore été défini
@@ -180,15 +188,15 @@ public class PanelMajFinal extends javax.swing.JPanel {
                     ArrayList<Employe> tabVal1 = retourEmployeAll.findall();
                     //entetes du tableau
                     String[] entetes = {"No employé", "Nom", "Prénom", "Tel", "Adresse"};
-                   //mise en place du Model du tableau
+                    //mise en place du Model du tableau
                     //modification du model stocké
-                   DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
-                   //nécessaire sinon les model s'ajoutent les uns après les autres.          
+                    DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
+                    //nécessaire sinon les model s'ajoutent les uns après les autres.          
                     //modification du model stocké
-                    modelTabGlobal =tableModel;
+                    modelTabGlobal = tableModel;
                     modelTabGlobal.setColumnIdentifiers(entetes);
                    //allocation de MAJTableau=> stockage pour utilisation future
-                   
+
                     MAJTableau = new Object[tabVal1.size()];
                     //remplissage des data => objectTab          
                     for (int i = 0; i < tabVal1.size(); i++) {
@@ -204,51 +212,46 @@ public class PanelMajFinal extends javax.swing.JPanel {
                         MAJTableau[i] = objectTab;
                         modelTabGlobal.addRow(objectTab);
                     }
-                //modelTabGlobal = tableModel;
+                    //modelTabGlobal = tableModel;
                     //permet de changer le model du tableau  
                     leTableau.setModel(modelTabGlobal);
-                //Ajout du scrollPane dans le JPanel
-                /*scrollPane11 = new JScrollPane(leTableau);
-                     this.add(scrollPane11);  
-                     scrollPane11.setBounds(50,180,1100,500);*/
+
                     //Test de sortie
                     System.out.println("Test Find All Employe Fin");
 
-                    /* modelTabGlobal.addTableModelListener( new TableModelListener(){
-                     @Override
-                     public void tableChanged(TableModelEvent e) {
-                     // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                     updateFonctionEmp();
-                     }
-                     });*/
-          //Le tableau a déjà été chargé une fois. on modifie le booléen de test pour pourvoir
+                    //Le tableau a déjà été chargé une fois. on modifie le booléen de test pour pourvoir
                     //raffraichir le panel      
                     affTabEMp = true;
                     affTabDoc = false;
+                    affTablInf = false;
+                    affTabMal = false;
                     affTabCH = false;
+                    affTabBat = false;
+                    affTabHosp = false;
+                    affTabSoi = false;
+                    affTabServ = false;
                 }
             }
             break;
             /**
-             * ***************************************
+             * ******************************************************************************
              *///////////////
             case "Docteur": {
                 //si le tableau n'a pas encore été défini
                 if (affTabDoc == false) {//réception des valeurs de la table
-                    
+
                     //réception des valeurs de la table
-                    
                     ArrayList<Docteur> tabVal1 = retourDocteurAll.findall();
                     //entetes du tableau
                     String[] entetes = {"No employé", "Nom", "Prénom", "Tel", "Adresse", "Specialite"};
-                   //mise en place du Model du tableau
+                    //mise en place du Model du tableau
                     DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
                     //modification du model stocké
-                    modelTabGlobal =tableModel;
+                    modelTabGlobal = tableModel;
                     modelTabGlobal.setColumnIdentifiers(entetes);
                    //allocation de MAJTableau=> stockage pour utilisation future
                     // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
-                    
+
                     MAJTableau = new Object[tabVal1.size()];
                     //remplissage des data => objectTab          
                     for (int i = 0; i < tabVal1.size(); i++) {
@@ -265,22 +268,29 @@ public class PanelMajFinal extends javax.swing.JPanel {
                         MAJTableau[i] = objectTab;
                         modelTabGlobal.addRow(objectTab);
                     }
-                //modelTabGlobal = tableModel;
                     //permet de changer le model du tableau  
                     leTableau.setModel(modelTabGlobal);
 
 //Test de sortie
                     System.out.println("Test Find All Docteur Fin");
 
-           
-          //Le tableau a déjà été chargé une fois. on modifie le booléen de test pour pourvoir
+                    //Le tableau a déjà été chargé une fois. on modifie le booléen de test pour pourvoir
                     //raffraichir le panel      
-                    affTabDoc = true;
                     affTabEMp = false;
+                    affTabDoc = true;
+                    affTablInf = false;
+                    affTabMal = false;
                     affTabCH = false;
+                    affTabBat = false;
+                    affTabHosp = false;
+                    affTabSoi = false;
+                    affTabServ = false;
                 }
             }
             break;
+            /**
+             *******************************************************************************
+             *///////////////                
             case "Chambre":
                 //si le tableau n'a pas encore été défini
                 if (affTabCH == false) {//réception des valeurs de la table
@@ -288,12 +298,12 @@ public class PanelMajFinal extends javax.swing.JPanel {
                     ArrayList<Chambre> tabVal1 = retourChambreAll.findall();
                     //entetes du tableau
                     String[] entetes = {"Code Service", "N. Chambre", "Nn_lits", "Surveillant"};
-                   //mise en place du Model du tableau
+                    //mise en place du Model du tableau
                     DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
                     //modification du model stocké
-                    modelTabGlobal =tableModel;                    //modification du model stocké
+                    modelTabGlobal = tableModel;                    //modification du model stocké
                     modelTabGlobal.setColumnIdentifiers(entetes);
-                   //allocation de MAJTableau=> stockage pour utilisation future
+                    //allocation de MAJTableau=> stockage pour utilisation future
                     // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
                     MAJTableau = new Object[tabVal1.size()];
                     //remplissage des data => objectTab          
@@ -304,41 +314,343 @@ public class PanelMajFinal extends javax.swing.JPanel {
                             emp.getCode_service(),
                             emp.getNo_chambre(),
                             emp.getNb_lits(),
-                            emp.getSurveillant(),
-                        };
+                            emp.getSurveillant(),};
 //String code_service, int no_chambre, int surveillant, int nb_lits
 
                         MAJTableau[i] = objectTab;
                         modelTabGlobal.addRow(objectTab);
                     }
-                //modelTabGlobal = tableModel;
+                    //modelTabGlobal = tableModel;
                     //permet de changer le model du tableau  
                     leTableau.setModel(modelTabGlobal);
 
 //Test de sortie
                     System.out.println("Test Find All Chambre Fin");
-                affTabDoc = false;
-                affTabEMp = false;
-                affTabCH = true; 
-                break;
-        }
-        /*il y avait un problème lié au rappel (deuxième tour du switch). 
-         La création d'une autre table lançait un update qui la contrecarrait.*/
-         
-        modelTabGlobal.addTableModelListener(new TableModelListener() {
-            @Override
-            public void tableChanged(TableModelEvent e) {
-           // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                //si l'événement est bien une update et si ce n'est pas l'update de l en tete
+                    affTabEMp = false;
+                    affTabDoc = false;
+                    affTablInf = false;
+                    affTabMal = false;
+                    affTabCH = true;
+                    affTabBat = false;
+                    affTabHosp = false;
+                    affTabSoi = false;
+                    affTabServ = false;
 
-                if (e.getType() == TableModelEvent.UPDATE && e.getFirstRow() != TableModelEvent.HEADER_ROW) {
-                    updateFonctionEmp(); //alors on lance l'update.
                 }
-            }
-        });
-    } 
-      
-}
+                break;
+            /**
+             * ******************************************************************************
+             *///////////////                
+            case "Batiment":
+                if (affTabBat == false) {//réception des valeurs de la table
+                    //réception des valeurs de la table
+                    ArrayList<Batiment> tabVal1 = retourBatimentAll.findall();
+                    //entetes du tableau : "lettre" , "nom";
+                    String[] entetes = {"lettre", "nom"};
+                    //mise en place du Model du tableau
+                    DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
+                    //modification du model stocké
+                    modelTabGlobal = tableModel;                    //modification du model stocké
+                    modelTabGlobal.setColumnIdentifiers(entetes);
+                    //allocation de MAJTableau=> stockage pour utilisation future
+                    // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
+                    MAJTableau = new Object[tabVal1.size()];
+                    //remplissage des data => objectTab          
+                    for (int i = 0; i < tabVal1.size(); i++) {
+                        Batiment emp = new Batiment();
+                        emp = (Batiment) tabVal1.get(i);
+                        Object objectTab[] = { //objectTab permet de remplir le JTable
+                            emp.getLettre(),
+                            emp.getNom(),};
+//String code_service, int no_chambre, int surveillant, int nb_lits
+
+                        MAJTableau[i] = objectTab;
+                        modelTabGlobal.addRow(objectTab);
+                    }
+                    //modelTabGlobal = tableModel;
+                    //permet de changer le model du tableau  
+                    leTableau.setModel(modelTabGlobal);
+
+//Test de sortie
+                    System.out.println("Test Find All Batiment Fin");
+                    affTabEMp = false;
+                    affTabDoc = false;
+                    affTablInf = false;
+                    affTabMal = false;
+                    affTabCH = false;
+                    affTabBat = true;
+                    affTabHosp = false;
+                    affTabSoi = false;
+                    affTabServ = false;
+
+                }
+                break;
+            /**
+             * ******************************************************************************
+             *///////////////              
+            case "Infirmier":
+                if (affTablInf == false) {//réception des valeurs de la table
+                    //réception des valeurs de la table
+                    ArrayList<Infirmier> tabVal1 = retourInfirmierAll.findall();
+                    //entetes du tableau
+// "code_service", "no_employe","rotation", "salaire", "Nom", "Prenom", "Tel", "Adresse",
+                    String[] entetes = {"code_service", "no_employe", "rotation", "salaire", "Nom", "Prenom", "Tel", "Adresse"};
+                    //mise en place du Model du tableau
+                    DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
+                    //modification du model stocké
+                    modelTabGlobal = tableModel;                    //modification du model stocké
+                    modelTabGlobal.setColumnIdentifiers(entetes);
+                    //allocation de MAJTableau=> stockage pour utilisation future
+                    // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
+                    MAJTableau = new Object[tabVal1.size()];
+                    //remplissage des data => objectTab          
+                    for (int i = 0; i < tabVal1.size(); i++) {
+                        Infirmier emp = new Infirmier();
+                        emp = (Infirmier) tabVal1.get(i);
+                        Object objectTab[] = { //objectTab permet de remplir le JTable
+                            emp.getCode_service(),
+                            emp.getNo_employe(),
+                            emp.getRotation(),
+                            emp.getSalaire(),
+                            emp.getNom(),
+                            emp.getPrenom(),
+                            emp.getTel(),
+                            emp.getAdresse(),};
+//String code_service, int no_chambre, int surveillant, int nb_lits
+
+                        MAJTableau[i] = objectTab;
+                        modelTabGlobal.addRow(objectTab);
+                    }
+                    //modelTabGlobal = tableModel;
+                    //permet de changer le model du tableau  
+                    leTableau.setModel(modelTabGlobal);
+//Test de sortie
+                    System.out.println("Test Find All Infirmier Fin");
+                    affTabEMp = false;
+                    affTabDoc = false;
+                    affTablInf = true;
+                    affTabMal = false;
+                    affTabCH = false;
+                    affTabBat = false;
+                    affTabHosp = false;
+                    affTabSoi = false;
+                    affTabServ = false;
+                    /**
+                     * ******************************************************************************
+                     *///////////////                 
+                }
+                break;
+            case "Hospitalisation":
+                if (affTabHosp == false) {//réception des valeurs de la table
+                    //réception des valeurs de la table
+                    ArrayList<Hospitalisation> tabVal1 = retourHospitalisationAll.findall();
+//entetes du tableau  "num_malade", "code_service", "num_chambre", "no_lit"
+                    String[] entetes = {"Code Service", "N. Chambre", "N. lit", "num_malade"};
+                    //mise en place du Model du tableau
+                    DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
+                    //modification du model stocké
+                    modelTabGlobal = tableModel;                    //modification du model stocké
+                    modelTabGlobal.setColumnIdentifiers(entetes);
+                    //allocation de MAJTableau=> stockage pour utilisation future
+                    // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
+                    MAJTableau = new Object[tabVal1.size()];
+                    //remplissage des data => objectTab          
+                    for (int i = 0; i < tabVal1.size(); i++) {
+                        Hospitalisation emp = new Hospitalisation();
+                        emp = (Hospitalisation) tabVal1.get(i);
+                        Object objectTab[] = { //objectTab permet de remplir le JTable
+                            emp.getCode_service(),
+                            emp.getNum_chambre(),
+                            emp.getNo_lit(),
+                            emp.getNum_malade(),};
+//String code_service, int no_chambre, int surveillant, int nb_lits
+
+                        MAJTableau[i] = objectTab;
+                        modelTabGlobal.addRow(objectTab);
+                    }
+                    //modelTabGlobal = tableModel;
+                    //permet de changer le model du tableau  
+                    leTableau.setModel(modelTabGlobal);
+
+//Test de sortie
+                    System.out.println("Test Find All Hospitalisation Fin");
+                    affTabEMp = false;
+                    affTabDoc = false;
+                    affTablInf = false;
+                    affTabMal = false;
+                    affTabCH = false;
+                    affTabBat = false;
+                    affTabHosp = true;
+                    affTabSoi = false;
+                    affTabServ = false;
+
+                }
+                break;
+            /**
+             * ******************************************************************************
+             *///////////////               
+            case "Malade":
+                if (affTabMal == false) {//réception des valeurs de la table
+                    //réception des valeurs de la table
+                    ArrayList<Malade> tabVal1 = retourMaladeAll.findall();
+//entetes du tableau  "no_malade",  "mutuelle", "Nom", "Prenom", "Tel", "Adresse"
+                    String[] entetes = {"no_malade", "mutuelle", "Nom", "Prenom", "Tel", "Adresse"};
+                    //mise en place du Model du tableau
+                    DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
+                    //modification du model stocké
+                    modelTabGlobal = tableModel;                    //modification du model stocké
+                    modelTabGlobal.setColumnIdentifiers(entetes);
+                    //allocation de MAJTableau=> stockage pour utilisation future
+                    // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
+                    MAJTableau = new Object[tabVal1.size()];
+                    //remplissage des data => objectTab          
+                    for (int i = 0; i < tabVal1.size(); i++) {
+                        Malade emp = new Malade();
+                        emp = (Malade) tabVal1.get(i);
+                        Object objectTab[] = { //objectTab permet de remplir le JTable
+                            emp.getNo_malade(),
+                            emp.getMutuelle(),
+                            emp.getNom(),
+                            emp.getPrenom(),
+                            emp.getTel(),
+                            emp.getAdresse(),};
+//String code_service, int no_chambre, int surveillant, int nb_lits
+
+                        MAJTableau[i] = objectTab;
+                        modelTabGlobal.addRow(objectTab);
+                    }
+                    //modelTabGlobal = tableModel;
+                    //permet de changer le model du tableau  
+                    leTableau.setModel(modelTabGlobal);
+
+//Test de sortie
+                    System.out.println("Test Find All Chambre Fin");
+                    affTabEMp = false;
+                    affTabDoc = false;
+                    affTablInf = false;
+                    affTabMal = true;
+                    affTabCH = false;
+                    affTabBat = false;
+                    affTabHosp = false;
+                    affTabSoi = false;
+                    affTabServ = false;
+                }
+                break;
+            /**
+             * ******************************************************************************
+             *///////////////               
+            case "Service":
+                if (affTabServ == false) {//réception des valeurs de la table
+                    //réception des valeurs de la table
+                    ArrayList<Service> tabVal1 = retourServiceAll.findall();
+//entetes du tableau "code_service", "Nom", "Batiment", "N. Directeur"
+                    String[] entetes = {"Code_service", "Nom", "Batiment", "N. Directeur"};
+                    //mise en place du Model du tableau
+                    DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
+                    //modification du model stocké
+                    modelTabGlobal = tableModel;                    //modification du model stocké
+                    modelTabGlobal.setColumnIdentifiers(entetes);
+                    //allocation de MAJTableau=> stockage pour utilisation future
+                    // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
+                    MAJTableau = new Object[tabVal1.size()];
+                    //remplissage des data => objectTab          
+                    for (int i = 0; i < tabVal1.size(); i++) {
+                        Service emp = new Service();
+                        emp = (Service) tabVal1.get(i);
+                        Object objectTab[] = { //objectTab permet de remplir le JTable
+                            emp.getCode_service(),
+                            emp.getNom(),
+                            emp.getBatiment(),
+                            emp.getDirecteur(),};
+//String code_service, int no_chambre, int surveillant, int nb_lits
+
+                        MAJTableau[i] = objectTab;
+                        modelTabGlobal.addRow(objectTab);
+                    }
+                    //modelTabGlobal = tableModel;
+                    //permet de changer le model du tableau  
+                    leTableau.setModel(modelTabGlobal);
+
+//Test de sortie
+                    System.out.println("Test Find All Chambre Fin");
+                    affTabEMp = false;
+                    affTabDoc = false;
+                    affTablInf = false;
+                    affTabMal = false;
+                    affTabCH = false;
+                    affTabBat = false;
+                    affTabHosp = false;
+                    affTabSoi = false;
+                    affTabServ = true;
+
+                }
+                break;
+            /**
+             * ******************************************************************************
+             *///////////////               
+            case "Soigne":
+                if (affTabSoi == false) {//réception des valeurs de la table
+                    //réception des valeurs de la table
+                    ArrayList<Soigne> tabVal1 = retourSoigneAll.findall();
+//entetes du tableau "no_malade", "no_docteur", "maladie", "date_rdv", "fin_rdv"
+                    String[] entetes = {"no_malade", "no_docteur", "maladie", "date_rdv", "fin_rdv"};
+                    //mise en place du Model du tableau
+                    DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
+                    //modification du model stocké
+                    modelTabGlobal = tableModel;                    //modification du model stocké
+                    modelTabGlobal.setColumnIdentifiers(entetes);
+                    //allocation de MAJTableau=> stockage pour utilisation future
+                    // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
+                    MAJTableau = new Object[tabVal1.size()];
+                    //remplissage des data => objectTab          
+                    for (int i = 0; i < tabVal1.size(); i++) {
+                        Soigne emp = new Soigne();
+                        emp = (Soigne) tabVal1.get(i);
+                        Object objectTab[] = { //objectTab permet de remplir le JTable
+                            emp.getNo_malade(),
+                            emp.getNo_docteur(),
+                            emp.getMaladie(),
+                            emp.getDate_rdv(),
+                            emp.getFin_rdv(),};
+//String code_service, int no_chambre, int surveillant, int nb_lits
+
+                        MAJTableau[i] = objectTab;
+                        modelTabGlobal.addRow(objectTab);
+                    }
+                    //modelTabGlobal = tableModel;
+                    //permet de changer le model du tableau  
+                    leTableau.setModel(modelTabGlobal);
+
+//Test de sortie
+                    System.out.println("Test Find All Chambre Fin");
+                    affTabEMp = false;
+                    affTabDoc = false;
+                    affTablInf = false;
+                    affTabMal = false;
+                    affTabCH = false;
+                    affTabBat = false;
+                    affTabHosp = false;
+                    affTabSoi = true;
+                    affTabServ = false;
+
+                }
+
+                /*il y avait un problème lié au rappel (deuxième tour du switch). 
+                 La création d'une autre table lançait un update qui la contrecarrait.*/
+                modelTabGlobal.addTableModelListener(new TableModelListener() {
+                    @Override
+                    public void tableChanged(TableModelEvent e) {
+           // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                        //si l'événement est bien une update et si ce n'est pas l'update de l en tete
+
+                        if (e.getType() == TableModelEvent.UPDATE && e.getFirstRow() != TableModelEvent.HEADER_ROW) {
+                            updateFonctionEmp(); //alors on lance l'update.
+                        }
+                    }
+                });
+        }
+
+    }
 
     public void updateFonctionEmp() {
         switch (requeteChoisie) {
@@ -351,7 +663,7 @@ public class PanelMajFinal extends javax.swing.JPanel {
                 int colonne = leTableau.getSelectedColumn();//Si tu veut la cellule selectionnée, sinon une autre valeur
                 Object cellule = leTableau.getValueAt(ligne, colonne);
                 String currentVal = (String) cellule;
-           //"No employé","Nom", "Prénom", "Tel", "Adresse":=> 5 colonnes
+                //"No employé","Nom", "Prénom", "Tel", "Adresse":=> 5 colonnes
                 //enregistre les informations de l'employe de la ligne où l'utilisateur  
                 //effectue des modifications
                 int curNo = (Integer) leTableau.getValueAt(ligne, 0); //d'abord le N°
@@ -376,7 +688,7 @@ public class PanelMajFinal extends javax.swing.JPanel {
                             break;
                     }
                 }
-           //le programme regarde dans quelle colonne est effectuée la modification
+                //le programme regarde dans quelle colonne est effectuée la modification
                 //en fonction, il détermine quel attribut a changé
                 //et l'enregistre dans l'employé correspondant
                 switch (colonne) {
@@ -458,7 +770,7 @@ public class PanelMajFinal extends javax.swing.JPanel {
                 retourEmployeAll.update(MAJEmployRecu);
             }
             break;
-            case "Chambre":{
+            case "Chambre": {
                 //créer l'objet Employe à envoyer pour l'update
                 Chambre MAJEmployRecu = new Chambre();
                 //regarde là où l'utilisateur effectue la modification dans le tableau
@@ -466,8 +778,8 @@ public class PanelMajFinal extends javax.swing.JPanel {
                 int colonne = leTableau.getSelectedColumn();//Si tu veut la cellule selectionnée, sinon une autre valeur
                 Object cellule = leTableau.getValueAt(ligne, colonne);
                 String currentVal = (String) cellule;
-                int curNo = (Integer) leTableau.getValueAt(ligne, 0); 
-            //String code_service, int no_chambre, int surveillant, int nb_lits
+                int curNo = (Integer) leTableau.getValueAt(ligne, 0);
+                //String code_service, int no_chambre, int surveillant, int nb_lits
                 MAJEmployRecu.setNo_chambre(curNo);
                 //puis les autres attributs String
                 for (int i = 1; i < 4; i++) {
@@ -481,38 +793,37 @@ public class PanelMajFinal extends javax.swing.JPanel {
                             break;
                         case 3:
                             MAJEmployRecu.setCode_service(curVal);
-                            break;  
+                            break;
                         default:
                             break;
                     }
                 }
                 switch (colonne) {
-                    case 0:
+                    case 1:
                         MAJEmployRecu.setNo_chambre(Integer.parseInt(currentVal));
                         break;
-                    case 1:
-                            MAJEmployRecu.setNb_lits(Integer.parseInt(currentVal));
-                            break;
-                        case 2:
-                            MAJEmployRecu.setSurveillant(Integer.parseInt(currentVal));
-                            break;
-                        case 3:
-                            MAJEmployRecu.setCode_service(currentVal);
-                            break;  
-                        default:
-                            break;      
+                    case 2:
+                        MAJEmployRecu.setNb_lits(Integer.parseInt(currentVal));
+                        break;
+                    case 3:
+                        MAJEmployRecu.setSurveillant(Integer.parseInt(currentVal));
+                        break;
+                    case 0:
+                        MAJEmployRecu.setCode_service(currentVal);
+                        break;
+                    default:
+                        break;
                 }
                 //l'instance modifiée de la classe Employé et ensuite envoyée pour update
                 retourChambreAll.update(MAJEmployRecu);
             }
-                
             default: ;
         }
     }
 
     //insertion  
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {
-  //insertion=> je donne automatiquement un N0 d'employe.
+        //insertion=> je donne automatiquement un N0 d'employe.
         // ensuite c'est l'utilisateur qui l'update sur le tableau
         //int lenghtEntete = modelTabGlobal.getColumnCount();
         //je récupère le N°employé maximal

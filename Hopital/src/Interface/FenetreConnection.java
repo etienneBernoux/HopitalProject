@@ -79,7 +79,6 @@ private ConnectionEce connexion1;
                       this.setContentPane(Pan1);
                       this.setSize(1250,795);
                       setAlwaysOnTop(false);
-                    
                   }
 		  else if((JButton)e.getSource()==readme)
 		  {
