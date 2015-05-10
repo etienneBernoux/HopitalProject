@@ -1,5 +1,7 @@
 package Connection;
 
+//~--- non-JDK imports --------------------------------------------------------
+
 import com.jcraft.jsch.*;
 
 /**
@@ -10,36 +12,12 @@ import com.jcraft.jsch.*;
  * @author pieraggi
  */
 public class SSHTunnel {
-
-    private String firstHost = "gandalf.ece.fr";
-    private String secondHost = "sql-users.ece.fr";
-    private int firstHostPort = 22;
-    private int secondHostPort = 3305;
+    private String firstHost      = "gandalf.ece.fr";
+    private String secondHost     = "sql-users.ece.fr";
+    private int    firstHostPort  = 22;
+    private int    secondHostPort = 3305;
     private String username;
     private String password;
-
-    /* ************************
-     *       Constructors     *
-     ************************ */
-    /**
-     * Constructeur permettant la connexion à un serveur via un double tunnel
-     * SSH
-     *
-     * @param username Nom d'utilisateur ECE
-     * @param password Mot de passe ECE
-     * @param firstHost Premier hôte avec lequel il faut établir un tunnel SSH
-     * @param secondHost Second hôte avec lequel il faut établir un tunnel SSH
-     * @param firstHostPort Port utiliser pour se connecter au premier hôte
-     * @param secondHostPort Port utiliser pour se connecter au second hôte
-     */
-    public SSHTunnel(String username, String password, String firstHost, String secondHost, int firstHostPort, int secondHostPort) {
-        this.username = username;
-        this.password = password;
-        this.setFirstHost(firstHost);
-        this.setSecondHost(secondHost);
-        this.setFirstHostPort(firstHostPort);
-        this.setSecondHostPort(secondHostPort);
-    }
 
     /**
      * Constructeur permettant la connexion automatique au serveur de la base de
@@ -53,9 +31,35 @@ public class SSHTunnel {
         this.password = password;
     }
 
-    /* ************************
-     *         Methods        *
-     ************************ */
+    /*
+     *       Constructors
+     */
+
+    /**
+     * Constructeur permettant la connexion à un serveur via un double tunnel
+     * SSH
+     *
+     * @param username Nom d'utilisateur ECE
+     * @param password Mot de passe ECE
+     * @param firstHost Premier hôte avec lequel il faut établir un tunnel SSH
+     * @param secondHost Second hôte avec lequel il faut établir un tunnel SSH
+     * @param firstHostPort Port utiliser pour se connecter au premier hôte
+     * @param secondHostPort Port utiliser pour se connecter au second hôte
+     */
+    public SSHTunnel(String username, String password, String firstHost, String secondHost, int firstHostPort,
+                     int secondHostPort) {
+        this.username = username;
+        this.password = password;
+        this.setFirstHost(firstHost);
+        this.setSecondHost(secondHost);
+        this.setFirstHostPort(firstHostPort);
+        this.setSecondHostPort(secondHostPort);
+    }
+
+    /*
+     *         Methods
+     */
+
     /**
      * Tente de se connecter au serveur
      *
@@ -63,11 +67,12 @@ public class SSHTunnel {
      */
     @SuppressWarnings("CallToThreadDumpStack")
     public boolean connect() {
-
         try {
+
             // Initialise la connexion
-            JSch jsch = new JSch();
+            JSch    jsch    = new JSch();
             Session session = jsch.getSession(this.getUsername(), this.getFirstHost(), this.getFirstHostPort());
+
             // Automatiser la connexion (ne pas afficher d'interface pour rentrer les mots de passe)
             session.setUserInfo(new SilentUserInfo(this.password));
 
@@ -75,8 +80,10 @@ public class SSHTunnel {
             session.connect();
 
             // Etablissement du second tunnel SSH (port forwarding with option -L)
-            int port = session.setPortForwardingL(this.getSecondHostPort(), this.getSecondHost(), this.getSecondHostPort());
-            //System.out.println("SSH connexion successful : localhost -> "+this.getFirstHost()+":"+this.getFirstHostPort()+" -> "+" "+port+":"+this.getSecondHost()+":"+this.getSecondHostPort());
+            int port = session.setPortForwardingL(this.getSecondHostPort(), this.getSecondHost(),
+                           this.getSecondHostPort());
+
+            // System.out.println("SSH connexion successful : localhost -> "+this.getFirstHost()+":"+this.getFirstHostPort()+" -> "+" "+port+":"+this.getSecondHost()+":"+this.getSecondHostPort());
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -85,9 +92,9 @@ public class SSHTunnel {
         return false;
     }
 
-    /* ************************
-     *    Getters & Setters   *
-     ************************ */
+    /*
+     *    Getters & Setters
+     */
     public String getFirstHost() {
         return firstHost;
     }
@@ -124,16 +131,16 @@ public class SSHTunnel {
         return username;
     }
 
-    /* ************************
-     *      Private class     *
-     ************************ */
+    /*
+     *      Private class
+     */
+
     /**
      * Classe gérant l'interaction de l'utilisateur lors de la connexion. Elle
      * automatise la connexion en fournissant les informations de connexion sans
      * les demander à l'utilisateur
      */
     static class SilentUserInfo implements UserInfo, UIKeyboardInteractive {
-
         private String password;
 
         public SilentUserInfo(String password) {
@@ -166,16 +173,15 @@ public class SSHTunnel {
         }
 
         @Override
-        public void showMessage(String message) {
-        }
+        public void showMessage(String message) {}
 
         @Override
-        public String[] promptKeyboardInteractive(String destination,
-                String name,
-                String instruction,
-                String[] prompt,
+        public String[] promptKeyboardInteractive(String destination, String name, String instruction, String[] prompt,
                 boolean[] echo) {
             return null;
         }
     }
 }
+
+
+//~ Formatted by Jindent --- http://www.jindent.com

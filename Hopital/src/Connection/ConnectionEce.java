@@ -1,9 +1,12 @@
+
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+* To change this license header, choose License Headers in Project Properties.
+* To change this template file, choose Tools | Templates
+* and open the template in the editor.
  */
 package Connection;
+
+//~--- JDK imports ------------------------------------------------------------
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -17,19 +20,18 @@ import java.sql.Statement;
  * @author Etienne
  */
 public class ConnectionEce {
-    
-    ///Attribut lié à la connection
-    private static Connection conn;//connexion JDBC
-    private static Statement stmt;//Statement
-    
-    private ResultSet rset;//ordre requete
-    private ResultSetMetaData rsetMeta;//resultat requete
-    
-    ///Attribut de test
+
+    // /Attribut lié à la connection
+    private static Connection conn;        // connexion JDBC
+    private static Statement  stmt;        // Statement
+    private ResultSet         rset;        // ordre requete
+    private ResultSetMetaData rsetMeta;    // resultat requete
+
+    // /Attribut de test
     private boolean etat;
     private boolean requeteactive;
-    
-    public ConnectionEce(String usernameECE, String passwordECE, String loginDatabase, String passwordDatabase){
+
+    public ConnectionEce(String usernameECE, String passwordECE, String loginDatabase, String passwordDatabase) {
         try {
 
             // chargement driver "com.mysql.jdbc.Driver"
@@ -40,70 +42,74 @@ public class ConnectionEce {
             SSHTunnel ssh = new SSHTunnel("ebernoux", "J@hab16AR");
 
             if (ssh.connect()) {
-                this.etat=true;
+                this.etat = true;
                 System.out.println("Connexion reussie");
+
                 // url de connexion "jdbc:mysql://localhost:3305/usernameECE"
                 String urlDatabase = "jdbc:mysql://localhost:3305/" + "ebernoux";
-                String user = "ebernoux-rw";
-                String passwd = "erWVgk63";
+                String user        = "ebernoux-rw";
+                String passwd      = "erWVgk63";
 
-                //création d'une connexion JDBC à la base
+                // création d'une connexion JDBC à la base
                 ConnectionEce.conn = DriverManager.getConnection(urlDatabase, user, passwd);
-                
                 System.out.println("Connexion fonctioNnelLE LOL !");
-                this.requeteactive=false;
-            }
-            else {
-                etat=false;
+                this.requeteactive = false;
+            } else {
+                etat = false;
                 System.out.println("Erreur de connection 1 ");
             }
-        
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
             System.out.println("erreur de connection 2");
         }
     }
-    public void Selectiontest (String requete) throws SQLException{
+
+    public void Selectiontest(String requete) throws SQLException {
+
         // création d'un ordre SQL (statement)
-                ConnectionEce.stmt = ConnectionEce.conn.createStatement();
-                
-                //L'objet ResultSet contient le résultat de la requête SQL
-                this.rset = ConnectionEce.stmt.executeQuery(requete);
-                //On récupère les MetaData
-                this.rsetMeta =this.rset.getMetaData();
-                this.requeteactive=true;
+        ConnectionEce.stmt = ConnectionEce.conn.createStatement();
+
+        // L'objet ResultSet contient le résultat de la requête SQL
+        this.rset = ConnectionEce.stmt.executeQuery(requete);
+
+        // On récupère les MetaData
+        this.rsetMeta      = this.rset.getMetaData();
+        this.requeteactive = true;
     }
-    public void affichageresultconsole() throws SQLException{
-        if (!this.requeteactive)
-        {
+
+    public void affichageresultconsole() throws SQLException {
+        if (!this.requeteactive) {
             System.out.println("Pas de requète active");
+
             return;
         }
+
         System.out.println("\n**********************************");
-                //On affiche le nom des colonnes
-                for (int i = 1; i <= this.rsetMeta.getColumnCount(); i++) {
-                    System.out.print("\t" + this.rsetMeta.getColumnName(i).toUpperCase() + "\t *");
-                }
 
-                System.out.println("\n**********************************");
+        // On affiche le nom des colonnes
+        for (int i = 1; i <= this.rsetMeta.getColumnCount(); i++) {
+            System.out.print("\t" + this.rsetMeta.getColumnName(i).toUpperCase() + "\t *");
+        }
 
-                while (this.rset.next()) {
-                    for (int i = 1; i <= this.rsetMeta.getColumnCount(); i++) {
-                        System.out.print("\t" +this.rset.getObject(i).toString() + "\t |");
-                    }
+        System.out.println("\n**********************************");
 
-                    System.out.println("\n---------------------------------");
+        while (this.rset.next()) {
+            for (int i = 1; i <= this.rsetMeta.getColumnCount(); i++) {
+                System.out.print("\t" + this.rset.getObject(i).toString() + "\t |");
+            }
 
-                }
+            System.out.println("\n---------------------------------");
+        }
 
-                this.rset.close();
-                this.stmt.close();
-    
+        this.rset.close();
+        this.stmt.close();
     }
-    public void fermerConnection() throws SQLException{
+
+    public void fermerConnection() throws SQLException {
         this.conn.close();
         System.out.println("connection fermé");
     }
+
     public static Connection getConn() {
         return conn;
     }
@@ -153,3 +159,5 @@ public class ConnectionEce {
     }
 }
 
+
+//~ Formatted by Jindent --- http://www.jindent.com
