@@ -62,7 +62,7 @@ public class PanelMajFinal extends javax.swing.JPanel {
         //Ajout du scrollPane dans le JPanel
         scrollPane11 = new JScrollPane(leTableau);
         this.add(scrollPane11);
-        scrollPane11.setBounds(50, 180, 1100, 500);
+        scrollPane11.setBounds(0, 180, 800, 300);
     }
 
     /**
@@ -89,7 +89,7 @@ public class PanelMajFinal extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setText("AFFICHAGE ET MISE A JOUR DE VOS DONNEES");
+        jLabel2.setText("                                       ");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Table à afficher", "Batiment", "Chambre", "Docteur", "Employe", "Infirmier", "Hospitalisation", "Malade", "Service", "Soigne"}));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
@@ -212,10 +212,7 @@ public class PanelMajFinal extends javax.swing.JPanel {
                         MAJTableau[i] = objectTab;
                         modelTabGlobal.addRow(objectTab);
                     }
-                    //modelTabGlobal = tableModel;
-                    //permet de changer le model du tableau  
-                    leTableau.setModel(modelTabGlobal);
-
+                 
                     //Test de sortie
                     System.out.println("Test Find All Employe Fin");
 

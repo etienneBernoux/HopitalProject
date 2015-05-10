@@ -38,6 +38,7 @@ public class FenetreConnection extends JFrame implements ActionListener {
     private JTextField    idSQLConnection     = new JTextField("Identifiant SQL");
     private JTextField    mdpSQLConnection    = new JTextField("Mot de passe SQL");
     private ConnectionEce connexion1;
+    
 
 //  private JTextField ipText = new JTextField("Adresse IP du serveur", 15); // no properties private TextField portText = new TextField("Port",30);
     public FenetreConnection(ConnectionEce connection) {
@@ -65,19 +66,10 @@ public class FenetreConnection extends JFrame implements ActionListener {
         b1.add(launchButton);
         b1.add(readme);
         containerConnection.add(b1);
-
-        /*
-         *  container1.add(ipText);
-         * container1.add(port);
-         * container1.add(launchButton);
-         */
-
         // Bouton the “ReadMe” pour les instructions, aide pour l’utilisateur container1.add(readme);
         this.readme.addActionListener(this);    // Bouton de lancement
-
         // Action Listeners
         this.launchButton.addActionListener(this);
-
         // Mise en place globale
         this.setContentPane(containerConnection);
         setResizable(false);
@@ -87,22 +79,22 @@ public class FenetreConnection extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if ((JButton) e.getSource() == launchButton) {
-
             // try{
-            // FenetrePrincipale nouvelleFenPrin = new FenetrePrincipale(idECEConnection.getText(),mdpECEConnection.getText(),idSQLConnection.getText(),mdpSQLConnection.getText());
-            // PanelMajFinal Pan1 = new PanelMajFinal(connexion1);
-            PanelMain panelmain = new PanelMain();
-
-            this.setContentPane(panelmain);
-            this.setSize(1250, 795);
+            FenetrePrincipale nouvelleFenPrin = new FenetrePrincipale(connexion1);
             setAlwaysOnTop(false);
+            this.setVisible(false);
+            /*try {
+                connexion1.fermerConnection();
+            } catch (SQLException ex) {
+                Logger.getLogger(FenetreConnection.class.getName()).log(Level.SEVERE, null, ex);
+            }*/
+
         } else if ((JButton) e.getSource() == readme) {
             ReadMeConnection read = new ReadMeConnection("Connection");
-
             read.setVisible(true);
+            
         }
     }
 }
 
 
-//~ Formatted by Jindent --- http://www.jindent.com

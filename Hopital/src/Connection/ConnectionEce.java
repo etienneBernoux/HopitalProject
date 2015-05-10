@@ -33,7 +33,6 @@ public class ConnectionEce {
 
     public ConnectionEce(String usernameECE, String passwordECE, String loginDatabase, String passwordDatabase) {
         try {
-
             // chargement driver "com.mysql.jdbc.Driver"
             Class.forName("com.mysql.jdbc.Driver");
             System.out.println("Driver Ok !");
@@ -62,6 +61,13 @@ public class ConnectionEce {
             e.printStackTrace();
             System.out.println("erreur de connection 2");
         }
+    }
+    public ConnectionEce(ConnectionEce autreConn)
+    {
+    conn =  autreConn.getConn();      // connexion JDBC
+    stmt = autreConn.getStmt();        // Statement
+    rset = autreConn.getRset();       // ordre requete
+    rsetMeta = autreConn.getRsetMeta();
     }
 
     public void Selectiontest(String requete) throws SQLException {

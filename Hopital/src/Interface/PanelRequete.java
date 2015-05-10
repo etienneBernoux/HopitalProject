@@ -54,7 +54,6 @@ public class PanelRequete extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
 
@@ -79,15 +78,13 @@ public class PanelRequete extends javax.swing.JPanel {
             }
         });
         jTable1.addInputMethodListener(new java.awt.event.InputMethodListener() {
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
-            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 jTable1InputMethodTextChanged(evt);
             }
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
         });
         jScrollPane2.setViewportView(jTable1);
-
-        jLabel2.setText("Requetes 1 à 10, parmis celles du DAO dans la classe requête ");
 
         jLabel3.setText("Affiche le résultat de la requête dans le tableau");
 
@@ -101,9 +98,6 @@ public class PanelRequete extends javax.swing.JPanel {
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 586, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(jLabel2))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(257, 257, 257)
                         .addComponent(jButton1))
@@ -119,9 +113,7 @@ public class PanelRequete extends javax.swing.JPanel {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
-                .addGap(28, 28, 28)
+                .addGap(62, 62, 62)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -156,7 +148,6 @@ public class PanelRequete extends javax.swing.JPanel {
     private javax.swing.JButton jButton1;
     private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;
