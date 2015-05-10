@@ -260,5 +260,15 @@ public class Requete {
     public void setConnect(Connection connect) {
         this.connect = connect;
     }
+    public String[] ListOfQuery()
+    {
+        
+        String TabOfQuery[] = new String[]{"Requete 1","Requete 2","Requete 3"
+                ,"Requete 4","Requete 5","Requete 6","Requete 7","Requete 8"
+                ,"Requete 9","Requete 10" };
+        
+        
+        return TabOfQuery;
+    }
 
 }
