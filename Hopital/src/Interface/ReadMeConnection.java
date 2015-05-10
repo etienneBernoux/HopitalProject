@@ -28,7 +28,7 @@ public class ReadMeConnection extends JFrame implements ActionListener{
             switch(Entree){    
                 case "MAJ": 
                     text.setText("Voici comment utiliser cette fenêtre...");
-                text2.setText("En fait c'est très simple..");
+                text2.setText("ATTENTION ! La suppression est irreversible !");
                 text3.setText("Merci pour votre attention !");
                      break;
                 case "Connection": 
@@ -43,7 +43,7 @@ public class ReadMeConnection extends JFrame implements ActionListener{
                     break;
                 case "Requete":
                     text.setText("Voici comment utiliser cette fenêtre...");
-                    text2.setText("ATTENTION ! La suppression est irreversible !");
+                    text2.setText("En fait c'est très simple..");
                     text3.setText("Merci pour votre attention !");
                     break;
                 default: ;  
