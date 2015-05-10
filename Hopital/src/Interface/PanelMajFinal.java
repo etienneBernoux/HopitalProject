@@ -172,6 +172,7 @@ public class PanelMajFinal extends javax.swing.JPanel {
          Selon la requête, remplir un ArrayList tabVal. 
          Il permettra de remplir un tableauModel de l'interface.*/
         System.out.println("La table choisie est " + requeteChoisie);
+    
         switch (requeteChoisie) {
             case "Employe": {
                 //si le tableau n'a pas encore été défini
@@ -180,11 +181,14 @@ public class PanelMajFinal extends javax.swing.JPanel {
                     //entetes du tableau
                     String[] entetes = {"No employé", "Nom", "Prénom", "Tel", "Adresse"};
                    //mise en place du Model du tableau
-                    //DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
                     //modification du model stocké
+                   DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
+                   //nécessaire sinon les model s'ajoutent les uns après les autres.          
+                    //modification du model stocké
+                    modelTabGlobal =tableModel;
                     modelTabGlobal.setColumnIdentifiers(entetes);
                    //allocation de MAJTableau=> stockage pour utilisation future
-                    // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
+                   
                     MAJTableau = new Object[tabVal1.size()];
                     //remplissage des data => objectTab          
                     for (int i = 0; i < tabVal1.size(); i++) {
@@ -231,16 +235,20 @@ public class PanelMajFinal extends javax.swing.JPanel {
             case "Docteur": {
                 //si le tableau n'a pas encore été défini
                 if (affTabDoc == false) {//réception des valeurs de la table
+                    
                     //réception des valeurs de la table
+                    
                     ArrayList<Docteur> tabVal1 = retourDocteurAll.findall();
                     //entetes du tableau
                     String[] entetes = {"No employé", "Nom", "Prénom", "Tel", "Adresse", "Specialite"};
                    //mise en place du Model du tableau
-                    //DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
+                    DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
                     //modification du model stocké
+                    modelTabGlobal =tableModel;
                     modelTabGlobal.setColumnIdentifiers(entetes);
                    //allocation de MAJTableau=> stockage pour utilisation future
                     // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
+                    
                     MAJTableau = new Object[tabVal1.size()];
                     //remplissage des data => objectTab          
                     for (int i = 0; i < tabVal1.size(); i++) {
@@ -264,13 +272,7 @@ public class PanelMajFinal extends javax.swing.JPanel {
 //Test de sortie
                     System.out.println("Test Find All Docteur Fin");
 
-                //Fermeture du connection =>  à mettre dans un bouton.
-               /* try {
-                     conn1.fermerConnection();
-                     //C'est le cas, mais ils sont complètement dans le désordre. 
-                     } catch (SQLException ex) {
-                     Logger.getLogger(PanelRequete.class.getName()).log(Level.SEVERE, null, ex);
-                     }*/
+           
           //Le tableau a déjà été chargé une fois. on modifie le booléen de test pour pourvoir
                     //raffraichir le panel      
                     affTabDoc = true;
@@ -287,8 +289,9 @@ public class PanelMajFinal extends javax.swing.JPanel {
                     //entetes du tableau
                     String[] entetes = {"Code Service", "N. Chambre", "Nn_lits", "Surveillant"};
                    //mise en place du Model du tableau
-                    //DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
+                    DefaultTableModel tableModel = new DefaultTableModel(entetes, 0);
                     //modification du model stocké
+                    modelTabGlobal =tableModel;                    //modification du model stocké
                     modelTabGlobal.setColumnIdentifiers(entetes);
                    //allocation de MAJTableau=> stockage pour utilisation future
                     // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
@@ -320,8 +323,8 @@ public class PanelMajFinal extends javax.swing.JPanel {
                 break;
         }
         /*il y avait un problème lié au rappel (deuxième tour du switch). 
-         La création d'une autre table lançait un update qui la contrecarrait.
-         */
+         La création d'une autre table lançait un update qui la contrecarrait.*/
+         
         modelTabGlobal.addTableModelListener(new TableModelListener() {
             @Override
             public void tableChanged(TableModelEvent e) {
@@ -334,7 +337,7 @@ public class PanelMajFinal extends javax.swing.JPanel {
             }
         });
     } 
-        //modelTabGlobal.r
+      
 }
 
     public void updateFonctionEmp() {
