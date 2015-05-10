@@ -195,7 +195,7 @@ public class PanelMajFinal extends javax.swing.JPanel {
                     //modification du model stocké
                     modelTabGlobal = tableModel;
                     modelTabGlobal.setColumnIdentifiers(entetes);
-                   //allocation de MAJTableau=> stockage pour utilisation future
+                    //allocation de MAJTableau=> stockage pour utilisation future
 
                     MAJTableau = new Object[tabVal1.size()];
                     //remplissage des data => objectTab          
@@ -249,7 +249,7 @@ public class PanelMajFinal extends javax.swing.JPanel {
                     //modification du model stocké
                     modelTabGlobal = tableModel;
                     modelTabGlobal.setColumnIdentifiers(entetes);
-                   //allocation de MAJTableau=> stockage pour utilisation future
+                    //allocation de MAJTableau=> stockage pour utilisation future
                     // System.out.println(" "+tabVal1.size());//test pour la taille du tableau
 
                     MAJTableau = new Object[tabVal1.size()];
@@ -315,7 +315,6 @@ public class PanelMajFinal extends javax.swing.JPanel {
                             emp.getNo_chambre(),
                             emp.getNb_lits(),
                             emp.getSurveillant(),};
-//String code_service, int no_chambre, int surveillant, int nb_lits
 
                         MAJTableau[i] = objectTab;
                         modelTabGlobal.addRow(objectTab);
@@ -635,21 +634,22 @@ public class PanelMajFinal extends javax.swing.JPanel {
 
                 }
 
-                /*il y avait un problème lié au rappel (deuxième tour du switch). 
-                 La création d'une autre table lançait un update qui la contrecarrait.*/
-                modelTabGlobal.addTableModelListener(new TableModelListener() {
-                    @Override
-                    public void tableChanged(TableModelEvent e) {
-           // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                        //si l'événement est bien une update et si ce n'est pas l'update de l en tete
-
-                        if (e.getType() == TableModelEvent.UPDATE && e.getFirstRow() != TableModelEvent.HEADER_ROW) {
-                            updateFonctionEmp(); //alors on lance l'update.
-                        }
-                    }
-                });
+            /*il y avait un problème lié au rappel (deuxième tour du switch). 
+             La création d'une autre table lançait un update qui la contrecarrait.*/
         }
+        modelTabGlobal.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+           // throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                //si l'événement est bien une update et si ce n'est pas l'update de l en tete
 
+                if (e.getType() == TableModelEvent.UPDATE && e.getFirstRow() != TableModelEvent.HEADER_ROW) {
+                    updateFonctionEmp(); //alors on lance l'update.
+                } else if (e.getType() == TableModelEvent.UPDATE && "Chambre".equals(requeteChoisie)) {
+                    updateFonctionEmp(); //alors on lance l'update.
+                }
+            }
+        });
     }
 
     public void updateFonctionEmp() {
@@ -659,10 +659,9 @@ public class PanelMajFinal extends javax.swing.JPanel {
                 //créer l'objet Employe à envoyer pour l'update
                 Employe MAJEmployRecu = new Employe();
                 //regarde là où l'utilisateur effectue la modification dans le tableau
-                int ligne = leTableau.getSelectedRow();//Si tu veut la cellule selectionnée, sinon une autre valeur
-                int colonne = leTableau.getSelectedColumn();//Si tu veut la cellule selectionnée, sinon une autre valeur
-                Object cellule = leTableau.getValueAt(ligne, colonne);
-                String currentVal = (String) cellule;
+                int ligne = leTableau.getSelectedRow();//ligne selectionnée
+                int colonne = leTableau.getSelectedColumn();//colonne selectionnée
+                Object cellule = leTableau.getValueAt(ligne, colonne); //cellule selectionnée 
                 //"No employé","Nom", "Prénom", "Tel", "Adresse":=> 5 colonnes
                 //enregistre les informations de l'employe de la ligne où l'utilisateur  
                 //effectue des modifications
@@ -691,6 +690,7 @@ public class PanelMajFinal extends javax.swing.JPanel {
                 //le programme regarde dans quelle colonne est effectuée la modification
                 //en fonction, il détermine quel attribut a changé
                 //et l'enregistre dans l'employé correspondant
+                String currentVal = (String) cellule;
                 switch (colonne) {
                     case 0:
                         MAJEmployRecu.setNo_employe(Integer.parseInt(currentVal));
@@ -778,26 +778,25 @@ public class PanelMajFinal extends javax.swing.JPanel {
                 int colonne = leTableau.getSelectedColumn();//Si tu veut la cellule selectionnée, sinon une autre valeur
                 Object cellule = leTableau.getValueAt(ligne, colonne);
                 String currentVal = (String) cellule;
-                int curNo = (Integer) leTableau.getValueAt(ligne, 0);
-                //String code_service, int no_chambre, int surveillant, int nb_lits
-                MAJEmployRecu.setNo_chambre(curNo);
-                //puis les autres attributs String
-                for (int i = 1; i < 4; i++) {
-                    String curVal = (String) leTableau.getValueAt(ligne, i);
-                    switch (i) {
-                        case 1:
-                            MAJEmployRecu.setNb_lits(Integer.parseInt(curVal));
-                            break;
-                        case 2:
-                            MAJEmployRecu.setSurveillant(Integer.parseInt(curVal));
-                            break;
-                        case 3:
-                            MAJEmployRecu.setCode_service(curVal);
-                            break;
-                        default:
-                            break;
-                    }
-                }
+
+                Object celluleOb= leTableau.getValueAt(ligne, 0);
+                currentVal = (String) celluleOb;
+                MAJEmployRecu.setCode_service(currentVal);
+                
+                celluleOb= leTableau.getValueAt(ligne, 1); //OK
+                //currentVal = (Integer) celluleOb;
+                int testAA = (Integer) celluleOb;
+                MAJEmployRecu.setNo_chambre(testAA);
+                
+               celluleOb= leTableau.getValueAt(ligne, 2);
+                currentVal = (String) celluleOb;
+                //System.out.println("VOICI LE RESUTLAT "+ currentVal);
+                MAJEmployRecu.setNb_lits(Integer.parseInt(currentVal));
+  
+               celluleOb= leTableau.getValueAt(ligne, 3);
+               testAA = (Integer) celluleOb;
+                MAJEmployRecu.setSurveillant(testAA);                
+                
                 switch (colonne) {
                     case 1:
                         MAJEmployRecu.setNo_chambre(Integer.parseInt(currentVal));
