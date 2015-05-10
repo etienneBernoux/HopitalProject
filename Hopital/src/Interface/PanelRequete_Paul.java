@@ -30,13 +30,13 @@ import javax.swing.table.TableModel;
 public class PanelRequete_Paul extends javax.swing.JPanel {
 
     private String requeteChoisie = "0";
-    private ConnectionEce conn1;//= new ConnectionEce("0","","",""); //erreur
-    private ArrayList tabVal = new ArrayList();
+    private final ConnectionEce conn1;//= new ConnectionEce("0","","",""); //erreur
+    private final ArrayList tabVal = new ArrayList();
     private Object MAJTableau[] ;
-    private JTable leTableau = new JTable();
+    private final JTable leTableau = new JTable();
     private DefaultTableModel modelTabGlobal = new DefaultTableModel();
     
-    private EmployeDAO retourEmployeAll = new EmployeDAO(ConnectionEce.getConn());
+    private final EmployeDAO retourEmployeAll = new EmployeDAO(ConnectionEce.getConn());
     
     public PanelRequete_Paul(ConnectionEce connIN) {
         initComponents();

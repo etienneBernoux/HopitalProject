@@ -28,6 +28,14 @@ import DAO.ServiceDAO;
 import DAO.SoigneDAO;
 import java.util.ArrayList;
 import java.util.Calendar;
+import Interface.FenetreConnection;
+import Interface.FenetrePrincipale;
+import Interface.PanelConnection;
+import Interface.PanelMain;
+import Interface.PanelMajFinal;
+import Interface.PanelReporting;
+import Interface.PanelRequete_Paul;
+import Interface.ReadMeConnection;
 
 /**
  *
@@ -466,7 +474,9 @@ public class TestAll {
         }
         
     }
-
+    public void GUI(){
+    
+    }
     //Convertit en format pour sql
     public String ToSqlFormat(Calendar cal) {
         return +cal.get(Calendar.YEAR) + "-" + cal.get(Calendar.MONTH) + "-" + cal.get(Calendar.DAY_OF_MONTH) + " " + cal.get(Calendar.HOUR_OF_DAY) + ":" + cal.get(Calendar.MINUTE) + ":" + cal.get(Calendar.SECOND);
